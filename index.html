@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kaashvi Arora — Business Analytics &amp; Fintech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f5;
+    --bg-card: #ffffff;
+    --bg-soft: #f1efe7;
+    --ink: #1a1a17;
+    --ink-soft: #4a4a44;
+    --ink-mute: #8a8880;
+    --accent: #2d5f4a;
+    --accent-deep: #1f4734;
+    --accent-soft: #e8f0ec;
+    --accent-glow: rgba(45, 95, 74, 0.15);
+    --tape: #f5b800;
+    --line: #e3dfd2;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.3;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.25 0 0 0 0 0.15 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::selection { background: var(--accent); color: white; }
+
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: end;
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+
+  .hero-left .greeting {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-left .greeting::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero-left h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-left h1 .wave {
+    display: inline-block;
+    transform-origin: 70% 70%;
+    animation: wave 2.5s ease-in-out 0.5s 2;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    10%, 30% { transform: rotate(14deg); }
+    20%, 40% { transform: rotate(-8deg); }
+    50% { transform: rotate(0deg); }
+  }
+
+  .hero-left .tagline {
+    color: var(--ink-soft);
+    font-size: 1.08rem;
+    max-width: 52ch;
+    line-height: 1.55;
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    text-align: right;
+  }
+
+  .hero-right a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .hero-right a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .hero-right .loc {
+    color: var(--ink-mute);
+    font-size: 0.82rem;
+    margin-top: 0.3rem;
+  }
+
+  /* TABS NAV */
+  .tabs-nav {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.4rem;
+    display: flex;
+    gap: 0.2rem;
+    margin-bottom: 3rem;
+    position: sticky;
+    top: 1rem;
+    z-index: 50;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.92);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tabs-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    flex: 1;
+    min-width: max-content;
+    padding: 0.65rem 1.2rem;
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 999px;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .tab-btn:hover { color: var(--ink); background: var(--bg-soft); }
+
+  .tab-btn.active {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 2px 8px var(--accent-glow);
+  }
+
+  .tab-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* TAB PANELS */
+  .tab-panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .tab-panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION HEADER */
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.8rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .section-head h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .section-head h2 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .section-head .meta {
+    color: var(--ink-mute);
+    font-size: 0.85rem;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin-bottom: 1.2rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .card:hover { border-color: var(--accent); }
+  .card:last-child { margin-bottom: 0; }
+
+  /* INTRO TAB */
+  .intro-hero-card {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+    color: white;
+    border: none;
+    padding: 2.2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intro-hero-card::after {
+    content: '🏸';
+    position: absolute;
+    right: -1.5rem;
+    bottom: -2rem;
+    font-size: 11rem;
+    opacity: 0.1;
+    transform: rotate(-15deg);
+    pointer-events: none;
+  }
+
+  .intro-hero-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .intro-hero-card p {
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 0.9rem;
+    line-height: 1.65;
+    position: relative;
+    z-index: 2;
+  }
+
+  .intro-hero-card p:last-child { margin-bottom: 0; }
+  .intro-hero-card strong { color: var(--tape); font-weight: 600; }
+
+  .looking-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.2rem;
+    align-items: center;
+    background: var(--bg-card);
+    border-left: 4px solid var(--accent);
+  }
+
+  .looking-card .icon-circle {
+    width: 48px;
+    height: 48px;
+    background: var(--accent-soft);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .looking-card .icon-circle svg {
+    width: 22px;
+    height: 22px;
+    color: var(--accent);
+  }
+
+  .looking-card .label {
+    font-family: 'Fraunces', serif;
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+    margin-bottom: 0.2rem;
+    font-style: italic;
+  }
+
+  .looking-card .roles {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .looking-card .roles span {
+    color: var(--accent);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-top: 1.2rem;
+  }
+
+  .edu-card-mini h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-card-mini .when {
+    font-size: 0.82rem;
+    color: var(--ink-mute);
+    margin-bottom: 0.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .edu-card-mini .deg {
+    color: var(--accent);
+    font-size: 0.92rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+  }
+
+  .edu-card-mini .detail {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .edu-card-mini .detail strong { color: var(--ink); font-weight: 600; }
+
+  .interests-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .chip {
+    padding: 0.4rem 0.85rem;
+    background: var(--bg-soft);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--ink);
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .chip:hover {
+    background: var(--accent);
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  .chip.fun {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+  }
+
+  /* EXPERIENCE TAB */
+  .exp-card {
+    position: relative;
+  }
+
+  .exp-card .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .exp-card .head h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .exp-card .live-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 0 4px var(--accent-glow);
+  }
+
+  .exp-card .when {
+    color: var(--ink-mute);
+    font-size: 0.88rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    padding: 0.2rem 0.7rem;
+    background: var(--bg-soft);
+    border-radius: 6px;
+  }
+
+  .exp-card .org {
+    color: var(--accent);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+  }
+
+  .exp-card ul {
+    list-style: none;
+  }
+
+  .exp-card li {
+    color: var(--ink);
+    margin-bottom: 0.7rem;
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: 0.94rem;
+    line-height: 1.65;
+  }
+
+  .exp-card li:last-child { margin-bottom: 0; }
+
+  .exp-card li::before {
+    content: '';
+    position: absolute;
+    left: 0.25rem;
+    top: 0.65rem;
+    width: 8px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .exp-card li strong { font-weight: 600; }
+
+  /* PROJECTS TAB */
+  .project-card-detailed {
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .project-card-detailed .pc-header {
+    padding: 1.5rem 1.8rem 1rem;
+  }
+
+  .project-card-detailed .pc-tag-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .project-card-detailed .pc-tag {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 0.25rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .project-card-detailed .pc-when {
+    color: var(--ink-mute);
+    font-size: 0.82rem;
+  }
+
+  .project-card-detailed h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: 0.3rem;
+  }
+
+  .project-card-detailed .pc-deck {
+    color: var(--ink-mute);
+    font-size: 0.88rem;
+    font-style: italic;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-card-detailed ul {
+    list-style: none;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-card-detailed li {
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .project-card-detailed li::before {
+    content: '';
+    position: absolute;
+    left: 0.25rem;
+    top: 0.65rem;
+    width: 8px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .project-card-detailed li strong { font-weight: 600; }
+
+  .project-card-detailed .pc-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    padding: 1rem 1.8rem 1.5rem;
+    border-top: 1px solid var(--line);
+    background: var(--bg-soft);
+  }
+
+  .project-card-detailed .pc-stack span {
+    padding: 0.25rem 0.7rem;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .pc-video {
+    margin: 0 1.8rem 1.2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+    position: relative;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    aspect-ratio: 16 / 9;
+  }
+
+  .pc-video iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+  }
+
+  .pc-video-label {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .pc-video-label::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--tape);
+    border-radius: 50%;
+  }
+
+  /* SKILLS TAB */
+  .skill-block {
+    margin-bottom: 1.5rem;
+  }
+
+  .skill-block:last-child { margin-bottom: 0; }
+
+  .skill-block h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .skill-block h4 .num {
+    font-style: italic;
+    color: var(--accent);
+    font-size: 0.95rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .skill-tags span {
+    padding: 0.4rem 0.85rem;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--ink);
+    transition: all 0.2s;
+  }
+
+  .skill-tags span:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* LEADERSHIP TAB */
+  .lead-card .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .lead-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .lead-card .when {
+    color: var(--ink-mute);
+    font-size: 0.85rem;
+    padding: 0.2rem 0.7rem;
+    background: var(--bg-soft);
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .lead-card .role {
+    color: var(--accent);
+    font-size: 0.92rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .lead-card ul {
+    list-style: none;
+  }
+
+  .lead-card li {
+    color: var(--ink);
+    margin-bottom: 0.55rem;
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .lead-card li:last-child { margin-bottom: 0; }
+
+  .lead-card li::before {
+    content: '';
+    position: absolute;
+    left: 0.25rem;
+    top: 0.65rem;
+    width: 8px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .lead-card li strong { font-weight: 600; }
+
+  /* FOOTER */
+  footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-mute);
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  footer a:hover { text-decoration: underline; }
+
+  /* MOBILE */
+  @media (max-width: 720px) {
+    .container { padding: 2rem 1rem 3rem; }
+    .hero { grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+    .hero-right { align-items: flex-start; text-align: left; }
+    .hero-left h1 { font-size: 2.1rem; }
+    .hero-left .tagline { font-size: 1rem; }
+    .tabs-nav { top: 0.5rem; padding: 0.3rem; }
+    .tab-btn { padding: 0.55rem 0.9rem; font-size: 0.82rem; }
+    .tab-btn svg { width: 14px; height: 14px; }
+    .card { padding: 1.4rem 1.3rem; }
+    .intro-hero-card { padding: 1.7rem 1.4rem; }
+    .intro-hero-card::after { font-size: 7rem; right: -1rem; bottom: -1rem; }
+    .two-col { grid-template-columns: 1fr; }
+    .section-head h2 { font-size: 1.35rem; }
+    .exp-card .head, .lead-card .head { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .exp-card .when, .lead-card .when { font-size: 0.78rem; }
+    .project-card-detailed .pc-header { padding: 1.3rem 1.3rem 0.8rem; }
+    .project-card-detailed .pc-stack { padding: 0.9rem 1.3rem 1.3rem; }
+    .pc-video { margin: 0 1.3rem 1rem; }
+    .looking-card { grid-template-columns: 1fr; text-align: center; }
+    .looking-card .icon-circle { margin: 0 auto; }
+    footer { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <span class="greeting">Open to opportunities</span>
+      <h1>Hi, I'm Kaashvi <span class="wave">👋</span></h1>
+      <p class="tagline">A Year 3 student at Singapore Management University studying B.Sc. Information Systems — Business Analytics &amp; Fin-Tech.</p>
+    </div>
+    <div class="hero-right">
+      <a href="mailto:kaashviarora3@gmail.com">kaashviarora3@gmail.com</a>
+      <a href="https://www.linkedin.com/in/kaashviarora/" target="_blank">linkedin.com/in/kaashviarora</a>
+      <span class="loc">Singapore</span>
+    </div>
+  </section>
+
+  <!-- TABS NAV -->
+  <nav class="tabs-nav">
+    <button class="tab-btn active" data-tab="intro">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2"/></svg>
+      Intro
+    </button>
+    <button class="tab-btn" data-tab="experience">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+      Experience
+    </button>
+    <button class="tab-btn" data-tab="projects">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Projects
+    </button>
+    <button class="tab-btn" data-tab="skills">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      Skills
+    </button>
+    <button class="tab-btn" data-tab="leadership">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M5 22h14M8 22v-6a4 4 0 0 1 8 0v6"/><path d="M3 9h3M18 9h3"/></svg>
+      Leadership
+    </button>
+  </nav>
+
+  <!-- INTRO TAB -->
+  <div class="tab-panel active" id="intro">
+
+    <div class="card intro-hero-card">
+      <h3>A little about me</h3>
+      <p>Hello! I'm Kaashvi, a curious kid who wants to explore the world and try new things. You can find me building projects with my friends, on the badminton court, or beating someone in Monopoly. Fair to say I love trying different things!</p>
+      <p>I've played badminton at a national level, gained a scuba diving certification, participated in hackathons, led different communities — and I'm still looking for more.</p>
+      <p>If you like sports, reading, building, or connecting — you're in the right place.</p>
+    </div>
+
+    <div class="card looking-card">
+      <div class="icon-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <div class="label">Looking to work in</div>
+        <div class="roles"><span>Analytics</span> · <span>Tech Consulting</span> · <span>Product Management</span></div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card edu-card-mini">
+        <h3>Singapore Management University</h3>
+        <div class="when">Jan 2024 — Dec 2028</div>
+        <div class="deg">B.Sc. Information Systems</div>
+        <div class="detail">
+          <p style="margin-bottom: 0.6rem;"><strong>Track:</strong> Business Analytics &amp; Fin-Tech</p>
+          <p><strong>Coursework:</strong> Enterprise Solution Development, Algorithms &amp; Programming, Web Application Development, Business Process Analysis, Computational Thinking, Statistics, Digital Transformation, Interactive Design &amp; Prototyping.</p>
+        </div>
+      </div>
+
+      <div class="card edu-card-mini">
+        <h3>Jayshree Periwal International School</h3>
+        <div class="when">Jul 2022 — Jul 2024</div>
+        <div class="deg">IB Diploma · Business Management &amp; Economics</div>
+        <div class="detail">
+          <p style="margin-bottom: 0.6rem;"><strong>HL:</strong> Business Management, Economics, Mathematics AI.</p>
+          <p><strong>SL:</strong> English Language &amp; Literature, Biology, Hindi.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card interests-card" style="margin-top: 1.2rem;">
+      <h3>Currently obsessed with</h3>
+      <div class="chips" style="margin-bottom: 1.2rem;">
+        <span class="chip">Analytics</span>
+        <span class="chip">Machine Learning</span>
+        <span class="chip">Artificial Intelligence</span>
+        <span class="chip">Fin-Tech</span>
+        <span class="chip">Strategy Consulting</span>
+        <span class="chip">Blockchain</span>
+        <span class="chip">Quantum Computing</span>
+      </div>
+
+      <h3 style="margin-top: 1.5rem;">Off the desk</h3>
+      <div class="chips">
+        <span class="chip fun">🏸 Badminton</span>
+        <span class="chip fun">🤿 Scuba diving</span>
+        <span class="chip fun">🥒 Pickleball</span>
+        <span class="chip fun">🎲 Monopoly</span>
+        <span class="chip fun">📚 Reading &amp; research</span>
+        <span class="chip fun">⚽ Football</span>
+        <span class="chip fun">🍳 Cooking</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EXPERIENCE TAB -->
+  <div class="tab-panel" id="experience">
+
+    <div class="section-head">
+      <h2><em>Experience</em></h2>
+      <span class="meta">3 internships</span>
+    </div>
+
+    <div class="card exp-card">
+      <div class="head">
+        <h3><span class="live-dot"></span>IT Intern</h3>
+        <span class="when">2026 — Present</span>
+      </div>
+      <div class="org">Vena Group · Singapore</div>
+      <ul>
+        <li>Diving into <strong>data analytics</strong> — pulling, modelling, and visualising operational data to support decision-making across teams.</li>
+        <li>Working on <strong>application infrastructure automation</strong> — streamlining workflows and reducing manual handoffs in the IT environment.</li>
+        <li>Supporting <strong>system integration</strong> projects across the wider Vena ecosystem, with a focus on reliability and clean data flow.</li>
+      </ul>
+    </div>
+
+    <div class="card exp-card">
+      <div class="head">
+        <h3>Data Analytics Intern</h3>
+        <span class="when">Nov 2025 — Jan 2026</span>
+      </div>
+      <div class="org">Signet Scarves · India</div>
+      <ul>
+        <li>Queried and analyzed <strong>2+ years of historical sales data</strong> using SQL and Python across 30+ SKUs to uncover purchasing patterns (cycle, frequency, basket size), building a dynamic Tableau demand-forecasting dashboard that <strong>reduced stockouts by 9%</strong> and improved inventory planning accuracy.</li>
+        <li>Developed <strong>customer segmentation models</strong> using Matplotlib and Python, classifying 1,000+ customers by lifetime value (LTV) and purchase frequency to identify high-retention cohorts; insights directly informed a targeted email campaign that <strong>lifted repeat purchase rate by 12%</strong>.</li>
+        <li>Engineered a <strong>supply-chain constraint analysis</strong> using Pandas, synthesizing 5+ data sources across fulfillment workflows and sales channels to pinpoint bottlenecks in the order-to-delivery pipeline, delivering data-driven recommendations that drove a <strong>10% improvement in operational efficiency</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="card exp-card">
+      <div class="head">
+        <h3>Financial Analytics Intern</h3>
+        <span class="when">Nov 2024 — Jan 2025</span>
+      </div>
+      <div class="org">SRC Consultancy &amp; Financial Services · India</div>
+      <ul>
+        <li>Architected an <strong>automated KPI dashboard in Power BI</strong> consolidating portfolio performance, live market feeds, and client metrics into dynamic visualizations, eliminating <strong>10+ hours of manual weekly reporting</strong> and improving data accuracy for client-facing reviews.</li>
+        <li>Built a <strong>client segmentation and profitability analysis pipeline</strong> using Python and SQL across 200+ client portfolios, stratifying investment behaviors by risk profile and AUM tier to enable personalized strategy pitches that <strong>increased client retention by 15%</strong>.</li>
+        <li>Modeled and optimized <strong>8+ end-to-end operational workflows</strong> using BPMN 2.0 process mapping, identifying critical-path delays and bottlenecks that contributed to a <strong>15% improvement in process efficiency</strong> across client service operations.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- PROJECTS TAB -->
+  <div class="tab-panel" id="projects">
+
+    <div class="section-head">
+      <h2><em>Projects</em></h2>
+      <span class="meta">4 selected · SMU 2026</span>
+    </div>
+
+    <!-- Pet Adoption with VIDEO -->
+    <div class="card project-card-detailed">
+      <div class="pc-header">
+        <div class="pc-tag-row">
+          <span class="pc-tag">AI / ML / Analytics</span>
+          <span class="pc-when">Jan 2026 — Mar 2026</span>
+        </div>
+        <h3>AI-Powered Pet Adoption &amp; Welfare Digital Application</h3>
+        <div class="pc-deck">Digital Business &amp; Transformation</div>
+      </div>
+
+      <div class="pc-video">
+        <div class="pc-video-label">Demo</div>
+        <iframe
+          src="https://www.youtube.com/embed/8yEX8F5cxBQ"
+          title="PawPath demo"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      <div class="pc-header" style="padding-top: 0;">
+        <ul>
+          <li>Architected the <strong>Supabase PostgreSQL backend</strong> with normalized schemas and row-level security policies, enabling real-time pet listing retrieval and persistent user data storage across the platform.</li>
+          <li>Built an automated staff dashboard (HTML, JavaScript, CSS) that programmatically aggregates adoption metrics via scheduled Supabase queries, dynamically rendering live reports and eliminating manual data entry.</li>
+          <li>Integrated <strong>GPT-4o-mini API</strong> calls into the NLP matchmaking pipeline to extract structured user preference vectors from free-text prompts, constructing dynamic Supabase filters to return semantically matched pet results.</li>
+        </ul>
+      </div>
+
+      <div class="pc-stack">
+        <span>Supabase</span><span>PostgreSQL</span><span>GPT-4o-mini</span><span>HTML</span><span>JavaScript</span><span>CSS</span>
+      </div>
+    </div>
+
+    <!-- EV Charging -->
+    <div class="card project-card-detailed">
+      <div class="pc-header">
+        <div class="pc-tag-row">
+          <span class="pc-tag">Microservices</span>
+          <span class="pc-when">Jan 2026 — Mar 2026</span>
+        </div>
+        <h3>Smart EV Charging Management System</h3>
+        <div class="pc-deck">Enterprise Solution Development</div>
+
+        <ul>
+          <li>Engineered the <strong>Charging Session microservice</strong> in OutSystems, exposing REST APIs consumed by downstream services to trigger session lifecycle events across the distributed architecture.</li>
+          <li>Deployed <strong>Kong API Gateway</strong> to centralize request routing, load balancing, with JWT authentication and rate limiting to secure endpoints and manage traffic in the distributed architecture.</li>
+          <li>Developed an event-driven pipeline using <strong>RabbitMQ (AMQP) queues</strong>, enabling asynchronous payment processing, notification alerts, and dynamic pricing calculations upon session completion.</li>
+        </ul>
+      </div>
+
+      <div class="pc-stack">
+        <span>OutSystems</span><span>Kong API Gateway</span><span>RabbitMQ</span><span>JWT</span><span>REST APIs</span>
+      </div>
+    </div>
+
+    <!-- Movie Hub -->
+    <div class="card project-card-detailed">
+      <div class="pc-header">
+        <div class="pc-tag-row">
+          <span class="pc-tag">Full-Stack Web App</span>
+          <span class="pc-when">Feb 2026 — Mar 2026</span>
+        </div>
+        <h3>Movie Hub</h3>
+        <div class="pc-deck">Web Application &amp; Development</div>
+
+        <ul>
+          <li>Developed a <strong>full-stack web application</strong> using HTML, JavaScript, and Node.js, enabling users to browse movies, post reviews, and manage personalized watchlists.</li>
+          <li>Designed and implemented a <strong>MongoDB database</strong> to store user data, reviews, and watchlists, supporting real-time updates and persistent data management.</li>
+          <li>Implemented <strong>RESTful APIs and CRUD operations</strong> to handle review posting, retrieval, and a community review feed displaying all users' contributions.</li>
+        </ul>
+      </div>
+
+      <div class="pc-stack">
+        <span>Node.js</span><span>MongoDB</span><span>JavaScript</span><span>HTML</span><span>REST APIs</span>
+      </div>
+    </div>
+
+    <!-- Odoo Moodle -->
+    <div class="card project-card-detailed">
+      <div class="pc-header">
+        <div class="pc-tag-row">
+          <span class="pc-tag">Cloud / ITIL 4</span>
+          <span class="pc-when">Feb 2026 — Mar 2026</span>
+        </div>
+        <h3>Odoo &amp; Moodle System Integration</h3>
+        <div class="pc-deck">Enterprise Solution Management — ITIL 4, DevOps, Cloud Infrastructure</div>
+
+        <ul>
+          <li>Designed and deployed an <strong>integrated enterprise system on Microsoft Azure</strong>, hosting Odoo (operations) and Moodle (training) using Docker Compose on a single VM within Asia-Pacific regions to meet data residency requirements.</li>
+          <li>Applied <strong>ITIL 4 Service Value System (SVS)</strong> principles to model end-to-end service workflows &amp; create tickets (Plan → Design/Transition → Deliver/Support → Improve), including incident, change, and access management processes.</li>
+          <li>Configured secure and compliant cloud infrastructure with <strong>role-based access control (RBAC)</strong>, monitoring, and backup strategies to support reliable operations and 50 concurrent users.</li>
+        </ul>
+      </div>
+
+      <div class="pc-stack">
+        <span>Microsoft Azure</span><span>Docker Compose</span><span>Odoo</span><span>Moodle</span><span>ITIL 4</span><span>RBAC</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SKILLS TAB -->
+  <div class="tab-panel" id="skills">
+
+    <div class="section-head">
+      <h2>Skills &amp; <em>Tools</em></h2>
+      <span class="meta">The kit bag</span>
+    </div>
+
+    <div class="card">
+      <div class="skill-block">
+        <h4><span class="num">01</span> Programming Languages</h4>
+        <div class="skill-tags">
+          <span>Python</span><span>JavaScript</span><span>SQL</span><span>HTML</span><span>PHP</span><span>R</span>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <h4><span class="num">02</span> Data &amp; Visualisation</h4>
+        <div class="skill-tags">
+          <span>Tableau</span><span>Power BI</span><span>Pandas</span><span>Matplotlib</span><span>Excel</span>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <h4><span class="num">03</span> Frameworks &amp; Tools</h4>
+        <div class="skill-tags">
+          <span>Node.js</span><span>Flask</span><span>OutSystems</span><span>Docker</span><span>RabbitMQ</span><span>MongoDB</span><span>Postman</span><span>phpMyAdmin</span>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <h4><span class="num">04</span> Cloud &amp; Infrastructure</h4>
+        <div class="skill-tags">
+          <span>Microsoft Azure</span><span>Supabase</span><span>Kong API Gateway</span><span>Docker Compose</span>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <h4><span class="num">05</span> Certifications</h4>
+        <div class="skill-tags">
+          <span>Google Data Analytics</span><span>Google Advanced Data Analytics</span><span>Google Business Intelligence</span><span>Microsoft Azure Fundamentals</span><span>Data Visualization with Matplotlib</span><span>Data Manipulation with Pandas</span><span>Salesforce Agent Blazer Champion</span><span>Entrepreneurship in Emerging Economies</span>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <h4><span class="num">06</span> Spoken Languages</h4>
+        <div class="skill-tags">
+          <span>English (fluent)</span><span>Hindi (native)</span><span>Punjabi (native)</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LEADERSHIP TAB -->
+  <div class="tab-panel" id="leadership">
+
+    <div class="section-head">
+      <h2><em>Leadership</em> &amp; Community</h2>
+      <span class="meta">3 roles · 2024 — 2026</span>
+    </div>
+
+    <div class="card lead-card">
+      <div class="head">
+        <h3>SMU Business Intelligence &amp; Analytics Club</h3>
+        <span class="when">Feb 2025 — Feb 2026</span>
+      </div>
+      <div class="role">Vice President</div>
+      <ul>
+        <li>Led a team of <strong>25 department heads</strong> to define the club's structure, mission, and annual event strategy.</li>
+        <li>Launched the club's first <strong>Applied AI Lodge</strong> series to introduce AI and Machine Learning coursework in depth to students.</li>
+        <li>Managed <strong>Datathon</strong>, one of Singapore's largest analytics hackathons, achieving a record-breaking signup rate of <strong>300</strong> in partnership with Cargill.</li>
+      </ul>
+    </div>
+
+    <div class="card lead-card">
+      <div class="head">
+        <h3>Bridges for Enterprise</h3>
+        <span class="when">Aug 2025 — Jan 2026</span>
+      </div>
+      <div class="role">Technical Advisor</div>
+      <ul>
+        <li>Architected and maintained backend services for the <strong>LaWomen platform</strong>, a start-up based in Pakistan, using Python (Flask) and SQLAlchemy, implementing Google Calendar API integrations to automate availability.</li>
+        <li>Streamlined workflows by containerizing applications with <strong>Docker</strong>, ensuring consistent dependency management across team members.</li>
+        <li>Leveraged <strong>OutSystems</strong> to integrate low-code interfaces with high-code backend microservices to meet tight project deadlines.</li>
+      </ul>
+    </div>
+
+    <div class="card lead-card">
+      <div class="head">
+        <h3>SMU Start-Up Society</h3>
+        <span class="when">Dec 2024 — Dec 2025</span>
+      </div>
+      <div class="role">Honorary Finance Secretary</div>
+      <ul>
+        <li>Managed and allocated <strong>$3,000+ SGD</strong> annual budget across fundraising events, competitions, and member programs, optimizing cost efficiency by 5%.</li>
+        <li>Connected <strong>10+ start-ups</strong> and business organizations with SMU students, facilitating structured networking sessions and founder meetups.</li>
+        <li>Organized <strong>Pitch-Up</strong>, one of the largest start-ups pitching competitions among all universities, attracting <strong>30+ teams and 5 investors</strong> for potential funding.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Kaashvi Arora · Singapore</span>
+    <span><a href="mailto:kaashviarora3@gmail.com">Get in touch ↗</a></span>
+  </footer>
+
+</div>
+
+<script>
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      tabPanels.forEach(p => p.classList.remove('active'));
+      document.getElementById(target).classList.add('active');
+
+      const nav = document.querySelector('.tabs-nav');
+      if (nav) {
+        const navBottom = nav.getBoundingClientRect().bottom;
+        if (navBottom < 0 || navBottom > window.innerHeight) {
+          nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
