@@ -305,6 +305,60 @@
   .intro-hero-card p:last-child { margin-bottom: 0; }
   .intro-hero-card strong { color: var(--tape); font-weight: 600; }
 
+  /* QUOTE CARD */
+  .quote-card {
+    text-align: center;
+    padding: 2.2rem 2rem;
+    background: var(--bg-card);
+    position: relative;
+    border: 1px solid var(--line);
+  }
+
+  .quote-card::before {
+    content: '\201C';
+    font-family: 'Fraunces', serif;
+    font-size: 5rem;
+    line-height: 0.6;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .quote-card blockquote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 36ch;
+    margin: 0 auto;
+    font-weight: 400;
+  }
+
+  .quote-card blockquote em {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .quote-card cite {
+    display: block;
+    margin-top: 1.2rem;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-mute);
+  }
+
+  @media (max-width: 720px) {
+    .quote-card { padding: 1.7rem 1.4rem; }
+    .quote-card blockquote { font-size: 1.2rem; }
+    .quote-card::before { font-size: 4rem; }
+  }
+
   .looking-card {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -865,19 +919,18 @@
         <div class="when">Jul 2022 — Jul 2024</div>
         <div class="deg">IB Diploma · Business Management &amp; Economics</div>
         <div class="detail">
-          <p style="margin-bottom: 0.6rem;"><strong>HL:</strong> Business Management, Economics, Mathematics AI.</p>
+          <p style="margin-bottom: 0.6rem;"><strong>HL:</strong> Business Management, Economics, Mathematics Application & Interpretation (Probability & Stats).</p>
           <p><strong>SL:</strong> English Language &amp; Literature, Biology, Hindi.</p>
         </div>
-      </div>
     </div>
 
     <div class="card interests-card" style="margin-top: 1.2rem;">
-      <h3>Currently obsessed with</h3>
+      <h3>Currently interested and curious about</h3>
       <div class="chips" style="margin-bottom: 1.2rem;">
         <span class="chip">Analytics</span>
         <span class="chip">Machine Learning</span>
         <span class="chip">Artificial Intelligence</span>
-        <span class="chip">Fin-Tech</span>
+        <span class="chip">Data Science</span>
         <span class="chip">Strategy Consulting</span>
         <span class="chip">Blockchain</span>
         <span class="chip">Quantum Computing</span>
@@ -902,7 +955,6 @@
 
     <div class="section-head">
       <h2><em>Experience</em></h2>
-      <span class="meta">3 internships</span>
     </div>
 
     <div class="card exp-card">
