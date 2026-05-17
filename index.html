@@ -303,41 +303,9 @@ body::after {
 .btn.primary { background:var(--ink);color:var(--bg-card);border-color:var(--ink); }
 .btn.primary:hover { background:var(--accent);border-color:var(--accent);color:white; }
 
-.hero-stats {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:0.7rem;
-  margin-top:1.4rem;
-  max-width:620px;
-}
-.stat {
-  border:1px solid var(--line);
-  background:rgba(255,255,255,0.5);
-  border-radius:10px;
-  padding:0.85rem;
-}
-html[data-theme="night"] .stat { background:rgba(255,255,255,0.04); }
-.stat b {
-  display:block;
-  font-family:'Fraunces',serif;
-  font-size:1.45rem;
-  line-height:1;
-  color:var(--accent);
-  font-weight:600;
-}
-.stat span {
-  display:block;
-  margin-top:0.3rem;
-  color:var(--ink-mute);
-  font-size:0.74rem;
-  line-height:1.25;
-  text-transform:uppercase;
-  letter-spacing:0.08em;
-}
-
 .hero-right { display:flex; flex-direction:column; gap:1rem; font-size:0.9rem; }
-.hero-right a { color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; transition:color 0.15s,border-color 0.15s; }
-.hero-right a:hover { color:var(--accent); border-bottom-color:var(--accent); }
+.hero-right a { color:var(--ink); text-decoration:none; transition:color 0.15s,border-color 0.15s,background 0.15s; }
+.hero-right a:hover { color:var(--accent); border-color:var(--accent); }
 .hero-right .loc { color:var(--ink-mute); font-size:0.8rem; margin-top:0.25rem; }
 
 .hero-visual {
@@ -442,6 +410,20 @@ html[data-theme="night"] .visual-card { background:rgba(24,35,31,0.76); }
   align-items:flex-end;
   gap:0.55rem;
   text-align:right;
+}
+.hero-contact a {
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  padding:0.42rem 0.68rem;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--bg-card);
+}
+.hero-contact svg {
+  width:15px;
+  height:15px;
+  flex-shrink:0;
 }
 
 /* ── SECTION LABEL ── */
@@ -549,7 +531,7 @@ html[data-theme="night"] .visual-card { background:rgba(24,35,31,0.76); }
 .quote-card cite { display:block;margin-top:1.1rem;font-family:'Inter',sans-serif;font-style:normal;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-mute); }
 
 /* ── TWO COL ── */
-.two-col { display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.1rem; }
+.two-col { display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.1rem;align-items:start; }
 
 /* ── EDU CARD ── */
 .edu-card-mini h3 { font-family:'Fraunces',serif;font-size:1.1rem;font-weight:500;margin-bottom:0.25rem; }
@@ -653,7 +635,6 @@ footer a:hover { text-decoration:underline; }
   .hero-right{align-items:stretch;text-align:left;}
   .hero-contact{align-items:flex-start;text-align:left;}
   .hero-left h1{font-size:3rem;}
-  .hero-stats{grid-template-columns:1fr;}
   .hero-visual{min-height:360px;}
   .profile-mark{width:112px;height:112px;font-size:2.5rem;}
   .two-col{grid-template-columns:1fr;}
@@ -734,32 +715,32 @@ footer a:hover { text-decoration:underline; }
           Explore work
         </a>
       </div>
-      <div class="hero-stats" aria-label="Portfolio highlights">
-        <div class="stat"><b>4</b><span>Featured projects</span></div>
-        <div class="stat"><b>3</b><span>Analytics roles</span></div>
-        <div class="stat"><b>10+</b><span>Tools in motion</span></div>
-      </div>
     </div>
     <div class="hero-right">
       <div class="hero-visual" aria-label="Kaashvi profile dashboard">
         <div class="visual-top">
-          <span>Analytics mode</span>
+          <span>My dashboard</span>
           <div class="signal" aria-hidden="true"><span></span><span></span><span></span></div>
         </div>
         <div class="profile-mark">KA</div>
         <div class="visual-card">
           <h3>Business analytics + fintech builder</h3>
-          <p>I like turning messy systems into useful dashboards, cleaner workflows, and products people can actually use.</p>
+          <p>Designing smarter systems, cleaner workflows, and products with real impact.</p>
           <div class="visual-list">
             <div><span>Current focus</span><strong>Data + automation</strong></div>
             <div><span>Best arena</span><strong>Cross-functional teams</strong></div>
-            <div><span>Base</span><strong>Singapore</strong></div>
           </div>
         </div>
       </div>
       <div class="hero-contact">
-        <a href="mailto:kaashviarora3@gmail.com">kaashviarora3@gmail.com</a>
-        <a href="https://www.linkedin.com/in/kaashviarora/" target="_blank" rel="noreferrer">linkedin.com/in/kaashviarora</a>
+        <a href="mailto:kaashviarora3@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          kaashviarora3@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/kaashviarora/" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.35 8h4.3v14H.35V8zm7.17 0h4.12v1.92h.06c.57-1.08 1.98-2.22 4.08-2.22 4.36 0 5.17 2.87 5.17 6.6V22h-4.3v-6.83c0-1.63-.03-3.72-2.27-3.72-2.27 0-2.62 1.77-2.62 3.6V22H7.52V8z"/></svg>
+          linkedin.com/in/kaashviarora
+        </a>
         <span class="loc">📍 Singapore</span>
       </div>
     </div>
@@ -833,6 +814,7 @@ footer a:hover { text-decoration:underline; }
         <span class="chip fun">📚 Reading &amp; research</span>
         <span class="chip fun">⚽ Football</span>
         <span class="chip fun">🍳 Cooking</span>
+        <span class="chip fun">✈️ Airline industry</span>
       </div>
     </div>
 
