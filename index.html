@@ -638,6 +638,11 @@ html[data-theme="night"] .visual-card { background:rgba(29,33,29,0.82); }
 .looking-card .label { font-family:'Fraunces',serif;font-size:0.82rem;color:var(--ink-mute);margin-bottom:0.15rem;font-style:italic; }
 .looking-card .roles { font-family:'Fraunces',serif;font-size:1.2rem;font-weight:500;line-height:1.3; }
 .looking-card .roles span { color:var(--accent); }
+.hero-left .looking-card {
+  margin-top:1.25rem;
+  margin-bottom:0;
+  max-width:620px;
+}
 
 /* ── INTRO HERO CARD ── */
 .intro-hero-card {
@@ -713,10 +718,36 @@ html[data-theme="night"] .visual-card { background:rgba(29,33,29,0.82); }
 .project-card-detailed li strong { font-weight:600; }
 .project-card-detailed .pc-stack { display:flex;flex-wrap:wrap;gap:0.3rem;padding:0.9rem 1.7rem 1.4rem;border-top:1px solid var(--line);background:var(--bg-soft); }
 .project-card-detailed .pc-stack span { padding:0.22rem 0.65rem;background:var(--bg-card);border:1px solid var(--line);border-radius:4px;font-size:0.72rem;color:var(--ink-soft);font-weight:500; }
-.pc-video { margin:0 1.7rem 1.1rem;border-radius:8px;overflow:hidden;background:#000;position:relative;box-shadow:0 4px 16px rgba(0,0,0,0.12);aspect-ratio:16/9; }
-.pc-video iframe { width:100%;height:100%;display:block;border:0; }
-.pc-video-label { position:absolute;top:0.7rem;left:0.7rem;background:rgba(0,0,0,0.72);color:white;padding:0.28rem 0.65rem;border-radius:4px;font-size:0.7rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;display:flex;align-items:center;gap:0.35rem;z-index:2;pointer-events:none; }
-.pc-video-label::before { content:'';width:5px;height:5px;background:var(--tape);border-radius:50%; }
+.pc-demo-link {
+  margin:0 1.7rem 1.1rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:0.9rem 1rem;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:linear-gradient(135deg,rgba(255,0,0,0.08),var(--bg-soft));
+  color:var(--ink);
+  text-decoration:none;
+  transition:transform 0.2s ease,border-color 0.2s ease,box-shadow 0.2s ease;
+}
+.pc-demo-link:hover {
+  transform:translateY(-2px);
+  border-color:#ff0033;
+  box-shadow:0 10px 28px rgba(255,0,51,0.12);
+}
+.pc-demo-link span {
+  font-family:'Fraunces',serif;
+  font-size:1rem;
+  font-weight:600;
+}
+.pc-demo-link svg {
+  width:28px;
+  height:28px;
+  color:#ff0033;
+  flex-shrink:0;
+}
 
 .project-controls {
   display:flex;
@@ -800,7 +831,7 @@ footer a:hover { text-decoration:underline; }
   .exp-card .head,.lead-card .head{flex-direction:column;gap:0.25rem;}
   .project-card-detailed .pc-header{padding:1.2rem 1.2rem 0.8rem;}
   .project-card-detailed .pc-stack{padding:0.8rem 1.2rem 1.2rem;}
-  .pc-video{margin:0 1.2rem 1rem;}
+  .pc-demo-link{margin:0 1.2rem 1rem;}
   .looking-card{grid-template-columns:1fr;text-align:center;}
   .looking-card .icon-circle{margin:0 auto;}
   footer{flex-direction:column;gap:0.5rem;}
@@ -860,6 +891,15 @@ footer a:hover { text-decoration:underline; }
       <span class="greeting">Open to opportunities</span>
       <h1>Hi, I'm <strong>Kaashvi</strong> <span class="wave">👋</span></h1>
       <p class="tagline">A Year 3 student at Singapore Management University studying B.Sc. Information Systems — Business Analytics &amp; Fin-Tech.</p>
+      <div class="card looking-card hero-looking">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="label">Looking to work in</div>
+          <div class="roles"><span>Analytics</span> · <span>Consulting</span> · <span>Product Management</span></div>
+        </div>
+      </div>
       <div class="hero-actions">
         <a class="btn primary" href="mailto:kaashviarora3@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
@@ -903,16 +943,6 @@ footer a:hover { text-decoration:underline; }
 
   <!-- ══════════════ INTRO CONTENT ══════════════ -->
   <div style="padding-top:2rem;">
-
-    <div class="card looking-card reveal d1">
-      <div class="icon-circle">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      </div>
-      <div>
-        <div class="label">Looking to work in</div>
-        <div class="roles"><span>Analytics</span> · <span>Consulting</span> · <span>Product Management</span></div>
-      </div>
-    </div>
 
     <div class="card intro-hero-card reveal d2">
       <h3>A little about me</h3>
@@ -1040,10 +1070,10 @@ footer a:hover { text-decoration:underline; }
         <h3>AI-Powered Pet Adoption &amp; Welfare Digital Application</h3>
         <div class="pc-deck">Digital Business &amp; Transformation</div>
       </div>
-      <div class="pc-video">
-        <div class="pc-video-label">Demo</div>
-        <iframe src="https://www.youtube.com/embed/8yEX8F5cxBQ" title="PawPath demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
-      </div>
+      <a class="pc-demo-link" href="https://www.youtube.com/watch?v=8yEX8F5cxBQ" target="_blank" rel="noreferrer" aria-label="Open prototype demo on YouTube">
+        <span>Prototype demo</span>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+      </a>
       <div class="pc-header" style="padding-top:0">
         <ul>
           <li>Architected the <strong>Supabase PostgreSQL backend</strong> with normalized schemas and row-level security policies, enabling real-time pet listing retrieval and persistent user data storage.</li>
