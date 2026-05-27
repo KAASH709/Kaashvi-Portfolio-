@@ -842,27 +842,14 @@ html[data-theme="night"] .exp-card {
   left:-2.1rem;
   transform:scaleX(-1);
 }
-.exp-index {
-  width:44px;
-  height:44px;
-  display:grid;
-  place-items:center;
-  border:1px solid var(--line);
-  border-radius:50%;
-  background:var(--accent-soft);
-  color:var(--accent);
-  font-family:'Fraunces',serif;
-  font-style:italic;
-  font-size:0.95rem;
-  box-shadow:0 12px 26px var(--accent-glow);
-}
 .exp-card .head { display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:0.95rem;flex-wrap:wrap; }
-.exp-card .head h3 { font-family:'Fraunces',serif;font-size:1.32rem;font-weight:500;line-height:1.2;display:flex;align-items:center;gap:0.55rem; }
+.exp-card .head h3 { font-family:'Fraunces',serif;font-size:1.08rem;font-weight:500;line-height:1.2;display:flex;align-items:center;gap:0.55rem; }
 .exp-card .live-dot { display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;box-shadow:0 0 0 4px var(--accent-glow); }
 .exp-card .when { color:var(--ink-mute);font-size:0.82rem;white-space:nowrap;padding-top:0.18rem; }
 .exp-org-row { display:flex;align-items:center;gap:0.65rem;margin-bottom:0.65rem;flex-wrap:wrap; }
 .exp-card .org { color:var(--accent);font-family:'Fraunces',serif;font-size:1.32rem;font-weight:500;line-height:1.2; }
-.exp-location { color:var(--ink-mute);font-size:0.82rem;display:inline-flex;align-items:center;gap:0.4rem; }
+.exp-time { margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:0.18rem; }
+.exp-location { color:var(--ink-mute);font-size:0.82rem;display:inline-flex;align-items:center;gap:0.4rem;white-space:nowrap; }
 .exp-location::before { content:'';width:4px;height:4px;border-radius:50%;background:var(--accent-2); }
 .exp-content { position:relative;z-index:2; }
 .exp-card ul { list-style:none; }
@@ -1294,6 +1281,7 @@ footer a:hover { text-decoration:underline; }
   .exp-card::after{left:-1.72rem!important;right:auto!important;}
   .exp-card .exp-stack{align-items:flex-start!important;justify-content:flex-start!important;}
   .exp-card .head,.lead-card .head{flex-direction:column;gap:0.25rem;}
+  .exp-time{margin-left:0;align-items:flex-start;}
   .project-card-detailed .pc-header{padding:1.2rem 1.2rem 0.8rem;}
   .project-card-detailed .pc-stack{padding:0.8rem 1.2rem 1.2rem;}
   .pc-demo-link{margin:0 1.2rem 1rem;}
@@ -1500,13 +1488,14 @@ footer a:hover { text-decoration:underline; }
       <div class="card exp-card reveal">
         <div class="exp-content">
           <div class="exp-org-row">
-            <span class="exp-index">01</span>
             <div class="org">Vena Group</div>
-            <span class="exp-location">Singapore</span>
+            <div class="exp-time">
+              <span class="exp-location">Singapore</span>
+              <span class="when">May 2026 — Present</span>
+            </div>
           </div>
           <div class="head">
             <h3><span class="live-dot"></span>IT Intern</h3>
-            <span class="when">May 2026 — Present</span>
           </div>
           <ul>
             <li>Diving into <strong>data analytics</strong> — pulling, modelling, and visualising operational data to support decision-making across teams.</li>
@@ -1520,13 +1509,14 @@ footer a:hover { text-decoration:underline; }
       <div class="card exp-card reveal d1">
         <div class="exp-content">
           <div class="exp-org-row">
-            <span class="exp-index">02</span>
             <div class="org">Signet Scarves</div>
-            <span class="exp-location">India</span>
+            <div class="exp-time">
+              <span class="exp-location">India</span>
+              <span class="when">Nov 2025 — Jan 2026</span>
+            </div>
           </div>
           <div class="head">
             <h3>Data Analytics Intern</h3>
-            <span class="when">Nov 2025 — Jan 2026</span>
           </div>
           <ul>
             <li>Queried and analyzed <strong>2+ years of historical sales data</strong> using SQL and Python across 30+ SKUs, building a dynamic Tableau demand-forecasting dashboard that <strong>reduced stockouts by 9%</strong> and improved inventory planning accuracy.</li>
@@ -1540,13 +1530,14 @@ footer a:hover { text-decoration:underline; }
       <div class="card exp-card reveal d2">
         <div class="exp-content">
           <div class="exp-org-row">
-            <span class="exp-index">03</span>
             <div class="org">SRC Financial Services</div>
-            <span class="exp-location">India</span>
+            <div class="exp-time">
+              <span class="exp-location">India</span>
+              <span class="when">Nov 2024 — Jan 2025</span>
+            </div>
           </div>
           <div class="head">
             <h3>Financial Analytics Intern</h3>
-            <span class="when">Nov 2024 — Jan 2025</span>
           </div>
           <ul>
             <li>Architected an <strong>automated KPI dashboard in Power BI</strong> consolidating portfolio performance and client metrics, eliminating <strong>10+ hours of manual weekly reporting</strong>.</li>
