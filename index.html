@@ -785,20 +785,179 @@ html[data-theme="night"] .quote-card blockquote em { color:var(--tape); }
 .filter-btn:hover { border-color:var(--accent);color:var(--accent);transform:translateY(-1px); }
 .filter-btn.active { background:var(--accent);border-color:var(--accent);color:white; }
 
-/* ── SKILL BARS ── */
-.skill-block { margin-bottom:1.8rem; }
-.skill-block:last-child { margin-bottom:0; }
-.skill-block h4 { font-family:'Fraunces',serif;font-size:1.05rem;font-weight:500;margin-bottom:0.9rem;display:flex;align-items:center;gap:0.55rem; }
+/* ── SKILL BLOCKS ── */
+.skills-shell {
+  position:relative;
+  overflow:hidden;
+  padding:1.4rem;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(245,184,0,0.12), transparent 0 9rem, transparent 16rem),
+    radial-gradient(circle at 12% 78%, rgba(17,107,140,0.11), transparent 0 8rem, transparent 16rem),
+    linear-gradient(135deg, rgba(45,95,74,0.08), transparent 42%),
+    var(--bg-card);
+}
+.skills-shell::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg, transparent 0 49%, var(--hud) 49% 50%, transparent 50% 100%),
+    linear-gradient(0deg, transparent 0 49%, var(--hud-bright) 49% 50%, transparent 50% 100%);
+  background-size:72px 72px;
+  opacity:0.32;
+  transform:perspective(700px) rotateX(58deg) translateY(18%);
+  transform-origin:center bottom;
+}
+.skills-header {
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 180px;
+  gap:1.3rem;
+  align-items:center;
+  margin-bottom:1.2rem;
+}
+.skills-kicker {
+  color:var(--accent);
+  font-size:0.75rem;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  margin-bottom:0.35rem;
+}
+.skills-header h3 {
+  font-family:'Fraunces',serif;
+  font-size:1.55rem;
+  font-weight:500;
+  line-height:1.15;
+  margin-bottom:0.45rem;
+}
+.skills-header p {
+  color:var(--ink-soft);
+  font-size:0.92rem;
+  max-width:58ch;
+}
+.skill-orbit {
+  width:150px;
+  height:150px;
+  margin-left:auto;
+  position:relative;
+  transform-style:preserve-3d;
+  perspective:760px;
+}
+.skill-cube {
+  position:absolute;
+  inset:45px;
+  transform-style:preserve-3d;
+  animation:cubeSpin 8s linear infinite;
+}
+.skill-cube span {
+  position:absolute;
+  inset:0;
+  border:1px solid var(--hud-bright);
+  background:linear-gradient(135deg, rgba(255,255,255,0.4), rgba(45,95,74,0.08));
+  box-shadow:0 0 26px var(--accent-glow);
+}
+html[data-theme="night"] .skill-cube span { background:linear-gradient(135deg, rgba(159,201,168,0.16), rgba(255,255,255,0.02)); }
+.skill-cube span:nth-child(1){transform:translateZ(30px);}
+.skill-cube span:nth-child(2){transform:rotateY(90deg) translateZ(30px);}
+.skill-cube span:nth-child(3){transform:rotateY(180deg) translateZ(30px);}
+.skill-cube span:nth-child(4){transform:rotateY(-90deg) translateZ(30px);}
+.skill-cube span:nth-child(5){transform:rotateX(90deg) translateZ(30px);}
+.skill-cube span:nth-child(6){transform:rotateX(-90deg) translateZ(30px);}
+.orbit-ring {
+  position:absolute;
+  inset:10px;
+  border:1px dashed var(--hud);
+  border-radius:50%;
+  animation:orbitSpin 12s linear infinite;
+}
+.orbit-ring.two {
+  inset:28px;
+  transform:rotateX(72deg);
+  border-color:var(--hud-bright);
+  animation-duration:9s;
+  animation-direction:reverse;
+}
+.orbit-dot {
+  position:absolute;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  left:18px;
+  top:38px;
+  background:var(--tape);
+  box-shadow:0 0 18px var(--tape);
+}
+.skill-grid {
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:0.85rem;
+}
+.skill-block {
+  position:relative;
+  min-height:168px;
+  padding:1rem;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:blur(12px);
+  box-shadow:0 12px 34px rgba(45,95,74,0.07);
+  overflow:hidden;
+  transform-style:preserve-3d;
+  transition:transform 0.24s ease,border-color 0.24s ease,box-shadow 0.24s ease;
+}
+html[data-theme="night"] .skill-block { background:rgba(29,33,29,0.78); }
+.skill-block:hover {
+  border-color:var(--accent);
+  box-shadow:0 18px 42px rgba(45,95,74,0.12);
+  transform:translateY(-5px) rotateX(2deg) rotateY(-2deg);
+}
+.skill-block::after {
+  content:'';
+  position:absolute;
+  right:-34px;
+  top:-34px;
+  width:88px;
+  height:88px;
+  border:1px solid var(--hud);
+  border-radius:18px;
+  transform:rotate(22deg);
+  opacity:0.55;
+}
+.skill-block h4 {
+  font-family:'Fraunces',serif;
+  font-size:1.05rem;
+  font-weight:500;
+  margin-bottom:0.8rem;
+  display:flex;
+  align-items:center;
+  gap:0.55rem;
+}
 .skill-block h4 .num { font-style:italic;color:var(--accent);font-size:0.9rem; }
-.skill-tags { display:flex;flex-wrap:wrap;gap:0.35rem; }
-.skill-tags span { padding:0.38rem 0.8rem;background:var(--bg-card);border:1px solid var(--line);border-radius:6px;font-size:0.83rem;color:var(--ink);transition:all 0.2s; }
-.skill-tags span:hover { border-color:var(--accent);color:var(--accent);transform:translateY(-2px); }
-.skill-bars { display:flex;flex-direction:column;gap:0.75rem; }
-.skill-bar-item { display:flex;flex-direction:column;gap:0.28rem; }
-.skill-bar-label { display:flex;justify-content:space-between;font-size:0.83rem;color:var(--ink-soft); }
-.skill-bar-label span:last-child { color:var(--accent);font-weight:600;font-size:0.78rem; }
-.skill-bar-track { height:6px;background:var(--bg-soft);border-radius:999px;overflow:hidden; }
-.skill-bar-fill { height:100%;background:linear-gradient(90deg,var(--accent) 0%,#4a9e7a 100%);border-radius:999px;width:0%;transition:width 1.3s cubic-bezier(0.22,1,0.36,1); }
+.skill-tags { display:flex;flex-wrap:wrap;gap:0.38rem; }
+.skill-tags span {
+  padding:0.38rem 0.72rem;
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  border-radius:6px;
+  font-size:0.82rem;
+  color:var(--ink);
+  transition:all 0.2s;
+}
+.skill-tags span:hover {
+  border-color:var(--accent);
+  color:var(--accent);
+  transform:translateY(-2px) translateZ(8px);
+  box-shadow:0 8px 20px rgba(45,95,74,0.1);
+}
+@keyframes cubeSpin {
+  from{transform:rotateX(-18deg) rotateY(0deg) rotateZ(8deg);}
+  to{transform:rotateX(-18deg) rotateY(360deg) rotateZ(8deg);}
+}
 
 /* ── LEAD CARDS ── */
 .lead-card .head { display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:0.35rem;flex-wrap:wrap; }
@@ -842,6 +1001,18 @@ footer a:hover { text-decoration:underline; }
   .project-card-detailed .pc-header{padding:1.2rem 1.2rem 0.8rem;}
   .project-card-detailed .pc-stack{padding:0.8rem 1.2rem 1.2rem;}
   .pc-demo-link{margin:0 1.2rem 1rem;}
+  .skills-shell{padding:1rem;}
+  .skills-header{grid-template-columns:1fr;margin-bottom:1rem;}
+  .skill-orbit{width:120px;height:120px;margin:0 auto;}
+  .skill-cube{inset:36px;}
+  .skill-cube span:nth-child(1){transform:translateZ(24px);}
+  .skill-cube span:nth-child(2){transform:rotateY(90deg) translateZ(24px);}
+  .skill-cube span:nth-child(3){transform:rotateY(180deg) translateZ(24px);}
+  .skill-cube span:nth-child(4){transform:rotateY(-90deg) translateZ(24px);}
+  .skill-cube span:nth-child(5){transform:rotateX(90deg) translateZ(24px);}
+  .skill-cube span:nth-child(6){transform:rotateX(-90deg) translateZ(24px);}
+  .skill-grid{grid-template-columns:1fr;}
+  .skill-block{min-height:0;padding:0.95rem;}
   .looking-card{grid-template-columns:1fr;text-align:center;}
   .looking-card .icon-circle{margin:0 auto;}
   footer{flex-direction:column;gap:0.5rem;}
@@ -995,8 +1166,6 @@ footer a:hover { text-decoration:underline; }
         <span class="chip">Analytics</span>
         <span class="chip">Machine Learning</span>
         <span class="chip">Artificial Intelligence</span>
-        <span class="chip">Data Science</span>
-        <span class="chip">Strategy Consulting</span>
         <span class="chip">Blockchain</span>
         <span class="chip">Quantum Computing</span>
       </div>
@@ -1031,7 +1200,7 @@ footer a:hover { text-decoration:underline; }
         <li>Working on <strong>application infrastructure automation</strong> — streamlining workflows and reducing manual handoffs in the IT environment.</li>
         <li>Supporting <strong>system integration</strong> projects across the wider Vena ecosystem, with a focus on reliability and clean data flow.</li>
       </ul>
-      <div class="exp-stack"><span>Power BI</span><span>Microsoft Power Automate</span><span>Dataverse</span><span>Postman</span></div>
+      <div class="exp-stack"><span>Power BI</span><span>Microsoft Power Apps</span><span>Microsoft Power Automate</span><span>Postman</span><span>UAT</span><span>DevOps</span><span>Microsoft Graph API</span><span>SharePoint</span><span>Azure AD</span></div>
     </div>
 
     <div class="card exp-card reveal d1">
@@ -1146,49 +1315,58 @@ footer a:hover { text-decoration:underline; }
       <h2>Skills &amp; <em>Tools</em></h2>
     </div>
 
-    <div class="card reveal">
-      <!-- sorted highest → lowest -->
-      <div class="skill-block">
-        <h4><span class="num">01</span> Programming Languages</h4>
-        <div class="skill-bars">
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>Python</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>SQL</span><span>89%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="89"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>HTML / CSS</span><span>86%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="86"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>JavaScript</span><span>80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>R</span><span>65%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="65"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>PHP</span><span>55%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="55"></div></div></div>
+    <div class="card skills-shell reveal">
+      <div class="skills-header">
+        <div>
+          <div class="skills-kicker">Technical stack</div>
+          <h3>Tools I use to turn messy systems into usable products.</h3>
+          <p>A cross-functional mix of code, analytics, automation, infrastructure, and mathematical foundations.</p>
+        </div>
+        <div class="skill-orbit" aria-hidden="true">
+          <span class="orbit-ring"></span>
+          <span class="orbit-ring two"></span>
+          <span class="orbit-dot"></span>
+          <div class="skill-cube">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
         </div>
       </div>
 
-      <div class="skill-block">
-        <h4><span class="num">02</span> Data &amp; Visualisation</h4>
-        <div class="skill-bars">
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>Power BI</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>Tableau</span><span>88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>Pandas</span><span>87%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="87"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>Excel</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-label"><span>Matplotlib</span><span>80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div></div>
+      <div class="skill-grid">
+        <div class="skill-block">
+          <h4><span class="num">01</span> Programming Languages</h4>
+          <div class="skill-tags"><span>Python</span><span>JavaScript</span><span>SQL</span><span>HTML</span><span>CSS</span><span>R</span><span>PHP</span></div>
         </div>
-      </div>
 
-      <div class="skill-block">
-        <h4><span class="num">03</span> Frameworks &amp; Tools</h4>
-        <div class="skill-tags"><span>Node.js</span><span>Flask</span><span>OutSystems</span><span>Docker</span><span>RabbitMQ</span><span>MongoDB</span><span>Postman</span><span>phpMyAdmin</span></div>
-      </div>
+        <div class="skill-block">
+          <h4><span class="num">02</span> Data &amp; Analytics</h4>
+          <div class="skill-tags"><span>Power BI</span><span>Tableau</span><span>Pandas</span><span>Microsoft Excel</span><span>Power Query</span><span>Matplotlib</span><span>NumPy</span></div>
+        </div>
 
-      <div class="skill-block">
-        <h4><span class="num">04</span> Cloud &amp; Infrastructure</h4>
-        <div class="skill-tags"><span>Microsoft Azure</span><span>Supabase</span><span>Kong API Gateway</span><span>Docker Compose</span></div>
-      </div>
+        <div class="skill-block">
+          <h4><span class="num">03</span> Business Application / Automation</h4>
+          <div class="skill-tags"><span>Microsoft Power Automate</span><span>Microsoft Power Apps</span><span>Model-driven Apps</span><span>Canvas Apps</span><span>Dataverse</span><span>SharePoint</span><span>OPAL</span></div>
+        </div>
 
-      <div class="skill-block">
-        <h4><span class="num">05</span> Certifications</h4>
-        <div class="skill-tags"><span>Google Data Analytics</span><span>Google Advanced Data Analytics</span><span>Google Business Intelligence</span><span>Microsoft Azure Fundamentals</span><span>Data Visualization with Matplotlib</span><span>Data Manipulation with Pandas</span><span>Salesforce Agent Blazer Champion</span><span>Entrepreneurship in Emerging Economies</span></div>
-      </div>
+        <div class="skill-block">
+          <h4><span class="num">04</span> Frameworks</h4>
+          <div class="skill-tags"><span>Node.js</span><span>Vue.js</span></div>
+        </div>
 
-      <div class="skill-block">
-        <h4><span class="num">06</span> Spoken Languages</h4>
-        <div class="skill-tags"><span>English (fluent)</span><span>Hindi (native)</span><span>Punjabi (native)</span></div>
+        <div class="skill-block">
+          <h4><span class="num">05</span> Infrastructure</h4>
+          <div class="skill-tags"><span>GitHub</span><span>Docker</span><span>PostgreSQL</span><span>MongoDB</span><span>Postman</span><span>OutSystems</span><span>Microsoft Azure</span><span>Supabase</span><span>Kong API Gateway</span><span>Message-Oriented Middleware</span><span>Event-Driven Architecture</span><span>RabbitMQ</span></div>
+        </div>
+
+        <div class="skill-block">
+          <h4><span class="num">06</span> Mathematical Foundation</h4>
+          <div class="skill-tags"><span>Probability &amp; Statistics</span><span>Linear Algebra</span></div>
+        </div>
+
+        <div class="skill-block">
+          <h4><span class="num">07</span> Quality Assurance &amp; IT Management</h4>
+          <div class="skill-tags"><span>User Acceptance Testing (UAT)</span><span>Agile</span><span>DevOps</span><span>Asset Management Tool (AMT)</span></div>
+        </div>
       </div>
     </div>
   </section>
@@ -1312,21 +1490,6 @@ const ro = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-/* ══ SKILL BAR ANIMATION — trigger when section scrolls into view ══ */
-let barsAnimated = false;
-const skillSection = document.getElementById('skills');
-const skillObs = new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting && !barsAnimated) {
-    barsAnimated = true;
-    setTimeout(() => {
-      document.querySelectorAll('.skill-bar-fill').forEach(b => {
-        b.style.width = b.dataset.width + '%';
-      });
-    }, 200);
-  }
-}, { threshold: 0.15 });
-skillObs.observe(skillSection);
 
 /* ══ PROJECT FILTERS ══ */
 const filterButtons = document.querySelectorAll('.filter-btn');
