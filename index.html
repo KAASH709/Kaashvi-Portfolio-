@@ -736,30 +736,121 @@ html[data-theme="night"] .quote-card blockquote em { color:var(--tape); }
 .chip.fun { background:var(--bg-card);border:1px solid var(--line); }
 .reveal.visible .chip { animation:tagPop 0.54s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
 
-.journey-list { display:grid;gap:1rem; }
-.exp-card {
-  display:grid;
-  grid-template-columns:210px minmax(0,1fr);
-  gap:1.35rem;
+.journey-list {
   position:relative;
-  overflow:hidden;
+  display:grid;
+  gap:1.2rem;
+  padding:1.4rem 0;
 }
-.exp-card::before {
+.journey-list .timeline-aura {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(54vw,520px);
+  aspect-ratio:1;
+  border:1px solid var(--hud);
+  border-radius:50%;
+  transform:translate(-50%,-50%) rotateX(68deg);
+  pointer-events:none;
+  opacity:0.38;
+  animation:orbitSpin 18s linear infinite;
+}
+.journey-list .timeline-aura::before,
+.journey-list .timeline-aura::after {
   content:'';
   position:absolute;
-  left:calc(210px + 1.8rem);
-  top:1.35rem;
-  bottom:1.35rem;
-  width:1px;
-  background:linear-gradient(180deg,var(--accent),var(--hud),transparent);
-  opacity:0.55;
+  inset:13%;
+  border:1px dashed var(--hud-bright);
+  border-radius:50%;
+}
+.journey-list .timeline-aura::after {
+  inset:31%;
+  border-style:solid;
+  border-color:rgba(245,184,0,0.28);
+}
+.journey-list::before {
+  content:'';
+  position:absolute;
+  left:50%;
+  top:0;
+  bottom:0;
+  width:2px;
+  transform:translateX(-50%);
+  background:linear-gradient(180deg, transparent, var(--accent), var(--accent-2), var(--accent-3), transparent);
+  box-shadow:0 0 28px var(--accent-glow);
+}
+.journey-list::after {
+  content:'';
+  position:absolute;
+  left:50%;
+  top:0;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:var(--tape);
+  box-shadow:0 0 24px var(--tape), 0 0 44px var(--accent-glow);
+  transform:translate(-50%,-50%);
+  animation:timelinePulse 6.5s ease-in-out infinite;
+}
+.exp-card {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:0.95rem;
+  position:relative;
+  width:calc(50% - 2.1rem);
+  overflow:visible;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,0.78),rgba(255,255,255,0.5)),
+    var(--bg-card);
+}
+html[data-theme="night"] .exp-card {
+  background:
+    linear-gradient(135deg,rgba(29,33,29,0.86),rgba(29,33,29,0.62)),
+    var(--bg-card);
+}
+.exp-card:nth-of-type(odd) { justify-self:start;text-align:left; }
+.exp-card:nth-of-type(even) { justify-self:end;text-align:left; }
+.exp-card:nth-of-type(odd) .exp-meta,
+.exp-card:nth-of-type(odd) .exp-stack { align-items:flex-start;justify-content:flex-start; }
+.exp-card:nth-of-type(even) .exp-meta,
+.exp-card:nth-of-type(even) .exp-stack { align-items:flex-start;justify-content:flex-start; }
+.exp-card::after {
+  content:'';
+  position:absolute;
+  top:2rem;
+  width:17px;
+  height:17px;
+  border:3px solid var(--bg);
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  box-shadow:0 0 0 5px var(--accent-glow), 0 0 24px var(--accent);
+  z-index:3;
+  animation:timelineNode 2.8s ease-in-out infinite;
+}
+.exp-card:nth-of-type(odd)::after { right:-2.72rem; }
+.exp-card:nth-of-type(even)::after { left:-2.72rem; }
+.exp-card:nth-of-type(odd)::before,
+.exp-card:nth-of-type(even)::before {
+  content:'';
+  position:absolute;
+  top:2.5rem;
+  width:2.1rem;
+  height:1px;
+  opacity:0.75;
+  background:linear-gradient(90deg,transparent,var(--accent));
+}
+.exp-card:nth-of-type(odd)::before { right:-2.1rem; }
+.exp-card:nth-of-type(even)::before {
+  left:-2.1rem;
+  transform:scaleX(-1);
 }
 .exp-meta {
   position:relative;
   z-index:2;
   display:flex;
-  flex-direction:column;
-  gap:0.7rem;
+  flex-wrap:wrap;
+  gap:0.55rem;
+  align-items:center;
 }
 .exp-index {
   width:44px;
@@ -779,7 +870,7 @@ html[data-theme="night"] .quote-card blockquote em { color:var(--tape); }
 .exp-card .head h3 { font-family:'Fraunces',serif;font-size:1.32rem;font-weight:500;line-height:1.2;display:flex;align-items:center;gap:0.55rem; }
 .exp-card .live-dot { display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;box-shadow:0 0 0 4px var(--accent-glow); }
 .exp-card .when { color:var(--ink-mute);font-size:0.84rem;white-space:nowrap;padding:0.32rem 0.7rem;background:var(--bg-soft);border:1px solid var(--line);border-radius:6px;width:max-content; }
-.exp-card .org { color:var(--accent);font-size:0.92rem;font-weight:600; }
+.exp-card .org { color:var(--accent);font-size:0.92rem;font-weight:600;width:100%; }
 .exp-content { position:relative;z-index:2; }
 .exp-card ul { list-style:none; }
 .exp-card li { color:var(--ink);margin-bottom:0.65rem;padding-left:1.4rem;position:relative;font-size:0.92rem;line-height:1.65; }
@@ -790,53 +881,6 @@ html[data-theme="night"] .quote-card blockquote em { color:var(--tape); }
 .exp-stack { display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:1.1rem;padding-top:0.9rem;border-top:1px solid var(--line); }
 .exp-stack span { padding:0.22rem 0.65rem;background:var(--bg-soft);border:1px solid var(--line);border-radius:4px;font-size:0.72rem;color:var(--ink-soft);font-weight:500; }
 .exp-card.reveal.visible .exp-stack span { animation:tagPop 0.5s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
-
-/* ── CERTIFICATIONS ── */
-.cert-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:0.85rem;
-}
-.cert-card {
-  position:relative;
-  overflow:hidden;
-  min-height:132px;
-  padding:1.15rem;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:linear-gradient(135deg,rgba(255,255,255,0.76),rgba(255,255,255,0.42));
-  backdrop-filter:blur(10px);
-}
-html[data-theme="night"] .cert-card { background:linear-gradient(135deg,rgba(29,33,29,0.78),rgba(29,33,29,0.48)); }
-.cert-card::before {
-  content:'';
-  position:absolute;
-  right:-28px;
-  top:-28px;
-  width:76px;
-  height:76px;
-  border:1px solid var(--hud-bright);
-  border-radius:20px;
-  transform:rotate(22deg);
-  animation:cornerDrift 7s ease-in-out infinite alternate;
-}
-.cert-card .cert-num {
-  color:var(--accent);
-  font-family:'Fraunces',serif;
-  font-style:italic;
-  font-size:0.86rem;
-  margin-bottom:0.45rem;
-}
-.cert-card h3 {
-  font-family:'Fraunces',serif;
-  font-size:1.08rem;
-  font-weight:500;
-  line-height:1.25;
-  margin-bottom:0.55rem;
-  max-width:22rem;
-}
-.cert-card p { color:var(--ink-soft);font-size:0.84rem;line-height:1.55; }
-.cert-card.reveal.visible { animation:cardSettle 0.78s cubic-bezier(0.2,0.9,0.25,1.15) both; }
 
 /* ── CONTACT CTA ── */
 .contact-card {
@@ -1201,6 +1245,15 @@ html[data-theme="night"] .skill-block { background:rgba(29,33,29,0.78); }
   0%,100%{transform:rotate(-15deg) translateY(0);}
   50%{transform:rotate(-10deg) translateY(-12px);}
 }
+@keyframes timelinePulse {
+  0%{top:0;opacity:0;transform:translate(-50%,-50%) scale(0.7);}
+  12%,88%{opacity:1;}
+  100%{top:100%;opacity:0;transform:translate(-50%,-50%) scale(1.25);}
+}
+@keyframes timelineNode {
+  0%,100%{transform:scale(1);filter:saturate(1);}
+  50%{transform:scale(1.18);filter:saturate(1.35);}
+}
 
 /* ── LEAD CARDS ── */
 .lead-card .head { display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:0.35rem;flex-wrap:wrap; }
@@ -1240,8 +1293,13 @@ footer a:hover { text-decoration:underline; }
   .intro-hero-card::after{font-size:7rem;}
   .section{padding-top:3.5rem;}
   .section-label h2{font-size:1.55rem;}
-  .exp-card{grid-template-columns:1fr;gap:0.9rem;}
-  .exp-card::before{display:none;}
+  .journey-list{padding-left:1.3rem;}
+  .journey-list::before,.journey-list::after{left:0.25rem;}
+  .journey-list .timeline-aura{display:none;}
+  .exp-card{width:100%;justify-self:stretch!important;text-align:left!important;gap:0.9rem;}
+  .exp-card::before{left:-1.05rem!important;right:auto!important;width:1.05rem;transform:none!important;}
+  .exp-card::after{left:-1.72rem!important;right:auto!important;}
+  .exp-card .exp-meta,.exp-card .exp-stack{align-items:flex-start!important;justify-content:flex-start!important;}
   .exp-card .head,.lead-card .head{flex-direction:column;gap:0.25rem;}
   .project-card-detailed .pc-header{padding:1.2rem 1.2rem 0.8rem;}
   .project-card-detailed .pc-stack{padding:0.8rem 1.2rem 1.2rem;}
@@ -1259,7 +1317,6 @@ footer a:hover { text-decoration:underline; }
   .skill-grid{grid-template-columns:1fr;}
   .skill-block{min-height:0;padding:0.95rem;}
   .skill-block,.skill-block.wide{grid-column:auto;}
-  .cert-grid{grid-template-columns:1fr;}
   .contact-card{grid-template-columns:1fr;}
   .contact-links{justify-content:flex-start;}
   .looking-card{grid-template-columns:1fr;text-align:center;}
@@ -1303,9 +1360,6 @@ footer a:hover { text-decoration:underline; }
       </a>
       <a class="nav-pill" href="#skills" data-section="skills">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Skills
-      </a>
-      <a class="nav-pill" href="#certifications" data-section="certifications">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a2 2 0 0 1 2 2v10l-4-2-4 2V9a2 2 0 0 1 2-2h1"/><path d="M8 4h8M8 8h4M8 12h3"/><rect x="4" y="3" width="12" height="14" rx="2"/></svg>Certs
       </a>
       <a class="nav-pill" href="#leadership" data-section="leadership">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M5 22h14M8 22v-6a4 4 0 0 1 8 0v6"/><path d="M3 9h3M18 9h3"/></svg>Leadership
@@ -1449,6 +1503,7 @@ footer a:hover { text-decoration:underline; }
     </div>
 
     <div class="journey-list">
+      <span class="timeline-aura" aria-hidden="true"></span>
       <div class="card exp-card reveal">
         <div class="exp-meta">
           <span class="exp-index">01</span>
@@ -1643,56 +1698,6 @@ footer a:hover { text-decoration:underline; }
           <h4><span class="num">07</span> Quality Assurance &amp; IT Management</h4>
           <div class="skill-tags"><span>User Acceptance Testing (UAT)</span><span>Agile</span><span>DevOps</span><span>Asset Management Tool (AMT)</span></div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════ CERTIFICATIONS ══════════════ -->
-  <section class="section" id="certifications">
-    <div class="section-label reveal">
-      <h2><em>Certifications</em></h2>
-    </div>
-
-    <div class="cert-grid">
-      <div class="cert-card reveal">
-        <div class="cert-num">01</div>
-        <h3>Google Data Analytics</h3>
-        <p>Foundational analytics, data cleaning, analysis workflows, and insight communication.</p>
-      </div>
-      <div class="cert-card reveal d1">
-        <div class="cert-num">02</div>
-        <h3>Google Advanced Data Analytics</h3>
-        <p>Statistical analysis, regression, predictive modelling, and applied analytics practice.</p>
-      </div>
-      <div class="cert-card reveal d2">
-        <div class="cert-num">03</div>
-        <h3>Google Business Intelligence</h3>
-        <p>BI reporting, dashboard design, stakeholder metrics, and decision-support systems.</p>
-      </div>
-      <div class="cert-card reveal d3">
-        <div class="cert-num">04</div>
-        <h3>Microsoft Azure Fundamentals</h3>
-        <p>Cloud fundamentals across Azure services, governance, security, and pricing concepts.</p>
-      </div>
-      <div class="cert-card reveal">
-        <div class="cert-num">05</div>
-        <h3>Data Visualization with Matplotlib</h3>
-        <p>Python-based visual storytelling, charting, and data exploration workflows.</p>
-      </div>
-      <div class="cert-card reveal d1">
-        <div class="cert-num">06</div>
-        <h3>Data Manipulation with Pandas</h3>
-        <p>Data wrangling, transformation, grouping, filtering, and analysis with Pandas.</p>
-      </div>
-      <div class="cert-card reveal d2">
-        <div class="cert-num">07</div>
-        <h3>Salesforce Agent Blazer Champion</h3>
-        <p>AI agent concepts, Salesforce ecosystem learning, and customer workflow thinking.</p>
-      </div>
-      <div class="cert-card reveal d3">
-        <div class="cert-num">08</div>
-        <h3>Entrepreneurship in Emerging Economies</h3>
-        <p>Opportunity discovery, market constraints, and venture-building in emerging markets.</p>
       </div>
     </div>
   </section>
