@@ -59,8 +59,9 @@ html { scroll-behavior: smooth; }
 
 body {
   background:
-    linear-gradient(115deg, rgba(17,107,140,0.08), transparent 34%),
-    linear-gradient(245deg, rgba(181,71,102,0.08), transparent 32%),
+    linear-gradient(115deg, rgba(17,107,140,0.12), transparent 34%),
+    linear-gradient(245deg, rgba(181,71,102,0.11), transparent 32%),
+    linear-gradient(180deg, rgba(245,184,0,0.08), transparent 42%),
     var(--bg);
   color: var(--ink);
   font-family: 'Inter', sans-serif;
@@ -152,9 +153,40 @@ html[data-theme="night"] .hud-node { background:linear-gradient(135deg, rgba(159
 .hud-node.one { left:4vw;top:19vh; }
 .hud-node.two { right:5vw;top:34vh;animation-delay:-2s; }
 .hud-node.three { left:8vw;bottom:10vh;animation-delay:-4s; }
+.space-shard {
+  position:absolute;
+  width:150px;
+  height:150px;
+  transform-style:preserve-3d;
+  opacity:0.62;
+  animation:shardFloat 13s ease-in-out infinite;
+}
+.space-shard::before,
+.space-shard::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  clip-path:polygon(50% 0, 92% 28%, 76% 100%, 22% 100%, 8% 28%);
+  border:1px solid var(--hud-bright);
+  background:linear-gradient(135deg, rgba(17,107,140,0.2), rgba(245,184,0,0.08) 48%, rgba(181,71,102,0.13));
+  box-shadow:0 24px 60px rgba(17,107,140,0.12);
+}
+.space-shard::after {
+  inset:28px;
+  transform:translateZ(30px) rotate(22deg);
+  border-color:var(--hud);
+  background:linear-gradient(135deg, rgba(255,255,255,0.2), rgba(45,95,74,0.08));
+}
+.space-shard.alpha { right:10vw;top:10vh;transform:rotateX(58deg) rotateZ(-18deg); }
+.space-shard.beta { left:13vw;top:58vh;width:116px;height:116px;animation-delay:-5s;transform:rotateX(65deg) rotateZ(24deg); }
+.space-shard.gamma { right:18vw;bottom:8vh;width:104px;height:104px;animation-delay:-8s;transform:rotateX(54deg) rotateZ(42deg); }
 @keyframes hudDrift { to{transform:translate3d(2%, -2%, 0) rotate(4deg);} }
 @keyframes scanField { to{transform:translateY(44px);} }
 @keyframes nodeFloat { 50%{transform:translateY(-14px);opacity:0.82;} }
+@keyframes shardFloat {
+  0%,100%{translate:0 0;rotate:0deg;}
+  50%{translate:0 -28px;rotate:8deg;}
+}
 
 ::selection { background:var(--accent); color:white; }
 
@@ -894,11 +926,13 @@ html[data-theme="night"] .skill-cube span { background:linear-gradient(135deg, r
   position:relative;
   z-index:2;
   display:grid;
-  grid-template-columns:repeat(2, minmax(0,1fr));
+  grid-template-columns:repeat(12, minmax(0,1fr));
   gap:0.85rem;
+  align-items:start;
 }
 .skill-block {
   position:relative;
+  grid-column:span 6;
   min-height:168px;
   padding:1rem;
   border:1px solid var(--line);
@@ -910,6 +944,8 @@ html[data-theme="night"] .skill-cube span { background:linear-gradient(135deg, r
   transform-style:preserve-3d;
   transition:transform 0.24s ease,border-color 0.24s ease,box-shadow 0.24s ease;
 }
+.skill-block.compact { min-height:118px; }
+.skill-block.wide { grid-column:span 12; min-height:150px; }
 html[data-theme="night"] .skill-block { background:rgba(29,33,29,0.78); }
 .skill-block:hover {
   border-color:var(--accent);
@@ -1013,6 +1049,7 @@ footer a:hover { text-decoration:underline; }
   .skill-cube span:nth-child(6){transform:rotateX(-90deg) translateZ(24px);}
   .skill-grid{grid-template-columns:1fr;}
   .skill-block{min-height:0;padding:0.95rem;}
+  .skill-block,.skill-block.wide{grid-column:auto;}
   .looking-card{grid-template-columns:1fr;text-align:center;}
   .looking-card .icon-circle{margin:0 auto;}
   footer{flex-direction:column;gap:0.5rem;}
@@ -1032,6 +1069,9 @@ footer a:hover { text-decoration:underline; }
   <span class="hud-node one"></span>
   <span class="hud-node two"></span>
   <span class="hud-node three"></span>
+  <span class="space-shard alpha"></span>
+  <span class="space-shard beta"></span>
+  <span class="space-shard gamma"></span>
 </div>
 <canvas id="particle-canvas"></canvas>
 
@@ -1200,7 +1240,7 @@ footer a:hover { text-decoration:underline; }
         <li>Working on <strong>application infrastructure automation</strong> — streamlining workflows and reducing manual handoffs in the IT environment.</li>
         <li>Supporting <strong>system integration</strong> projects across the wider Vena ecosystem, with a focus on reliability and clean data flow.</li>
       </ul>
-      <div class="exp-stack"><span>Power BI</span><span>Microsoft Power Apps</span><span>Microsoft Power Automate</span><span>Postman</span><span>UAT</span><span>DevOps</span><span>Microsoft Graph API</span><span>SharePoint</span><span>Azure AD</span></div>
+      <div class="exp-stack"><span>Power BI</span><span>Microsoft Power Apps (model-driven, canvas)</span><span>Microsoft Power Automate</span><span>DevOps</span><span>Microsoft Graph API</span><span>SharePoint</span></div>
     </div>
 
     <div class="card exp-card reveal d1">
@@ -1345,20 +1385,20 @@ footer a:hover { text-decoration:underline; }
 
         <div class="skill-block">
           <h4><span class="num">03</span> Business Application / Automation</h4>
-          <div class="skill-tags"><span>Microsoft Power Automate</span><span>Microsoft Power Apps</span><span>Model-driven Apps</span><span>Canvas Apps</span><span>Dataverse</span><span>SharePoint</span><span>OPAL</span></div>
+          <div class="skill-tags"><span>Microsoft Power Automate</span><span>Microsoft Power Apps (model-driven, canvas)</span><span>Dataverse</span><span>SharePoint</span><span>OPAL</span></div>
         </div>
 
-        <div class="skill-block">
+        <div class="skill-block compact">
           <h4><span class="num">04</span> Frameworks</h4>
           <div class="skill-tags"><span>Node.js</span><span>Vue.js</span></div>
         </div>
 
-        <div class="skill-block">
+        <div class="skill-block wide">
           <h4><span class="num">05</span> Infrastructure</h4>
           <div class="skill-tags"><span>GitHub</span><span>Docker</span><span>PostgreSQL</span><span>MongoDB</span><span>Postman</span><span>OutSystems</span><span>Microsoft Azure</span><span>Supabase</span><span>Kong API Gateway</span><span>Message-Oriented Middleware</span><span>Event-Driven Architecture</span><span>RabbitMQ</span></div>
         </div>
 
-        <div class="skill-block">
+        <div class="skill-block compact">
           <h4><span class="num">06</span> Mathematical Foundation</h4>
           <div class="skill-tags"><span>Probability &amp; Statistics</span><span>Linear Algebra</span></div>
         </div>
