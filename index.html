@@ -569,7 +569,7 @@ html[data-theme="night"] .home-kicker { background:rgba(29,33,29,0.64); }
   border-radius: 999px;
   font-size: 0.82rem;
   font-weight: 600;
-  margin-bottom: 1.4rem;
+  margin-bottom: 2.6rem;
 }
 .hero-left .greeting::before {
   content:'';
@@ -600,7 +600,7 @@ html[data-theme="night"] .home-kicker { background:rgba(29,33,29,0.64); }
 @keyframes wave {
   0%,100%{transform:rotate(0)} 10%,30%{transform:rotate(14deg)} 20%,40%{transform:rotate(-8deg)} 50%{transform:rotate(0)}
 }
-.hero-left .tagline { color:var(--ink-soft); font-size:1.08rem; max-width:58ch; line-height:1.65; }
+.hero-left .tagline { color:var(--ink-soft); font-size:1.08rem; max-width:58ch; line-height:1.65; margin-bottom:1.4rem; }
 .hero-left .tagline strong { color:var(--ink);font-weight:700; }
 
 .hero-actions {
@@ -906,7 +906,7 @@ html[data-theme="night"] .visual-card { background:rgba(29,33,29,0.82); }
 .looking-card .roles { font-family:'Fraunces',serif;font-size:1.2rem;font-weight:500;line-height:1.3; }
 .looking-card .roles span { color:var(--accent); }
 .hero-left .looking-card {
-  margin-top:1.25rem;
+  margin-top:0;
   margin-bottom:0;
   max-width:620px;
 }
@@ -1581,10 +1581,7 @@ footer a:hover { text-decoration:underline; }
   <div class="nav-inner">
     <a class="nav-logo" href="#home">Kaashvi <span>Arora</span></a>
     <nav class="nav-pills">
-      <a class="nav-pill active" href="#home" data-section="home">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12 12 3l9 9"/><path d="M5 10v11h14V10"/><path d="M9 21v-6h6v6"/></svg>Home
-      </a>
-      <a class="nav-pill" href="#about" data-section="about">
+      <a class="nav-pill active" href="#about" data-section="about">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2"/></svg>About
       </a>
       <a class="nav-pill" href="#experience" data-section="experience">
@@ -1634,14 +1631,14 @@ footer a:hover { text-decoration:underline; }
   <section class="hero section reveal" id="about">
     <div class="hero-left">
       <span class="greeting">Open to opportunities</span>
-      <p class="tagline">A Year 3 student at Singapore Management University studying B.Sc. Information Systems — <strong>Business Analytics &amp; Fin-Tech</strong>.</p>
+      <p class="tagline">Hey, I am a Year 3 student at Singapore Management University studying B.Sc. Information Systems — <strong>Business Analytics &amp; Fin-Tech</strong>.</p>
       <div class="card looking-card hero-looking">
         <div class="icon-circle">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <div>
           <div class="label">Looking to work in</div>
-          <div class="roles"><span>Analytics</span> · <span>Automation</span> · <span>Consulting</span> · <span>Product Management</span></div>
+          <div class="roles"><span>Analytics</span> · <span>Consulting</span> · <span>Product Management</span></div>
         </div>
       </div>
       <div class="hero-actions">
@@ -1710,7 +1707,7 @@ footer a:hover { text-decoration:underline; }
         <span class="chip">CRM</span>
         <span class="chip">Machine Learning</span>
         <span class="chip">Artificial Intelligence</span>
-        <span class="chip">Blockchain</span>
+        <span class="chip">Finance</span>
         <span class="chip">Quantum Computing</span>
       </div>
       <h3 style="margin-top:1.3rem">Off the desk</h3>
@@ -2048,12 +2045,12 @@ window.addEventListener('resize', updateProgress);
 updateProgress();
 
 /* ══ SCROLL SPY — highlight nav pill based on scroll position ══ */
-const sections = document.querySelectorAll('section[id]');
+const sections = document.querySelectorAll('section[id]:not(#home)');
 const pills = document.querySelectorAll('.nav-pill');
 const NAV_H = document.querySelector('.site-nav').offsetHeight;
 
 function updateActivePill() {
-  let current = 'home';
+  let current = 'about';
   sections.forEach(sec => {
     if (window.scrollY >= sec.offsetTop - NAV_H - 80) {
       current = sec.id;
