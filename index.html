@@ -516,12 +516,62 @@ html[data-theme="night"] .cloud { background:rgba(255,255,255,0.12); }
   backdrop-filter:blur(12px);
 }
 html[data-theme="night"] .home-kicker { background:rgba(29,33,29,0.64); }
-.home-title {
+.home-title{
   font-family:'Fraunces', serif;
   font-size:8.2rem;
   font-weight:600;
-  line-height:0.86;
+  line-height:.86;
   letter-spacing:0;
+  position:relative;
+  display:inline-block;
+}
+.flight-name{
+    position:relative;
+    display:inline-block;
+    isolation:isolate;
+}
+
+.flight-name::before{
+    content:'';
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:650px;
+    height:260px;
+    transform:translate(-50%,-50%);
+    border:2px dashed rgba(17,107,140,.18);
+    border-radius:50%;
+    z-index:-2;
+}
+
+.plane-orbit{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:650px;
+    height:260px;
+    transform:translate(-50%,-50%);
+    animation:namePlaneOrbit 14s linear infinite;
+    z-index:-1;
+}
+
+.orbit-plane{
+    position:absolute;
+    width:38px;
+    height:38px;
+    right:-18px;
+    top:50%;
+    transform:translateY(-50%) rotate(90deg);
+    fill:var(--accent);
+}
+
+@keyframes namePlaneOrbit{
+    from{
+        transform:translate(-50%,-50%) rotate(0deg);
+    }
+    to{
+        transform:translate(-50%,-50%) rotate(360deg);
+    }
 }
 .home-subtitle {
   color:var(--ink);
@@ -1638,7 +1688,7 @@ footer a:hover { text-decoration:underline; }
     <span class="cloud one"></span>
     <span class="cloud two"></span>
     <span class="cloud three"></span>
-    <div class="airplane">
+    <div class="airplane" style="display:none;">
       <span class="tail"></span>
       <span class="wing"></span>
       <span class="body"></span>
@@ -1646,7 +1696,14 @@ footer a:hover { text-decoration:underline; }
   </div>
   <div class="home-content reveal">
     <div class="home-kicker">Portfolio</div>
-    <h1 class="home-title">KAASHVI ARORA</h1>
+    <h1 class="home-title flight-name">
+    KAASHVI ARORA
+    <div class="plane-orbit">
+        <svg class="orbit-plane" viewBox="0 0 24 24">
+            <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9L2 14v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16z"/>
+        </svg>
+    </div>
+</h1>
     <p class="home-subtitle">Builder. Learner. Innovator.</p>
   </div>
   <a class="home-scroll" href="#about">About</a>
