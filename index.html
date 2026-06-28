@@ -421,7 +421,7 @@ html[data-theme="night"] .home-kicker { background:rgba(29,33,29,0.64); }
   display: grid; grid-template-columns: minmax(0,1.1fr) minmax(320px,0.78fr);
   gap: 2rem; align-items: stretch; padding-bottom: 3.2rem; border-bottom: 1px solid var(--line);
 }
-.hero-left { min-width:0; display:flex; flex-direction:column; justify-content:flex-start; padding-top:1.3rem; }
+.hero-left { min-width:0; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding-top:clamp(3rem, 8vh, 6rem); }
 .hero-left .greeting {
   display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.85rem;
   background: var(--accent-soft); color: var(--accent); border-radius: 999px;
@@ -431,9 +431,9 @@ html[data-theme="night"] .home-kicker { background:rgba(29,33,29,0.64); }
 .hero-left h1 { font-family: 'Fraunces', serif; font-size: 5.3rem; font-weight: 500; line-height: 0.92; letter-spacing: 0; margin-bottom: 1.1rem; }
 .hero-left h1 strong { color:var(--accent); font-weight:500; }
 .hero-left h1 .wave { display: inline-block; transform-origin: 70% 70%; animation: wave 2.5s ease-in-out 0.5s 2; }
-.hero-left .tagline { color:var(--ink-soft); font-size:1.08rem; max-width:58ch; line-height:1.65; margin-bottom:2.8rem; }
+.hero-left .tagline { color:var(--ink-soft); font-size:1.14rem; max-width:56ch; line-height:1.68; margin-bottom:1.25rem; }
 .hero-left .tagline strong { color:var(--ink);font-weight:700; }
-.hero-actions { display:flex; flex-wrap:wrap; gap:0.7rem; margin-top:2.6rem; }
+.hero-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:0.7rem; margin-top:2rem; }
 .btn {
   display:inline-flex; align-items:center; gap:0.5rem; min-height:42px; padding:0.62rem 1rem;
   border-radius:999px; border:1px solid var(--line); text-decoration:none; color:var(--ink);
@@ -525,7 +525,7 @@ html[data-theme="night"] .visual-card { background:rgba(29,33,29,0.82); }
 .looking-card .label { font-family:'Fraunces',serif;font-size:0.82rem;color:var(--ink-mute);margin-bottom:0.15rem;font-style:italic; }
 .looking-card .roles { font-family:'Fraunces',serif;font-size:1.2rem;font-weight:500;line-height:1.3; }
 .looking-card .roles span { color:var(--accent); }
-.hero-left .looking-card { margin-top:0; margin-bottom:0; max-width:620px; }
+.hero-left .looking-card { margin-top:0; margin-bottom:0; max-width:620px; width:100%; text-align:left; }
 
 .intro-hero-card { background:linear-gradient(135deg,var(--accent) 0%,var(--accent-deep) 100%); color:white; border:none; padding:2.2rem 2rem; position:relative; overflow:hidden; }
 .intro-hero-card::after { content:'🏸';position:absolute;right:-1.5rem;bottom:-2rem;font-size:10rem;opacity:0.09;transform:rotate(-15deg);pointer-events:none;animation:watermarkFloat 5s ease-in-out infinite; }
@@ -553,22 +553,22 @@ html[data-theme="night"] .quote-card blockquote em { color:var(--tape); }
 .chip.fun { background:var(--bg-card);border:1px solid var(--line); }
 .reveal.visible .chip { animation:tagPop 0.54s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
 
-.journey-list { position:relative; display:grid; gap:1.2rem; padding:1.4rem 0; }
-.journey-list .timeline-aura { position:absolute; left:50%; top:50%; width:min(54vw,520px); aspect-ratio:1; border:1px solid var(--hud); border-radius:50%; transform:translate(-50%,-50%) rotateX(68deg); pointer-events:none; opacity:0.38; animation:orbitSpin 18s linear infinite; }
+.journey-list { position:relative; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:1.1rem; padding:1.4rem 0; }
+.journey-list .timeline-aura { display:none; position:absolute; left:50%; top:50%; width:min(54vw,520px); aspect-ratio:1; border:1px solid var(--hud); border-radius:50%; transform:translate(-50%,-50%) rotateX(68deg); pointer-events:none; opacity:0.38; animation:orbitSpin 18s linear infinite; }
 .journey-list .timeline-aura::before, .journey-list .timeline-aura::after { content:''; position:absolute; inset:13%; border:1px dashed var(--hud-bright); border-radius:50%; }
 .journey-list .timeline-aura::after { inset:31%;border-style:solid;border-color:rgba(245,184,0,0.28); }
-.journey-list::before { content:''; position:absolute; left:50%; top:0; bottom:0; width:2px; transform:translateX(-50%); background:linear-gradient(180deg, transparent, var(--accent), var(--accent-2), var(--accent-3), transparent); box-shadow:0 0 28px var(--accent-glow); }
-.journey-list::after { content:''; position:absolute; left:50%; top:var(--timeline-progress); width:14px; height:14px; border-radius:50%; background:var(--tape); box-shadow:0 0 24px var(--tape), 0 0 44px var(--accent-glow); transform:translate(-50%,-50%); transition:top 0.12s linear; }
-.exp-card { display:grid; grid-template-columns:1fr; gap:0.95rem; position:relative; width:calc(50% - 2.1rem); overflow:visible; background:linear-gradient(135deg,rgba(255,255,255,0.78),rgba(255,255,255,0.5)), var(--bg-card); }
+.journey-list::before { display:none; content:''; position:absolute; left:50%; top:0; bottom:0; width:2px; transform:translateX(-50%); background:linear-gradient(180deg, transparent, var(--accent), var(--accent-2), var(--accent-3), transparent); box-shadow:0 0 28px var(--accent-glow); }
+.journey-list::after { display:none; content:''; position:absolute; left:50%; top:var(--timeline-progress); width:14px; height:14px; border-radius:50%; background:var(--tape); box-shadow:0 0 24px var(--tape), 0 0 44px var(--accent-glow); transform:translate(-50%,-50%); transition:top 0.12s linear; }
+.exp-card { display:grid; grid-template-columns:1fr; gap:0.95rem; position:relative; width:auto; overflow:hidden; background:linear-gradient(135deg,rgba(255,255,255,0.78),rgba(255,255,255,0.5)), var(--bg-card); }
 html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,33,29,0.86),rgba(29,33,29,0.62)), var(--bg-card); }
-.exp-card:nth-of-type(odd) { justify-self:start;text-align:left; }
-.exp-card:nth-of-type(even) { justify-self:end;text-align:left; }
+.exp-card:nth-of-type(odd) { justify-self:stretch;text-align:left; }
+.exp-card:nth-of-type(even) { justify-self:stretch;text-align:left; }
 .exp-card:nth-of-type(odd) .exp-stack { align-items:flex-start;justify-content:flex-start; }
 .exp-card:nth-of-type(even) .exp-stack { align-items:flex-start;justify-content:flex-start; }
-.exp-card::after { content:''; position:absolute; top:2rem; width:17px; height:17px; border:3px solid var(--bg); border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 5px var(--accent-glow), 0 0 24px var(--accent); z-index:3; animation:timelineNode 2.8s ease-in-out infinite; }
+.exp-card::after { display:none; content:''; position:absolute; top:2rem; width:17px; height:17px; border:3px solid var(--bg); border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 5px var(--accent-glow), 0 0 24px var(--accent); z-index:3; animation:timelineNode 2.8s ease-in-out infinite; }
 .exp-card:nth-of-type(odd)::after { right:-2.72rem; }
 .exp-card:nth-of-type(even)::after { left:-2.72rem; }
-.exp-card:nth-of-type(odd)::before, .exp-card:nth-of-type(even)::before { content:''; position:absolute; top:2.5rem; width:2.1rem; height:1px; opacity:0.75; background:linear-gradient(90deg,transparent,var(--accent)); }
+.exp-card:nth-of-type(odd)::before, .exp-card:nth-of-type(even)::before { display:none; content:''; position:absolute; top:2.5rem; width:2.1rem; height:1px; opacity:0.75; background:linear-gradient(90deg,transparent,var(--accent)); }
 .exp-card:nth-of-type(odd)::before { right:-2.1rem; }
 .exp-card:nth-of-type(even)::before { left:-2.1rem; transform:scaleX(-1); }
 .exp-card .head { display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:0.95rem;flex-wrap:wrap; }
@@ -689,7 +689,7 @@ footer a:hover { text-decoration:underline; }
   .nav-pill{padding:0.45rem 0.75rem;font-size:0.78rem;} .nav-pill svg{display:none;} .nav-actions{display:none;}
   .card{padding:1.3rem 1.2rem;} .intro-hero-card{padding:1.6rem 1.3rem;} .intro-hero-card::after{font-size:7rem;}
   .section{padding-top:3.5rem;} .section-label h2{font-size:1.55rem;}
-  .journey-list{padding-left:1.3rem;} .journey-list::before,.journey-list::after{left:0.25rem;} .journey-list .timeline-aura{display:none;}
+  .journey-list{grid-template-columns:1fr;padding-left:0;} .journey-list::before,.journey-list::after{left:0.25rem;} .journey-list .timeline-aura{display:none;}
   .exp-card{width:100%;justify-self:stretch!important;text-align:left!important;gap:0.9rem;}
   .exp-card::before{left:-1.05rem!important;right:auto!important;width:1.05rem;transform:none!important;}
   .exp-card::after{left:-1.72rem!important;right:auto!important;}
@@ -821,7 +821,7 @@ footer a:hover { text-decoration:underline; }
           <h3>Technology &amp; Strategy Builder</h3>
           <p>Designing smarter systems, cleaner workflows, and products with real impact.</p>
           <div class="visual-list">
-            <div><span>Area of focus</span><strong>data &amp; automation</strong></div>
+            <div><span>Area of focus</span><strong>Enterprise data &amp; automation</strong></div>
             <div><span>Graduation</span><strong>SMU 2028</strong></div>
             <div><span>Best arena</span><strong>Cross-functional teams</strong></div>
           </div>
@@ -853,25 +853,6 @@ footer a:hover { text-decoration:underline; }
       <cite>A quote I live by</cite>
     </div>
 
-    <div class="card interests-card reveal">
-      <h3>Currently curious about</h3>
-      <div class="chips" style="margin-bottom:1.1rem">
-        <span class="chip">Analytics</span>
-        <span class="chip">CRM</span>
-        <span class="chip">Machine Learning</span>
-        <span class="chip">Artificial Intelligence</span>
-        <span class="chip">Finance</span>
-        <span class="chip">Quantum Computing</span>
-      </div>
-      <h3 style="margin-top:1.3rem">Off the desk</h3>
-      <div class="chips" style="margin-top:0.8rem">
-        <span class="chip fun">🏸 Badminton</span>
-        <span class="chip fun">🤿 Scuba diving</span>
-        <span class="chip fun">🥒 Pickleball</span>
-        <span class="chip fun">⚽ Football</span>
-        <span class="chip fun">✈️ Airline industry</span>
-      </div>
-    </div>
   </div>
 
   <section class="section" id="experience">
