@@ -6,7 +6,7 @@
 <title>Kaashvi Arora</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #faf9f5;
@@ -160,6 +160,7 @@ html[data-theme="night"] .hud-node { background:linear-gradient(135deg, rgba(159
 @keyframes cubeSpin { to{transform:rotateX(360deg) rotateY(360deg);} }
 @keyframes cornerDrift { to{transform:rotate(42deg) scale(1.12);} }
 @keyframes lineWake { 0%{opacity:0.4;} 100%{opacity:1;} }
+@keyframes cursorPing { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.88;} 50%{transform:translate(-50%,-50%) scale(1.25);opacity:0.38;} }
 
 /* ── FIXED: airplane & cloud animations ── */
 @keyframes airplaneFly {
@@ -184,6 +185,62 @@ html[data-theme="night"] .hud-node { background:linear-gradient(135deg, rgba(159
 }
 
 ::selection { background:var(--accent); color:white; }
+
+body.cursor-enabled,
+body.cursor-enabled a,
+body.cursor-enabled button,
+body.cursor-enabled .card,
+body.cursor-enabled .chip,
+body.cursor-enabled .filter-btn { cursor: none; }
+
+.cursor-dot,
+.cursor-ring {
+  position:fixed;
+  left:0;
+  top:0;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:2000;
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:opacity 0.18s ease, width 0.18s ease, height 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+.cursor-dot {
+  width:8px;
+  height:8px;
+  background:var(--tape);
+  box-shadow:0 0 18px var(--tape), 0 0 34px var(--accent-glow);
+}
+.cursor-ring {
+  width:34px;
+  height:34px;
+  border:1px solid var(--accent);
+  box-shadow:0 0 28px var(--accent-glow);
+  mix-blend-mode:multiply;
+}
+html[data-theme="night"] .cursor-ring { mix-blend-mode:screen; }
+.cursor-ring::after {
+  content:'';
+  position:absolute;
+  inset:7px;
+  border-radius:50%;
+  border:1px dashed var(--accent-2);
+  animation:orbitSpin 2.8s linear infinite;
+}
+body.cursor-ready .cursor-dot,
+body.cursor-ready .cursor-ring { opacity:1; }
+body.cursor-hover .cursor-dot {
+  width:12px;
+  height:12px;
+  background:var(--accent-3);
+  box-shadow:0 0 18px rgba(181,71,102,0.38);
+}
+body.cursor-hover .cursor-ring {
+  width:54px;
+  height:54px;
+  border-color:var(--tape);
+  animation:cursorPing 1.2s ease-in-out infinite;
+}
 
 #particle-canvas { position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.55; }
 
@@ -339,6 +396,16 @@ html[data-theme="night"] .cloud { background:rgba(255,255,255,0.12); }
 }
 html[data-theme="night"] .home-kicker { background:rgba(29,33,29,0.64); }
 .home-title { font-family:'Fraunces', serif; font-size:8.2rem; font-weight:600; line-height:0.86; letter-spacing:0; }
+.home-title.typing::after {
+  content:'';
+  display:inline-block;
+  width:0.08em;
+  height:0.78em;
+  margin-left:0.08em;
+  background:var(--accent);
+  vertical-align:-0.04em;
+  animation:pulse 0.9s steps(1) infinite;
+}
 .home-subtitle { color:var(--ink); font-size:1.08rem; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; }
 .home-scroll {
   position:absolute; z-index:2; left:50%; bottom:1.4rem; transform:translateX(-50%);
@@ -534,28 +601,29 @@ html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,3
 .contact-links svg { width:16px;height:16px; }
 .contact-card.reveal.visible .contact-links a { animation:tagPop 0.52s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
 
-.project-card-detailed { overflow:hidden;padding:0;position:relative; }
+.projects-grid { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:0.9rem; align-items:stretch; }
+.project-card-detailed { overflow:hidden;padding:0;position:relative;margin-bottom:0;display:flex;flex-direction:column;min-height:100%; }
 .project-card-detailed::before { content:''; position:absolute; inset:0 auto 0 -45%; width:42%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); transform:skewX(-16deg); opacity:0; pointer-events:none; }
 .project-card-detailed:hover::before { animation:projectGlint 0.9s ease; }
 .project-card-detailed.is-hidden { display:none; }
-.project-card-detailed .pc-header { padding:1.4rem 1.7rem 0.9rem; }
+.project-card-detailed .pc-header { padding:1rem 1rem 0.7rem; }
 .project-card-detailed .pc-tag-row { display:flex;justify-content:space-between;align-items:center;margin-bottom:0.7rem;flex-wrap:wrap;gap:0.4rem; }
-.project-card-detailed .pc-tag { background:var(--accent-soft);color:var(--accent);padding:0.22rem 0.65rem;border-radius:4px;font-size:0.72rem;font-weight:600; }
-.project-card-detailed .pc-when { color:var(--ink-mute);font-size:0.8rem; }
-.project-card-detailed h3 { font-family:'Fraunces',serif;font-size:1.25rem;font-weight:500;line-height:1.25;margin-bottom:0.25rem; }
-.project-card-detailed .pc-deck { color:var(--ink-mute);font-size:0.86rem;font-style:italic;margin-bottom:1.1rem; }
-.project-card-detailed ul { list-style:none;margin-bottom:1.1rem; }
-.project-card-detailed li { color:var(--ink);margin-bottom:0.55rem;padding-left:1.4rem;position:relative;font-size:0.9rem;line-height:1.65; }
+.project-card-detailed .pc-tag { background:var(--accent-soft);color:var(--accent);padding:0.2rem 0.52rem;border-radius:4px;font-size:0.66rem;font-weight:700; }
+.project-card-detailed .pc-when { color:var(--ink-mute);font-size:0.68rem; }
+.project-card-detailed h3 { font-family:'Fraunces',serif;font-size:1.02rem;font-weight:500;line-height:1.2;margin-bottom:0.25rem; }
+.project-card-detailed .pc-deck { color:var(--ink-mute);font-size:0.74rem;font-style:italic;margin-bottom:0.8rem; }
+.project-card-detailed ul { list-style:none;margin-bottom:0.8rem; }
+.project-card-detailed li { color:var(--ink);margin-bottom:0.42rem;padding-left:1.05rem;position:relative;font-size:0.74rem;line-height:1.5; }
 .project-card-detailed li::before { content:'';position:absolute;left:0.2rem;top:0.65rem;width:8px;height:1px;background:var(--accent);transform-origin:left center; }
 .project-card-detailed.reveal.visible li::before { animation:dashDraw 0.55s ease both; animation-delay:var(--stagger,0ms); }
 .project-card-detailed li strong { font-weight:600; }
-.project-card-detailed .pc-stack { display:flex;flex-wrap:wrap;gap:0.3rem;padding:0.9rem 1.7rem 1.4rem;border-top:1px solid var(--line);background:var(--bg-soft); }
-.project-card-detailed .pc-stack span { padding:0.22rem 0.65rem;background:var(--bg-card);border:1px solid var(--line);border-radius:4px;font-size:0.72rem;color:var(--ink-soft);font-weight:500; }
+.project-card-detailed .pc-stack { display:flex;flex-wrap:wrap;gap:0.25rem;padding:0.72rem 1rem 1rem;border-top:1px solid var(--line);background:var(--bg-soft);margin-top:auto; }
+.project-card-detailed .pc-stack span { padding:0.18rem 0.46rem;background:var(--bg-card);border:1px solid var(--line);border-radius:4px;font-size:0.64rem;color:var(--ink-soft);font-weight:500; }
 .project-card-detailed.reveal.visible .pc-stack span { animation:tagPop 0.5s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
-.pc-demo-link { margin:0 1.7rem 1.1rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.9rem 1rem; border:1px solid var(--line); border-radius:8px; background:linear-gradient(135deg,rgba(255,0,0,0.08),var(--bg-soft)); color:var(--ink); text-decoration:none; transition:transform 0.2s ease,border-color 0.2s ease,box-shadow 0.2s ease; }
+.pc-demo-link { margin:0 1rem 0.75rem; display:flex; align-items:center; justify-content:space-between; gap:0.7rem; padding:0.64rem 0.72rem; border:1px solid var(--line); border-radius:8px; background:linear-gradient(135deg,rgba(255,0,0,0.08),var(--bg-soft)); color:var(--ink); text-decoration:none; transition:transform 0.2s ease,border-color 0.2s ease,box-shadow 0.2s ease; }
 .pc-demo-link:hover { transform:translateY(-2px);border-color:#ff0033;box-shadow:0 10px 28px rgba(255,0,51,0.12); }
-.pc-demo-link span { font-family:'Fraunces',serif;font-size:1rem;font-weight:600; }
-.pc-demo-link svg { width:28px;height:28px;color:#ff0033;flex-shrink:0; }
+.pc-demo-link span { font-family:'Fraunces',serif;font-size:0.82rem;font-weight:600; }
+.pc-demo-link svg { width:22px;height:22px;color:#ff0033;flex-shrink:0; }
 .project-controls { display:flex;flex-wrap:wrap;gap:0.45rem;margin:-0.8rem 0 1.1rem; }
 .filter-btn { border:1px solid var(--line); background:var(--bg-card); color:var(--ink-soft); border-radius:999px; padding:0.45rem 0.82rem; font:600 0.8rem/1 'Inter',sans-serif; cursor:pointer; transition:all 0.2s ease; }
 .filter-btn:hover { border-color:var(--accent);color:var(--accent);transform:translateY(-1px); }
@@ -600,6 +668,7 @@ footer { max-width:1120px;margin:4rem auto 0;padding:2rem 1.5rem;border-top:1px 
 footer a { color:var(--accent);text-decoration:none; }
 footer a:hover { text-decoration:underline; }
 
+@media(max-width:900px){ .projects-grid{grid-template-columns:repeat(2, minmax(0,1fr));} }
 @media(max-width:980px){ .home-title{font-size:5.8rem;} .home-subtitle{font-size:0.95rem;} }
 @media(max-width:768px){
   .skills-header{flex-direction:column;text-align:center;gap:1rem;}
@@ -627,6 +696,8 @@ footer a:hover { text-decoration:underline; }
   .exp-card .exp-stack{align-items:flex-start!important;justify-content:flex-start!important;}
   .exp-card .head,.lead-card .head{flex-direction:column;gap:0.25rem;} .exp-time{margin-left:0;align-items:flex-start;}
   .project-card-detailed .pc-header{padding:1.2rem 1.2rem 0.8rem;} .project-card-detailed .pc-stack{padding:0.8rem 1.2rem 1.2rem;} .pc-demo-link{margin:0 1.2rem 1rem;}
+  .projects-grid{grid-template-columns:1fr;}
+  .project-card-detailed h3{font-size:1.16rem;} .project-card-detailed .pc-deck{font-size:0.82rem;} .project-card-detailed li{font-size:0.86rem;}
   .skills-shell{padding:1rem;} .skills-header{grid-template-columns:1fr;margin-bottom:1rem;}
   .skill-orbit{width:120px;height:120px;margin:0 auto;} .skill-cube{inset:36px;}
   .skill-cube span:nth-child(1){transform:translateZ(24px);} .skill-cube span:nth-child(2){transform:rotateY(90deg) translateZ(24px);} .skill-cube span:nth-child(3){transform:rotateY(180deg) translateZ(24px);} .skill-cube span:nth-child(4){transform:rotateY(-90deg) translateZ(24px);} .skill-cube span:nth-child(5){transform:rotateX(90deg) translateZ(24px);} .skill-cube span:nth-child(6){transform:rotateX(-90deg) translateZ(24px);}
@@ -640,11 +711,17 @@ footer a:hover { text-decoration:underline; }
   *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;}
   .tech-bg::after{display:none;}
 }
+@media(pointer:coarse){
+  body.cursor-enabled, body.cursor-enabled a, body.cursor-enabled button, body.cursor-enabled .card, body.cursor-enabled .chip, body.cursor-enabled .filter-btn { cursor:auto; }
+  .cursor-dot, .cursor-ring { display:none; }
+}
 </style>
 </head>
 <body>
 
 <div id="scroll-progress" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
 <div class="tech-bg" aria-hidden="true">
   <span class="hud-node one"></span>
   <span class="hud-node two"></span>
@@ -699,7 +776,7 @@ footer a:hover { text-decoration:underline; }
   </div>
   <div class="home-content reveal">
     <div class="home-kicker">Portfolio</div>
-    <h1 class="home-title">KAASHVI ARORA</h1>
+    <h1 class="home-title typing" id="typed-name" data-title="KAASHVI ARORA" aria-label="KAASHVI ARORA"></h1>
     <p class="home-subtitle">Builder. Learner. Innovator.</p>
   </div>
   <a class="home-scroll" href="#about">About</a>
@@ -709,8 +786,7 @@ footer a:hover { text-decoration:underline; }
 
   <section class="hero section reveal" id="about">
     <div class="hero-left">
-      <span class="greeting">Open to opportunities</span>
-      <p class="tagline">Hey, I am a Year 3 student at Singapore Management University studying B.Sc. Information Systems — <strong>Business Analytics &amp; Fin-Tech</strong>.</p>
+      <p class="tagline">Hi, I am an Information Systems student studying at Singapore Management University, specialising in <strong>Business Analytics and Fin-Tech</strong>.</p>
       <div class="card looking-card hero-looking">
         <div class="icon-circle">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -745,8 +821,8 @@ footer a:hover { text-decoration:underline; }
           <h3>Technology &amp; Strategy Builder</h3>
           <p>Designing smarter systems, cleaner workflows, and products with real impact.</p>
           <div class="visual-list">
-            <div><span>Current focus</span><strong>Data &amp; Automation</strong></div>
-            <div><span>Graduation</span><strong>2028</strong></div>
+            <div><span>Area of focus</span><strong>data &amp; automation</strong></div>
+            <div><span>Graduation</span><strong>SMU 2028</strong></div>
             <div><span>Best arena</span><strong>Cross-functional teams</strong></div>
           </div>
         </div>
@@ -822,7 +898,7 @@ footer a:hover { text-decoration:underline; }
             <div class="org">Signet Scarves</div>
             <div class="exp-time">
               <span class="exp-location">India</span>
-              <span class="when">Nov 2025 — Jan 2026</span>
+              <span class="when">May 2025 — July 2025</span>
             </div>
           </div>
           <div class="head"><h3>Data Analytics Intern</h3></div>
@@ -835,7 +911,7 @@ footer a:hover { text-decoration:underline; }
             <div class="org">SRC Financial Services</div>
             <div class="exp-time">
               <span class="exp-location">India</span>
-              <span class="when">Nov 2024 — Jan 2025</span>
+              <span class="when">Oct 2025 — Dec 2025</span>
             </div>
           </div>
           <div class="head"><h3>Financial Analytics Intern</h3></div>
@@ -854,6 +930,7 @@ footer a:hover { text-decoration:underline; }
       <button class="filter-btn" type="button" data-filter="microservices">Microservices</button>
     </div>
 
+    <div class="projects-grid">
     <div class="card project-card-detailed reveal" data-categories="ai fullstack">
       <div class="pc-header">
         <div class="pc-tag-row"><span class="pc-tag">AI / ML / Analytics</span><span class="pc-when">Jan 2026 — Mar 2026</span></div>
@@ -915,6 +992,7 @@ footer a:hover { text-decoration:underline; }
       </div>
       <div class="pc-stack"><span>Microsoft Azure</span><span>Docker Compose</span><span>Odoo</span><span>Moodle</span><span>ITIL 4</span><span>RBAC</span></div>
     </div>
+    </div>
   </section>
 
   <section class="section" id="skills">
@@ -939,7 +1017,7 @@ footer a:hover { text-decoration:underline; }
         </div>
         <div class="skill-block">
           <h4><span class="num">03</span> Business Application / Automation</h4>
-          <div class="skill-tags"><span>Microsoft Power Automate</span><span>Microsoft Power Apps (Model-Driven & Canvas)</span></span><span>Dataverse</span><span>SharePoint</span></div>
+          <div class="skill-tags"><span>Microsoft Power Automate</span><span>Microsoft Power Apps (Model-Driven &amp; Canvas)</span><span>Dataverse</span><span>SharePoint</span></div>
         </div>
         <div class="skill-block wide">
           <h4><span class="num">04</span> Infrastructure</h4>
@@ -1025,6 +1103,48 @@ footer a:hover { text-decoration:underline; }
 <script>
 const root = document.documentElement;
 const themeToggle = document.getElementById('theme-toggle');
+const typedName = document.getElementById('typed-name');
+if (typedName) {
+  const title = typedName.dataset.title || '';
+  let i = 0;
+  const typeName = () => {
+    typedName.textContent = title.slice(0, i);
+    i += 1;
+    if (i <= title.length) window.setTimeout(typeName, 78);
+    else window.setTimeout(() => typedName.classList.remove('typing'), 700);
+  };
+  window.setTimeout(typeName, 360);
+}
+
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorRing = document.querySelector('.cursor-ring');
+let cursorX = window.innerWidth / 2;
+let cursorY = window.innerHeight / 2;
+let ringX = cursorX;
+let ringY = cursorY;
+if (cursorDot && cursorRing && window.matchMedia('(pointer:fine)').matches) {
+  document.body.classList.add('cursor-enabled');
+  document.addEventListener('pointermove', e => {
+    cursorX = e.clientX;
+    cursorY = e.clientY;
+    document.body.classList.add('cursor-ready');
+    cursorDot.style.left = `${cursorX}px`;
+    cursorDot.style.top = `${cursorY}px`;
+  }, { passive: true });
+  document.querySelectorAll('a, button, .card, .chip, .filter-btn').forEach(el => {
+    el.addEventListener('pointerenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('pointerleave', () => document.body.classList.remove('cursor-hover'));
+  });
+  const moveCursorRing = () => {
+    ringX += (cursorX - ringX) * 0.18;
+    ringY += (cursorY - ringY) * 0.18;
+    cursorRing.style.left = `${ringX}px`;
+    cursorRing.style.top = `${ringY}px`;
+    requestAnimationFrame(moveCursorRing);
+  };
+  moveCursorRing();
+}
+
 const savedTheme = localStorage.getItem('kaashvi-theme');
 if (savedTheme) root.dataset.theme = savedTheme;
 themeToggle.addEventListener('click', () => {
