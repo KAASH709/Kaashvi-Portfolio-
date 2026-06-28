@@ -610,6 +610,10 @@ html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,3
 .project-card-detailed .pc-tag-row { display:flex;justify-content:space-between;align-items:center;margin-bottom:0.85rem;flex-wrap:wrap;gap:0.5rem; }
 .project-card-detailed .pc-tag { background:var(--accent-soft);color:var(--accent);padding:0.26rem 0.68rem;border-radius:4px;font-size:0.76rem;font-weight:700; }
 .project-card-detailed .pc-when { color:var(--ink-mute);font-size:0.82rem; }
+.project-card-detailed .pc-meta { display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;justify-content:flex-end; }
+.pc-demo-chip { display:inline-flex;align-items:center;gap:0.28rem;padding:0.24rem 0.55rem;border:1px solid rgba(255,0,51,0.2);border-radius:999px;background:rgba(255,0,51,0.07);color:#d6002b;text-decoration:none;font-size:0.74rem;font-weight:700;line-height:1;transition:transform 0.2s ease,border-color 0.2s ease,background 0.2s ease; }
+.pc-demo-chip:hover { transform:translateY(-1px);border-color:#ff0033;background:rgba(255,0,51,0.12); }
+.pc-demo-chip svg { width:15px;height:15px;flex-shrink:0; }
 .project-card-detailed h3 { font-family:'Fraunces',serif;font-size:1.32rem;font-weight:500;line-height:1.22;margin-bottom:0.35rem; }
 .project-card-detailed .pc-deck { color:var(--ink-mute);font-size:0.9rem;font-style:italic;margin-bottom:1rem; }
 .project-card-detailed ul { list-style:none;margin-bottom:1rem; }
@@ -620,10 +624,6 @@ html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,3
 .project-card-detailed .pc-stack { display:flex;flex-wrap:wrap;gap:0.36rem;padding:0.95rem 1.45rem 1.25rem;border-top:1px solid var(--line);background:var(--bg-soft);margin-top:auto; }
 .project-card-detailed .pc-stack span { padding:0.24rem 0.62rem;background:var(--bg-card);border:1px solid var(--line);border-radius:4px;font-size:0.76rem;color:var(--ink-soft);font-weight:500; }
 .project-card-detailed.reveal.visible .pc-stack span { animation:tagPop 0.5s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
-.pc-demo-link { margin:0 1.45rem 1rem; display:flex; align-items:center; justify-content:space-between; gap:0.8rem; padding:0.78rem 0.9rem; border:1px solid var(--line); border-radius:8px; background:linear-gradient(135deg,rgba(255,0,0,0.08),var(--bg-soft)); color:var(--ink); text-decoration:none; transition:transform 0.2s ease,border-color 0.2s ease,box-shadow 0.2s ease; }
-.pc-demo-link:hover { transform:translateY(-2px);border-color:#ff0033;box-shadow:0 10px 28px rgba(255,0,51,0.12); }
-.pc-demo-link span { font-family:'Fraunces',serif;font-size:1rem;font-weight:600; }
-.pc-demo-link svg { width:26px;height:26px;color:#ff0033;flex-shrink:0; }
 .project-controls { display:flex;flex-wrap:wrap;gap:0.45rem;margin:-0.8rem 0 1.1rem; }
 .filter-btn { border:1px solid var(--line); background:var(--bg-card); color:var(--ink-soft); border-radius:999px; padding:0.45rem 0.82rem; font:600 0.8rem/1 'Inter',sans-serif; cursor:pointer; transition:all 0.2s ease; }
 .filter-btn:hover { border-color:var(--accent);color:var(--accent);transform:translateY(-1px); }
@@ -694,7 +694,7 @@ footer a:hover { text-decoration:underline; }
   .exp-card::after{left:-1.72rem!important;right:auto!important;}
   .exp-card .exp-stack{align-items:flex-start!important;justify-content:flex-start!important;}
   .exp-card .head,.lead-card .head{flex-direction:column;gap:0.25rem;} .exp-time{margin-left:0;align-items:flex-start;}
-  .project-card-detailed .pc-header{padding:1.2rem 1.2rem 0.8rem;} .project-card-detailed .pc-stack{padding:0.8rem 1.2rem 1.2rem;} .pc-demo-link{margin:0 1.2rem 1rem;}
+  .project-card-detailed .pc-header{padding:1.2rem 1.2rem 0.8rem;} .project-card-detailed .pc-stack{padding:0.8rem 1.2rem 1.2rem;}
   .projects-grid{grid-template-columns:1fr;}
   .project-card-detailed h3{font-size:1.16rem;} .project-card-detailed .pc-deck{font-size:0.82rem;} .project-card-detailed li{font-size:0.86rem;}
   .skills-shell{padding:1rem;} .skills-header{grid-template-columns:1fr;margin-bottom:1rem;}
@@ -913,14 +913,19 @@ footer a:hover { text-decoration:underline; }
     <div class="projects-grid">
     <div class="card project-card-detailed reveal" data-categories="ai fullstack">
       <div class="pc-header">
-        <div class="pc-tag-row"><span class="pc-tag">AI / ML / Analytics</span><span class="pc-when">Jan 2026 — Mar 2026</span></div>
+        <div class="pc-tag-row">
+          <span class="pc-tag">AI / ML / Analytics</span>
+          <span class="pc-meta">
+            <span class="pc-when">Jan 2026 — Mar 2026</span>
+            <a class="pc-demo-chip" href="https://www.youtube.com/watch?v=8yEX8F5cxBQ" target="_blank" rel="noreferrer" aria-label="Open prototype demo on YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+              Demo
+            </a>
+          </span>
+        </div>
         <h3>AI-Powered Pet Adoption &amp; Welfare Digital Application</h3>
         <div class="pc-deck">Digital Business &amp; Transformation</div>
       </div>
-      <a class="pc-demo-link" href="https://www.youtube.com/watch?v=8yEX8F5cxBQ" target="_blank" rel="noreferrer" aria-label="Open prototype demo on YouTube">
-        <span>Prototype demo</span>
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
-      </a>
       <div class="pc-header" style="padding-top:0">
         <ul>
           <li>Architected the <strong>Supabase PostgreSQL backend</strong> with normalized schemas and row-level security policies, enabling real-time pet listing retrieval and persistent user data storage.</li>
