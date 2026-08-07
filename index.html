@@ -191,7 +191,6 @@ body.cursor-enabled a,
 body.cursor-enabled button,
 body.cursor-enabled .card,
 body.cursor-enabled .chip,
-body.cursor-enabled .filter-btn { cursor: none; }
 
 .cursor-dot,
 .cursor-ring {
@@ -573,6 +572,7 @@ html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,3
 .exp-card:nth-of-type(even)::before { left:-2.1rem; transform:scaleX(-1); }
 .exp-card .head { display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:0.95rem;flex-wrap:wrap; }
 .exp-card .head h3 { font-family:'Fraunces',serif;font-size:1.08rem;font-weight:500;line-height:1.2;display:flex;align-items:center;gap:0.55rem; }
+.exp-card p { color:var(--ink);font-size:0.87rem;line-height:1.58; }
 .exp-card .live-dot { display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;box-shadow:0 0 0 4px var(--accent-glow); }
 .exp-card .when { color:var(--ink-mute);font-size:0.82rem;white-space:nowrap;padding-top:0.18rem; }
 .exp-org-row { display:flex;align-items:center;gap:0.65rem;margin-bottom:0.65rem;flex-wrap:wrap; }
@@ -589,6 +589,7 @@ html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,3
 .exp-card li strong { font-weight:600; }
 .exp-stack { display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:1.1rem;padding-top:0.9rem;border-top:1px solid var(--line); }
 .exp-stack span { padding:0.22rem 0.65rem;background:var(--bg-soft);border:1px solid var(--line);border-radius:4px;font-size:0.72rem;color:var(--ink-soft);font-weight:500; }
+.exp-stack .stack-label { background:transparent;border:none;padding-left:0;color:var(--accent);font-weight:700; }
 .exp-card.reveal.visible .exp-stack span { animation:tagPop 0.5s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
 
 .contact-card { position:relative; overflow:hidden; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1.3rem; align-items:center; background:radial-gradient(circle at 85% 22%, rgba(245,184,0,0.17), transparent 0 8rem, transparent 15rem),linear-gradient(135deg,var(--accent) 0%,var(--accent-deep) 100%); color:white; border:none; }
@@ -601,33 +602,39 @@ html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,3
 .contact-links svg { width:16px;height:16px; }
 .contact-card.reveal.visible .contact-links a { animation:tagPop 0.52s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
 
-.projects-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:1.1rem; align-items:stretch; }
-.project-card-detailed { overflow:hidden;padding:0;position:relative;margin-bottom:0;display:flex;flex-direction:column;min-height:100%; }
-.project-card-detailed::before { content:''; position:absolute; inset:0 auto 0 -45%; width:42%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); transform:skewX(-16deg); opacity:0; pointer-events:none; }
+.projects-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:1.25rem; align-items:stretch; }
+.project-card-detailed { --project-accent:var(--accent); overflow:hidden;padding:0;position:relative;margin-bottom:0;display:flex;flex-direction:column;min-height:100%; border-radius:16px; border-color:color-mix(in srgb, var(--project-accent) 24%, var(--line)); box-shadow:0 12px 32px rgba(26,26,23,0.05); }
+.project-card-detailed:nth-child(2) { --project-accent:var(--accent-2); }
+.project-card-detailed:nth-child(3) { --project-accent:var(--accent-3); }
+.project-card-detailed:nth-child(4) { --project-accent:#96703d; }
+.project-card-detailed:nth-child(5) { --project-accent:#6d6098; }
+.project-card-detailed::after { content:''; position:absolute; left:0;top:0;width:100%;height:4px; background:linear-gradient(90deg,var(--project-accent),transparent 82%); z-index:2; }
+.project-card-detailed::before { content:''; position:absolute; inset:0 auto 0 -45%; width:42%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); transform:skewX(-16deg); opacity:0; pointer-events:none; z-index:3; }
 .project-card-detailed:hover::before { animation:projectGlint 0.9s ease; }
+.project-card-detailed:hover { border-color:var(--project-accent); box-shadow:0 22px 46px color-mix(in srgb, var(--project-accent) 18%, transparent); transform:translateY(-5px); }
 .project-card-detailed.is-hidden { display:none; }
-.project-card-detailed .pc-header { padding:1.35rem 1.45rem 1rem; }
-.project-card-detailed .pc-tag-row { display:flex;justify-content:space-between;align-items:center;margin-bottom:0.85rem;flex-wrap:wrap;gap:0.5rem; }
+.project-card-detailed .pc-header { padding:1.5rem 1.5rem 1.35rem; background:linear-gradient(145deg,color-mix(in srgb, var(--project-accent) 9%, var(--bg-card)),var(--bg-card) 58%); }
+.project-card-detailed .pc-tag-row { display:flex;justify-content:flex-end;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem; }
 .project-card-detailed .pc-tag { background:var(--accent-soft);color:var(--accent);padding:0.26rem 0.68rem;border-radius:4px;font-size:0.76rem;font-weight:700; }
-.project-card-detailed .pc-when { color:var(--ink-mute);font-size:0.82rem; }
+.project-card-detailed .pc-when { color:var(--project-accent);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.32rem 0.58rem;border:1px solid color-mix(in srgb, var(--project-accent) 24%, transparent);border-radius:999px;background:color-mix(in srgb, var(--project-accent) 8%, transparent); }
 .project-card-detailed .pc-meta { display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;justify-content:flex-end; }
 .pc-demo-chip { display:inline-flex;align-items:center;gap:0.28rem;padding:0.24rem 0.55rem;border:1px solid rgba(255,0,51,0.2);border-radius:999px;background:rgba(255,0,51,0.07);color:#d6002b;text-decoration:none;font-size:0.74rem;font-weight:700;line-height:1;transition:transform 0.2s ease,border-color 0.2s ease,background 0.2s ease; }
 .pc-demo-chip:hover { transform:translateY(-1px);border-color:#ff0033;background:rgba(255,0,51,0.12); }
 .pc-demo-chip svg { width:15px;height:15px;flex-shrink:0; }
-.project-card-detailed h3 { font-family:'Fraunces',serif;font-size:1.32rem;font-weight:500;line-height:1.22;margin-bottom:0.35rem; }
-.project-card-detailed .pc-deck { color:var(--ink-mute);font-size:0.9rem;font-style:italic;margin-bottom:1rem; }
+.project-card-detailed h3 { font-family:'Fraunces',serif;font-size:1.42rem;font-weight:500;line-height:1.18;margin-bottom:0.48rem;display:flex;align-items:flex-start;gap:0.62rem; }
+.project-icon { flex:0 0 auto;display:inline-grid;place-items:center;width:2rem;height:2rem;border-radius:9px;background:color-mix(in srgb, var(--project-accent) 13%, var(--bg-card));font-family:'Inter',sans-serif;font-size:1.05rem;line-height:1; }
+.project-card-detailed .pc-deck { color:var(--project-accent);font-size:0.78rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:0; }
+.project-card-detailed .pc-description { color:var(--ink-soft);font-size:0.93rem;line-height:1.68;margin-top:1.1rem; }
 .project-card-detailed ul { list-style:none;margin-bottom:1rem; }
 .project-card-detailed li { color:var(--ink);margin-bottom:0.62rem;padding-left:1.32rem;position:relative;font-size:0.94rem;line-height:1.62; }
 .project-card-detailed li::before { content:'';position:absolute;left:0.2rem;top:0.65rem;width:8px;height:1px;background:var(--accent);transform-origin:left center; }
 .project-card-detailed.reveal.visible li::before { animation:dashDraw 0.55s ease both; animation-delay:var(--stagger,0ms); }
 .project-card-detailed li strong { font-weight:600; }
-.project-card-detailed .pc-stack { display:flex;flex-wrap:wrap;gap:0.36rem;padding:0.95rem 1.45rem 1.25rem;border-top:1px solid var(--line);background:var(--bg-soft);margin-top:auto; }
-.project-card-detailed .pc-stack span { padding:0.24rem 0.62rem;background:var(--bg-card);border:1px solid var(--line);border-radius:4px;font-size:0.76rem;color:var(--ink-soft);font-weight:500; }
+.project-card-detailed .pc-stack { display:flex;flex-wrap:wrap;gap:0.42rem;padding:1.65rem 1.5rem 1.3rem;border-top:1px solid var(--line);background:linear-gradient(135deg,var(--bg-soft),color-mix(in srgb, var(--project-accent) 7%, var(--bg-soft)));margin-top:auto;position:relative; }
+.project-card-detailed .pc-stack::before { content:'Tools used'; position:absolute;top:0.62rem;left:1.5rem;color:var(--ink-mute);font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700; }
+.project-card-detailed .pc-stack span { padding:0.28rem 0.62rem;background:var(--bg-card);border:1px solid var(--line);border-radius:999px;font-size:0.74rem;color:var(--ink-soft);font-weight:600; }
+.project-card-detailed:nth-child(5) { grid-column:1 / -1; }
 .project-card-detailed.reveal.visible .pc-stack span { animation:tagPop 0.5s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
-.project-controls { display:flex;flex-wrap:wrap;gap:0.45rem;margin:-0.8rem 0 1.1rem; }
-.filter-btn { border:1px solid var(--line); background:var(--bg-card); color:var(--ink-soft); border-radius:999px; padding:0.45rem 0.82rem; font:600 0.8rem/1 'Inter',sans-serif; cursor:pointer; transition:all 0.2s ease; }
-.filter-btn:hover { border-color:var(--accent);color:var(--accent);transform:translateY(-1px); }
-.filter-btn.active { background:var(--accent);border-color:var(--accent);color:white; }
 
 .skills-shell { position: relative; overflow: hidden; padding: 1.4rem; background:radial-gradient(circle at 82% 18%, rgba(245,184,0,0.12), transparent 0 9rem, transparent 16rem),radial-gradient(circle at 12% 78%, rgba(17,107,140,0.11), transparent 0 8rem, transparent 16rem),linear-gradient(135deg, rgba(45,95,74,0.08), transparent 42%),var(--bg-card); }
 .skills-shell::before { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg, transparent 0 49%, var(--hud) 49% 50%, transparent 50% 100%),linear-gradient(0deg, transparent 0 49%, var(--hud-bright) 49% 50%, transparent 50% 100%); background-size:72px 72px; opacity:0.32; transform:perspective(700px) rotateX(58deg) translateY(18%); transform-origin:center bottom; animation:gridBreathe 8s ease-in-out infinite alternate; }
@@ -694,9 +701,9 @@ footer a:hover { text-decoration:underline; }
   .exp-card::after{left:-1.72rem!important;right:auto!important;}
   .exp-card .exp-stack{align-items:flex-start!important;justify-content:flex-start!important;}
   .exp-card .head,.lead-card .head{flex-direction:column;gap:0.25rem;} .exp-time{margin-left:0;align-items:flex-start;}
-  .project-card-detailed .pc-header{padding:1.2rem 1.2rem 0.8rem;} .project-card-detailed .pc-stack{padding:0.8rem 1.2rem 1.2rem;}
+  .project-card-detailed .pc-header{padding:1.2rem 1.2rem 1rem;} .project-card-detailed .pc-stack{padding:1.5rem 1.2rem 1.2rem;} .project-card-detailed .pc-stack::before{left:1.2rem;}
   .projects-grid{grid-template-columns:1fr;}
-  .project-card-detailed h3{font-size:1.16rem;} .project-card-detailed .pc-deck{font-size:0.82rem;} .project-card-detailed li{font-size:0.86rem;}
+  .project-card-detailed h3{font-size:1.16rem;} .project-card-detailed .pc-deck{font-size:0.72rem;} .project-card-detailed .pc-description{font-size:0.88rem;} .project-card-detailed li{font-size:0.86rem;}
   .skills-shell{padding:1rem;} .skills-header{grid-template-columns:1fr;margin-bottom:1rem;}
   .skill-orbit{width:120px;height:120px;margin:0 auto;} .skill-cube{inset:36px;}
   .skill-cube span:nth-child(1){transform:translateZ(24px);} .skill-cube span:nth-child(2){transform:rotateY(90deg) translateZ(24px);} .skill-cube span:nth-child(3){transform:rotateY(180deg) translateZ(24px);} .skill-cube span:nth-child(4){transform:rotateY(-90deg) translateZ(24px);} .skill-cube span:nth-child(5){transform:rotateX(90deg) translateZ(24px);} .skill-cube span:nth-child(6){transform:rotateX(-90deg) translateZ(24px);}
@@ -711,7 +718,7 @@ footer a:hover { text-decoration:underline; }
   .tech-bg::after{display:none;}
 }
 @media(pointer:coarse){
-  body.cursor-enabled, body.cursor-enabled a, body.cursor-enabled button, body.cursor-enabled .card, body.cursor-enabled .chip, body.cursor-enabled .filter-btn { cursor:auto; }
+  body.cursor-enabled, body.cursor-enabled a, body.cursor-enabled button, body.cursor-enabled .card, body.cursor-enabled .chip { cursor:auto; }
   .cursor-dot, .cursor-ring { display:none; }
 }
 </style>
@@ -738,14 +745,14 @@ footer a:hover { text-decoration:underline; }
       <a class="nav-pill active" href="#about" data-section="about">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2"/></svg>About
       </a>
+      <a class="nav-pill" href="#skills" data-section="skills">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Skills
+      </a>
       <a class="nav-pill" href="#experience" data-section="experience">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>Experience
       </a>
       <a class="nav-pill" href="#projects" data-section="projects">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Projects
-      </a>
-      <a class="nav-pill" href="#skills" data-section="skills">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Skills
       </a>
       <a class="nav-pill" href="#leadership" data-section="leadership">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M5 22h14M8 22v-6a4 4 0 0 1 8 0v6"/><path d="M3 9h3M18 9h3"/></svg>Leadership
@@ -785,7 +792,7 @@ footer a:hover { text-decoration:underline; }
 
   <section class="hero section reveal" id="about">
     <div class="hero-left">
-      <p class="tagline">Hi, I am an Information Systems student studying at Singapore Management University, specialising in <strong>Business Analytics and Fin-Tech</strong>.</p>
+      <p class="tagline">Hi, I am an Information Systems student studying at Singapore Management University, specialising in<br><strong>Business Analytics and Fin-Tech</strong>.</p>
       <div class="card looking-card hero-looking">
         <div class="icon-circle">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -813,7 +820,7 @@ footer a:hover { text-decoration:underline; }
           <div class="signal" aria-hidden="true"><span></span><span></span><span></span></div>
         </div>
         <div class="profile-mark">
-          <img src="assets/kaashvi.jpeg" alt="Kaashvi Arora portrait">
+          <img src="assets/kaashvi.jpg" alt="Kaashvi Arora portrait">
         </div>
         <div class="hud-radar" aria-hidden="true"></div>
         <div class="visual-card">
@@ -822,6 +829,7 @@ footer a:hover { text-decoration:underline; }
           <div class="visual-list">
             <div><span>Area of focus</span><strong>Enterprise data &amp; automation</strong></div>
             <div><span>Graduation</span><strong>SMU 2028</strong></div>
+            <div><span>Location</span><strong>Singapore</strong></div>
             <div><span>Best arena</span><strong>Cross-functional teams</strong></div>
           </div>
         </div>
@@ -838,13 +846,6 @@ footer a:hover { text-decoration:underline; }
   </section>
 
   <div style="padding-top:2rem;">
-    <div class="card intro-hero-card reveal d2">
-      <h3>A little about me</h3>
-      <p>Hello! I'm Kaashvi, a student passionate about startups, innovation, and building impactful solutions. I enjoy collaborating with ambitious people, exploring new technologies, and turning ideas into projects that solve real problems.</p>
-      <p>I've played badminton at a national level, gained a scuba diving certification, participated in hackathons, led different communities — and I'm still looking for more.</p>
-      <p>If you like sports, reading, building, or connecting — you're in the right place.</p>
-    </div>
-
     <div class="card quote-card reveal d3">
       <blockquote>
         We can't choose <em>THE GAME</em>, we can't choose <em>THE RULES</em>, we can only choose <em>HOW WE PLAY</em>.
@@ -853,6 +854,30 @@ footer a:hover { text-decoration:underline; }
     </div>
 
   </div>
+
+  <section class="section" id="skills">
+    <div class="section-label reveal"><h2>Skills &amp; <em>Tools</em></h2></div>
+    <div class="card skills-shell reveal">
+      <div class="skills-header">
+        <div class="skill-orbit" aria-hidden="true">
+          <span class="orbit-ring"></span><span class="orbit-ring two"></span><span class="orbit-dot"></span>
+          <div class="skill-cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="skill-block">
+          <h4><span class="num">01</span> Programming Languages</h4>
+          <div class="skill-tags"><span>Python</span><span>JavaScript</span><span>SQL</span><span>HTML</span><span>CSS</span><span>R</span><span>PHP</span></div>
+        </div>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-block"><h4><span class="num">02</span> Data &amp; Analytics</h4><div class="skill-tags"><span>Power BI</span><span>Tableau</span><span>Pandas</span><span>Microsoft Excel</span><span>Power Query</span><span>Matplotlib</span><span>NumPy</span></div></div>
+        <div class="skill-block"><h4><span class="num">03</span> Business Application / Automation</h4><div class="skill-tags"><span>Microsoft Power Automate</span><span>Microsoft Power Apps (Model-Driven &amp; Canvas)</span><span>Dataverse</span><span>SharePoint</span></div></div>
+        <div class="skill-block wide"><h4><span class="num">04</span> Infrastructure</h4><div class="skill-tags"><span>GitHub</span><span>Docker</span><span>PostgreSQL</span><span>MongoDB</span><span>Postman</span><span>OutSystems</span><span>Microsoft Azure</span><span>Supabase</span><span>Kong API Gateway</span><span>Message-Oriented Middleware</span><span>Event-Driven Architecture</span></div></div>
+        <div class="skill-block compact"><h4><span class="num">05</span> Frameworks</h4><div class="skill-tags"><span>Node.js</span><span>Vue.js</span></div></div>
+        <div class="skill-block compact"><h4><span class="num">06</span> Mathematical Foundation</h4><div class="skill-tags"><span>Probability &amp; Statistics</span><span>Linear Algebra</span></div></div>
+        <div class="skill-block"><h4><span class="num">07</span> Quality Assurance &amp; IT Management</h4><div class="skill-tags"><span>User Acceptance Testing (UAT)</span><span>Agile</span><span>DevOps</span><span>Asset Management Tool (AMT)</span><span>JIRA</span></div></div>
+      </div>
+    </div>
+  </section>
 
   <section class="section" id="experience">
     <div class="section-label reveal"><h2><em>Experience</em></h2></div>
@@ -865,10 +890,12 @@ footer a:hover { text-decoration:underline; }
             <div class="org">Vena Group</div>
             <div class="exp-time">
               <span class="exp-location">Singapore</span>
-              <span class="when">May 2026 — Present</span>
+              <span class="when">May 2026 — August 2026</span>
             </div>
           </div>
           <div class="head"><h3><span class="live-dot"></span>Analytics &amp; Automation Intern</h3></div>
+          <p>Worked on internal analytics and automation tools that saved teams hours of repetitive work every day. Built Power BI dashboards, automated data pipelines, and developed enterprise solutions that helped monitor business performance and infrastructure at scale.</p>
+          <div class="exp-stack"><span class="stack-label">Stack:</span><span>Microsoft Power Platform</span><span>SharePoint</span><span>Power BI</span><span>Microsoft Excel</span><span>Microsoft Azure</span><span>Postman</span><span>UAT</span></div>
         </div>
       </div>
 
@@ -882,19 +909,23 @@ footer a:hover { text-decoration:underline; }
             </div>
           </div>
           <div class="head"><h3>Data Analytics Intern</h3></div>
+          <p>Used data analytics to improve inventory planning, understand customer buying behavior, and automate sales reporting. Built interactive dashboards and customer insights that supported smarter business and marketing decisions.</p>
+          <div class="exp-stack"><span class="stack-label">Stack:</span><span>SQL</span><span>Python</span><span>Tableau</span><span>Pandas</span><span>Matplotlib</span><span>Power Automate</span></div>
         </div>
       </div>
 
       <div class="card exp-card reveal d2">
         <div class="exp-content">
           <div class="exp-org-row">
-            <div class="org">SRC Financial Services</div>
+            <div class="org">Motilal Oswal Financial Services</div>
             <div class="exp-time">
               <span class="exp-location">India</span>
-              <span class="when">Oct 2025 — Dec 2025</span>
+              <span class="when">Jan 2025 — Apr 2025</span>
             </div>
           </div>
           <div class="head"><h3>Financial Analytics Intern</h3></div>
+          <p>Developed analytics dashboards and forecasting models to help investment teams make data-driven decisions. Also analyzed client and portfolio data to uncover trends, improve reporting, and support personalized investment strategies.</p>
+          <div class="exp-stack"><span class="stack-label">Stack:</span><span>Financial Forecasting</span><span>Microsoft Excel</span><span>Power BI</span><span>Python</span><span>SQL</span><span>BPMN</span></div>
         </div>
       </div>
     </div>
@@ -902,19 +933,10 @@ footer a:hover { text-decoration:underline; }
 
   <section class="section" id="projects">
     <div class="section-label reveal"><h2><em>Projects</em></h2></div>
-    <div class="project-controls reveal" aria-label="Filter projects">
-      <button class="filter-btn active" type="button" data-filter="all">All</button>
-      <button class="filter-btn" type="button" data-filter="ai">AI / ML</button>
-      <button class="filter-btn" type="button" data-filter="cloud">Cloud</button>
-      <button class="filter-btn" type="button" data-filter="fullstack">Full-stack</button>
-      <button class="filter-btn" type="button" data-filter="microservices">Microservices</button>
-    </div>
-
     <div class="projects-grid">
-    <div class="card project-card-detailed reveal" data-categories="ai fullstack">
+    <div class="card project-card-detailed reveal">
       <div class="pc-header">
         <div class="pc-tag-row">
-          <span class="pc-tag">AI / ML / Analytics</span>
           <span class="pc-meta">
             <span class="pc-when">Jan 2026 — Mar 2026</span>
             <a class="pc-demo-chip" href="https://www.youtube.com/watch?v=8yEX8F5cxBQ" target="_blank" rel="noreferrer" aria-label="Open prototype demo on YouTube">
@@ -923,104 +945,52 @@ footer a:hover { text-decoration:underline; }
             </a>
           </span>
         </div>
-        <h3>AI-Powered Pet Adoption &amp; Welfare Digital Application</h3>
+        <h3><span class="project-icon" aria-hidden="true">🐾</span>AI-Powered Pet Adoption &amp; Welfare Digital Application</h3>
         <div class="pc-deck">Digital Business &amp; Transformation</div>
-      </div>
-      <div class="pc-header" style="padding-top:0">
-        <ul>
-          <li>Architected the <strong>Supabase PostgreSQL backend</strong> with normalized schemas and row-level security policies, enabling real-time pet listing retrieval and persistent user data storage.</li>
-          <li>Built an automated staff dashboard (HTML, JavaScript, CSS) that programmatically aggregates adoption metrics via scheduled Supabase queries, eliminating manual data entry.</li>
-          <li>Integrated <strong>GPT-4o-mini API</strong> calls into the NLP matchmaking pipeline to extract structured user preference vectors from free-text prompts.</li>
-        </ul>
+        <p class="pc-description">Built a digital platform for an SPCA-style animal welfare organization to modernize the adoption process. The app uses AI to match people with pets based on their preferences and includes lost or injured animal reporting with emergency detection to help staff respond faster.</p>
       </div>
       <div class="pc-stack"><span>Supabase</span><span>PostgreSQL</span><span>GPT-4o-mini</span><span>HTML</span><span>JavaScript</span><span>CSS</span></div>
     </div>
 
-    <div class="card project-card-detailed reveal d1" data-categories="microservices cloud">
+    <div class="card project-card-detailed reveal d1">
       <div class="pc-header">
-        <div class="pc-tag-row"><span class="pc-tag">Microservices Architecture</span><span class="pc-when">Jan 2026 — Mar 2026</span></div>
-        <h3>Smart EV Charging Management System</h3>
+        <div class="pc-tag-row"><span class="pc-when">Jan 2026 — Mar 2026</span></div>
+        <h3><span class="project-icon" aria-hidden="true">⚡</span>Smart EV Charging Management System</h3>
         <div class="pc-deck">Enterprise Solution Development</div>
-        <ul>
-          <li>Engineered the <strong>Charging Session microservice</strong> in OutSystems, exposing REST APIs consumed by downstream services to trigger session lifecycle events.</li>
-          <li>Deployed <strong>Kong API Gateway</strong> to centralize request routing and load balancing, with JWT authentication and rate limiting to secure endpoints.</li>
-          <li>Developed an event-driven pipeline using <strong>RabbitMQ (AMQP) queues</strong>, enabling asynchronous payment processing, notification alerts, and dynamic pricing.</li>
-        </ul>
+        <p class="pc-description">Created an EV charging platform that automates charging sessions, payments, notifications, and dynamic pricing. Everything runs seamlessly behind the scenes using a scalable microservices architecture, Kong API Gateway, and RabbitMQ (AMQP).</p>
       </div>
       <div class="pc-stack"><span>OutSystems</span><span>Kong API Gateway</span><span>RabbitMQ</span><span>JWT</span><span>REST APIs</span></div>
     </div>
 
-    <div class="card project-card-detailed reveal d2" data-categories="fullstack">
+    <div class="card project-card-detailed reveal d2">
       <div class="pc-header">
-        <div class="pc-tag-row"><span class="pc-tag">Full-Stack Web App</span><span class="pc-when">Feb 2026 — Mar 2026</span></div>
-        <h3>Movie Hub</h3>
+        <div class="pc-tag-row"><span class="pc-when">Feb 2026 — Mar 2026</span></div>
+        <h3><span class="project-icon" aria-hidden="true">🎬</span>Movie Hub</h3>
         <div class="pc-deck">Web Application &amp; Development</div>
-        <ul>
-          <li>Developed a <strong>full-stack web application</strong> using HTML, JavaScript, and Node.js, enabling users to browse movies, post reviews, and manage personalized watchlists.</li>
-          <li>Designed and implemented a <strong>MongoDB database</strong> to store user data, reviews, and watchlists, supporting real-time updates and persistent data management.</li>
-          <li>Implemented <strong>RESTful APIs and CRUD operations</strong> to handle review posting, retrieval, and a community review feed displaying all users' contributions.</li>
-        </ul>
+        <p class="pc-description">A social platform for movie lovers to discover new films, write reviews, and build personal watchlists. It also recommends movies based on what they have already watched, making it easier to find the next favorite.</p>
       </div>
       <div class="pc-stack"><span>Node.js</span><span>MongoDB</span><span>JavaScript</span><span>HTML</span><span>REST APIs</span></div>
     </div>
 
-    <div class="card project-card-detailed reveal d3" data-categories="cloud">
+    <div class="card project-card-detailed reveal d3">
       <div class="pc-header">
-        <div class="pc-tag-row"><span class="pc-tag">Cloud / ITIL 4</span><span class="pc-when">Feb 2026 — Mar 2026</span></div>
-        <h3>Odoo &amp; Moodle System Integration</h3>
+        <div class="pc-tag-row"><span class="pc-when">Feb 2026 — Mar 2026</span></div>
+        <h3><span class="project-icon" aria-hidden="true">☁️</span>Odoo Enterprise System Integration</h3>
         <div class="pc-deck">Enterprise Solution Management — ITIL 4, DevOps, Cloud Infrastructure</div>
-        <ul>
-          <li>Designed and deployed an <strong>integrated enterprise system on Microsoft Azure</strong>, hosting Odoo and Moodle using Docker Compose to meet data residency requirements.</li>
-          <li>Applied <strong>ITIL 4 Service Value System (SVS)</strong> principles to model end-to-end service workflows, including incident, change, and access management processes.</li>
-          <li>Configured secure cloud infrastructure with <strong>role-based access control (RBAC)</strong>, monitoring, and backup strategies to support 50 concurrent users.</li>
-        </ul>
+        <p class="pc-description">Designed a cloud-based enterprise system by bringing business operations and employee training onto a single platform on Microsoft Azure. The solution makes it easier to manage daily operations, onboard employees, and scale securely on a single VM using Docker with role-based access.</p>
       </div>
       <div class="pc-stack"><span>Microsoft Azure</span><span>Docker Compose</span><span>Odoo</span><span>Moodle</span><span>ITIL 4</span><span>RBAC</span></div>
     </div>
-    </div>
-  </section>
 
-  <section class="section" id="skills">
-    <div class="section-label reveal"><h2>Skills &amp; <em>Tools</em></h2></div>
-    <div class="card skills-shell reveal">
-      <div class="skills-header">
-        <div class="skill-orbit" aria-hidden="true">
-          <span class="orbit-ring"></span>
-          <span class="orbit-ring two"></span>
-          <span class="orbit-dot"></span>
-          <div class="skill-cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        </div>
-        <div class="skill-block">
-          <h4><span class="num">01</span> Programming Languages</h4>
-          <div class="skill-tags"><span>Python</span><span>JavaScript</span><span>SQL</span><span>HTML</span><span>CSS</span><span>R</span><span>PHP</span></div>
-        </div>
+    <div class="card project-card-detailed reveal d4">
+      <div class="pc-header">
+        <div class="pc-tag-row"><span class="pc-when">Process Redesign</span></div>
+        <h3><span class="project-icon" aria-hidden="true">🎓</span>SMU International Student Admissions Process</h3>
+        <div class="pc-deck">Business Process Improvement</div>
+        <p class="pc-description">Redesigned SMU's international student admissions journey by identifying bottlenecks and proposing automation for document verification and application processing. The proposed to-be workflow reduces delays and creates a smoother experience for applicants and staff.</p>
       </div>
-      <div class="skill-grid">
-        <div class="skill-block">
-          <h4><span class="num">02</span> Data &amp; Analytics</h4>
-          <div class="skill-tags"><span>Power BI</span><span>Tableau</span><span>Pandas</span><span>Microsoft Excel</span><span>Power Query</span><span>Matplotlib</span><span>NumPy</span></div>
-        </div>
-        <div class="skill-block">
-          <h4><span class="num">03</span> Business Application / Automation</h4>
-          <div class="skill-tags"><span>Microsoft Power Automate</span><span>Microsoft Power Apps (Model-Driven &amp; Canvas)</span><span>Dataverse</span><span>SharePoint</span></div>
-        </div>
-        <div class="skill-block wide">
-          <h4><span class="num">04</span> Infrastructure</h4>
-          <div class="skill-tags"><span>GitHub</span><span>Docker</span><span>PostgreSQL</span><span>MongoDB</span><span>Postman</span><span>OutSystems</span><span>Microsoft Azure</span><span>Supabase</span><span>Kong API Gateway</span><span>Message-Oriented Middleware</span><span>Event-Driven Architecture</span></div>
-        </div>
-        <div class="skill-block compact">
-          <h4><span class="num">05</span> Frameworks</h4>
-          <div class="skill-tags"><span>Node.js</span><span>Vue.js</span></div>
-        </div>
-        <div class="skill-block compact">
-          <h4><span class="num">06</span> Mathematical Foundation</h4>
-          <div class="skill-tags"><span>Probability &amp; Statistics</span><span>Linear Algebra</span></div>
-        </div>
-        <div class="skill-block">
-          <h4><span class="num">07</span> Quality Assurance &amp; IT Management</h4>
-          <div class="skill-tags"><span>User Acceptance Testing (UAT)</span><span>Agile</span><span>DevOps</span><span>Asset Management Tool (AMT)</span><span>JIRA</span></div>
-        </div>
-      </div>
+      <div class="pc-stack"><span>Process Mapping</span><span>Workflow Automation</span><span>Document Verification</span><span>Business Process Improvement</span></div>
+    </div>
     </div>
   </section>
 
@@ -1116,7 +1086,7 @@ if (cursorDot && cursorRing && window.matchMedia('(pointer:fine)').matches) {
     cursorDot.style.left = `${cursorX}px`;
     cursorDot.style.top = `${cursorY}px`;
   }, { passive: true });
-  document.querySelectorAll('a, button, .card, .chip, .filter-btn').forEach(el => {
+  document.querySelectorAll('a, button, .card, .chip').forEach(el => {
     el.addEventListener('pointerenter', () => document.body.classList.add('cursor-hover'));
     el.addEventListener('pointerleave', () => document.body.classList.remove('cursor-hover'));
   });
@@ -1202,19 +1172,6 @@ const ro = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-const filterButtons = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card-detailed');
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const filter = button.dataset.filter;
-    filterButtons.forEach(b => b.classList.toggle('active', b === button));
-    projectCards.forEach(card => {
-      const categories = card.dataset.categories || '';
-      card.classList.toggle('is-hidden', filter !== 'all' && !categories.includes(filter));
-    });
-  });
-});
 
 document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('mouseenter', () => { card.style.transition = 'transform 0.08s ease, border-color 0.22s, box-shadow 0.22s'; });
