@@ -722,6 +722,18 @@ footer a:hover { text-decoration:underline; }
   body.cursor-enabled, body.cursor-enabled a, body.cursor-enabled button, body.cursor-enabled .card, body.cursor-enabled .chip { cursor:auto; }
   .cursor-dot, .cursor-ring { display:none; }
 }
+
+/* Keep the portfolio reliable on browsers with limited compositing support. */
+body::before,
+body::after,
+.tech-bg,
+#particle-canvas,
+.cursor-dot,
+.cursor-ring { display:none !important; }
+.site-nav,
+.home-hero,
+.page,
+footer { isolation:isolate; }
 </style>
 </head>
 <body>
