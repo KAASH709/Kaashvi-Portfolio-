@@ -6,7 +6,7 @@
 <title>Kaashvi Arora</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #faf9f5;
@@ -95,6 +95,21 @@ body::after {
 }
 
 .tech-bg { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.depth-floor { position:fixed; left:0; right:0; bottom:0; height:50vh; z-index:0; pointer-events:none; overflow:hidden; opacity:0.32; }
+.depth-floor::before {
+  content:''; position:absolute; inset:-20% -50% -10%;
+  background:
+    linear-gradient(90deg, transparent 0 49%, var(--hud) 49% 50%, transparent 50% 100%),
+    linear-gradient(0deg, transparent 0 49%, var(--hud-bright) 49% 50%, transparent 50% 100%);
+  background-size:64px 64px;
+  transform:perspective(700px) rotateX(62deg);
+  transform-origin:center bottom;
+  animation:gridBreathe 9s ease-in-out infinite alternate;
+}
+.depth-floor::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, var(--bg) 0%, transparent 55%, transparent 100%);
+}
 .tech-bg::before {
   content:''; position:absolute; inset:-20%; opacity:0.5;
   background:
@@ -162,7 +177,6 @@ html[data-theme="night"] .hud-node { background:linear-gradient(135deg, rgba(159
 @keyframes lineWake { 0%{opacity:0.4;} 100%{opacity:1;} }
 @keyframes cursorPing { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.88;} 50%{transform:translate(-50%,-50%) scale(1.25);opacity:0.38;} }
 
-/* ── FIXED: airplane & cloud animations ── */
 @keyframes airplaneFly {
   0%   { left: -240px; top: 55%; opacity: 0; transform: translateY(-50%) scaleX(1); }
   4%   { opacity: 1; }
@@ -295,7 +309,7 @@ body.cursor-hover .cursor-ring {
     linear-gradient(180deg, rgba(250,249,245,0.28), rgba(250,249,245,0.82)),
     radial-gradient(circle at 50% 52%, rgba(245,184,0,0.18), transparent 0 15rem, transparent 27rem),
     linear-gradient(125deg, rgba(17,107,140,0.16), transparent 42%),
-    linear-gradient(300deg, rgba(181,71,102,0.13), transparent 38%),
+    linear-gradient(300deg, rgba(45,95,74,0.13), transparent 38%),
     var(--bg);
 }
 html[data-theme="night"] .home-hero {
@@ -303,7 +317,7 @@ html[data-theme="night"] .home-hero {
     linear-gradient(180deg, rgba(20,21,19,0.24), rgba(20,21,19,0.84)),
     radial-gradient(circle at 50% 52%, rgba(230,198,111,0.14), transparent 0 15rem, transparent 27rem),
     linear-gradient(125deg, rgba(141,184,199,0.13), transparent 42%),
-    linear-gradient(300deg, rgba(211,160,167,0.1), transparent 38%),
+    linear-gradient(300deg, rgba(159,201,168,0.1), transparent 38%),
     var(--bg);
 }
 .home-hero::before {
@@ -347,6 +361,14 @@ html[data-theme="night"] .cloud { background:rgba(255,255,255,0.12); }
 .cloud.one { left:8%;top:20%; }
 .cloud.two { right:8%;top:34%;width:136px;height:34px;animation-delay:-7s; }
 .cloud.three { left:22%;bottom:22%;width:118px;height:30px;animation-delay:-11s;opacity:0.62; }
+
+.hero-aurora { position:absolute; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
+.hero-aurora span { position:absolute; border-radius:50%; filter:blur(70px); animation:auroraDrift 20s ease-in-out infinite alternate; }
+.hero-aurora span.a1 { width:420px;height:420px; background:var(--accent); opacity:0.32; top:-12%; left:8%; }
+.hero-aurora span.a2 { width:380px;height:380px; background:var(--accent-2); opacity:0.26; top:18%; right:4%; animation-delay:-6s; }
+.hero-aurora span.a3 { width:340px;height:340px; background:var(--accent-2); opacity:0.2; bottom:-16%; left:34%; animation-delay:-12s; }
+.hero-aurora span.a4 { width:260px;height:260px; background:var(--tape); opacity:0.2; bottom:6%; right:24%; animation-delay:-3s; }
+@keyframes auroraDrift { 0%{transform:translate(0,0) scale(1);} 50%{transform:translate(30px,-25px) scale(1.08);} 100%{transform:translate(-20px,20px) scale(0.96);} }
 
 .airplane {
   position:absolute; left:-240px; top:55%; width:220px; height:104px;
@@ -509,7 +531,6 @@ html[data-theme="night"] .visual-card { background:rgba(29,33,29,0.82); }
 .section-label .meta { color:var(--ink-mute); font-size:0.82rem; margin-left:auto; }
 .section-label::after { content:''; display:block; height:1px; background:var(--line); flex:1; margin-left:1rem; transform-origin:left center; animation:lineWake 2.6s ease-in-out infinite alternate; }
 
-/* Content remains visible even when a browser blocks or interrupts JavaScript. */
 .reveal { opacity:1; transform:translateY(0); filter:blur(0); transition: opacity 0.72s cubic-bezier(0.22,1,0.36,1), transform 0.72s cubic-bezier(0.22,1,0.36,1), filter 0.72s cubic-bezier(0.22,1,0.36,1); }
 .reveal.visible { opacity:1; transform:translateY(0); filter:blur(0); }
 .d1{transition-delay:0.08s} .d2{transition-delay:0.16s} .d3{transition-delay:0.24s} .d4{transition-delay:0.32s}
@@ -619,13 +640,16 @@ html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,3
 .project-card-detailed .pc-tag { background:var(--accent-soft);color:var(--accent);padding:0.26rem 0.68rem;border-radius:4px;font-size:0.76rem;font-weight:700; }
 .project-card-detailed .pc-when { color:var(--project-accent);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.32rem 0.58rem;border:1px solid color-mix(in srgb, var(--project-accent) 24%, transparent);border-radius:999px;background:color-mix(in srgb, var(--project-accent) 8%, transparent); }
 .project-card-detailed .pc-meta { display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;justify-content:flex-end; }
-.pc-demo-chip { display:inline-flex;align-items:center;gap:0.28rem;padding:0.24rem 0.55rem;border:1px solid rgba(255,0,51,0.2);border-radius:999px;background:rgba(255,0,51,0.07);color:#d6002b;text-decoration:none;font-size:0.74rem;font-weight:700;line-height:1;transition:transform 0.2s ease,border-color 0.2s ease,background 0.2s ease; }
 .pc-demo-chip:hover { transform:translateY(-1px);border-color:#ff0033;background:rgba(255,0,51,0.12); }
 .pc-demo-chip svg { width:15px;height:15px;flex-shrink:0; }
-.project-card-detailed h3 { font-family:'Fraunces',serif;font-size:1.42rem;font-weight:500;line-height:1.18;margin-bottom:0.48rem;display:flex;align-items:flex-start;gap:0.62rem; }
 .project-icon { flex:0 0 auto;display:inline-grid;place-items:center;width:2rem;height:2rem;border-radius:9px;background:color-mix(in srgb, var(--project-accent) 13%, var(--bg-card));font-family:'Inter',sans-serif;font-size:1.05rem;line-height:1; }
 .project-card-detailed .pc-deck { color:var(--project-accent);font-size:0.78rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:0; }
 .project-card-detailed .pc-description { color:var(--ink-soft);font-size:0.93rem;line-height:1.68;margin-top:1.1rem; }
+.project-card-detailed h3 { font-family:'Fraunces',serif;font-size:1.42rem;font-weight:500;line-height:1.18;margin-bottom:0;display:flex;align-items:flex-start;gap:0.62rem; }
+.project-card-detailed .pc-row { display:flex; align-items:baseline; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; }
+.project-card-detailed .pc-row-top { margin-bottom:0.55rem; }
+.project-card-detailed .pc-row-deck { align-items:center; }
+.pc-demo-chip { display:inline-flex;align-items:center;gap:0.28rem;padding:0.24rem 0.55rem;border:1px solid rgba(255,0,51,0.2);border-radius:999px;background:rgba(255,0,51,0.07);color:#d6002b;text-decoration:none;font-size:0.74rem;font-weight:700;line-height:1;margin-top:1rem;transition:transform 0.2s ease,border-color 0.2s ease,background 0.2s ease; }
 .project-card-detailed ul { list-style:none;margin-bottom:1rem; }
 .project-card-detailed li { color:var(--ink);margin-bottom:0.62rem;padding-left:1.32rem;position:relative;font-size:0.94rem;line-height:1.62; }
 .project-card-detailed li::before { content:'';position:absolute;left:0.2rem;top:0.65rem;width:8px;height:1px;background:var(--accent);transform-origin:left center; }
@@ -723,17 +747,6 @@ footer a:hover { text-decoration:underline; }
   .cursor-dot, .cursor-ring { display:none; }
 }
 
-/* Keep the portfolio reliable on browsers with limited compositing support. */
-body::before,
-body::after,
-.tech-bg,
-#particle-canvas,
-.cursor-dot,
-.cursor-ring { display:none !important; }
-.site-nav,
-.home-hero,
-.page,
-footer { isolation:isolate; }
 </style>
 </head>
 <body>
@@ -749,6 +762,7 @@ footer { isolation:isolate; }
   <span class="space-shard beta"></span>
   <span class="space-shard gamma"></span>
 </div>
+<div class="depth-floor" aria-hidden="true"></div>
 <canvas id="particle-canvas"></canvas>
 
 <header class="site-nav">
@@ -783,6 +797,9 @@ footer { isolation:isolate; }
 </header>
 
 <section class="home-hero" id="home" aria-label="Homepage">
+  <div class="hero-aurora" aria-hidden="true">
+    <span class="a1"></span><span class="a2"></span><span class="a3"></span><span class="a4"></span>
+  </div>
   <div class="flight-path" aria-hidden="true">
     <span class="cloud one"></span>
     <span class="cloud two"></span>
@@ -812,7 +829,7 @@ footer { isolation:isolate; }
         </div>
         <div>
           <div class="label">Looking to work in</div>
-          <div class="roles"><span>Analytics</span> · <span>Finance</span> · <span>Consulting</span> · <span>Product Management</span></div>
+          <div class="roles"><span>Fin-Tech</span> · <span>Consulting</span> · <span>Product Management</span></div>
         </div>
       </div>
       <div class="hero-actions">
@@ -901,14 +918,11 @@ footer { isolation:isolate; }
         <div class="exp-content">
           <div class="exp-org-row">
             <div class="org">Vena Group</div>
-            <div class="exp-time">
-              <span class="exp-location">Singapore</span>
-              <span class="when">May 2026 — August 2026</span>
-            </div>
+            <span class="exp-location">Singapore</span>
           </div>
-          <div class="head"><h3><span class="live-dot"></span>Analytics &amp; Automation Intern</h3></div>
+          <div class="head"><h3>Analytics &amp; Automation Intern</h3><span class="when">May 2026 — August 2026</span></div>
           <p>Worked on internal analytics and automation tools that saved teams hours of repetitive work every day. Built Power BI dashboards, automated data pipelines, and developed enterprise solutions that helped monitor business performance and infrastructure at scale.</p>
-          <div class="exp-stack"><span class="stack-label">Stack:</span><span>Microsoft Power Platform</span><span>SharePoint</span><span>Power BI</span><span>Microsoft Excel</span><span>Microsoft Azure</span><span>Postman</span><span>UAT</span></div>
+          <div class="exp-stack"><span>Microsoft Power Platform</span><span>SharePoint</span><span>Power BI</span><span>Microsoft Excel</span><span>Microsoft Azure</span><span>Postman</span><span>UAT</span></div>
         </div>
       </div>
 
@@ -916,14 +930,11 @@ footer { isolation:isolate; }
         <div class="exp-content">
           <div class="exp-org-row">
             <div class="org">Signet Scarves</div>
-            <div class="exp-time">
-              <span class="exp-location">India</span>
-              <span class="when">May 2025 — July 2025</span>
-            </div>
+            <span class="exp-location">India</span>
           </div>
-          <div class="head"><h3>Data Analytics Intern</h3></div>
+          <div class="head"><h3>Data Analytics Intern</h3><span class="when">May 2025 — July 2025</span></div>
           <p>Used data analytics to improve inventory planning, understand customer buying behavior, and automate sales reporting. Built interactive dashboards and customer insights that supported smarter business and marketing decisions.</p>
-          <div class="exp-stack"><span class="stack-label">Stack:</span><span>SQL</span><span>Python</span><span>Tableau</span><span>Pandas</span><span>Matplotlib</span><span>Power Automate</span></div>
+          <div class="exp-stack"><span>SQL</span><span>Python</span><span>Tableau</span><span>Pandas</span><span>Matplotlib</span><span>Power Automate</span></div>
         </div>
       </div>
 
@@ -931,14 +942,11 @@ footer { isolation:isolate; }
         <div class="exp-content">
           <div class="exp-org-row">
             <div class="org">Motilal Oswal Financial Services</div>
-            <div class="exp-time">
-              <span class="exp-location">India</span>
-              <span class="when">Jan 2025 — Apr 2025</span>
-            </div>
+            <span class="exp-location">India</span>
           </div>
-          <div class="head"><h3>Financial Analytics Intern</h3></div>
+          <div class="head"><h3>Financial Analytics Intern</h3><span class="when">Jan 2025 — Apr 2025</span></div>
           <p>Developed analytics dashboards and forecasting models to help investment teams make data-driven decisions. Also analyzed client and portfolio data to uncover trends, improve reporting, and support personalized investment strategies.</p>
-          <div class="exp-stack"><span class="stack-label">Stack:</span><span>Financial Forecasting</span><span>Microsoft Excel</span><span>Power BI</span><span>Python</span><span>SQL</span><span>BPMN</span></div>
+          <div class="exp-stack"><span>Financial Forecasting</span><span>Microsoft Excel</span><span>Power BI</span><span>Python</span><span>SQL</span><span>BPMN</span></div>
         </div>
       </div>
     </div>
@@ -949,27 +957,33 @@ footer { isolation:isolate; }
     <div class="projects-grid">
     <div class="card project-card-detailed reveal">
       <div class="pc-header">
-        <div class="pc-tag-row">
-          <span class="pc-meta">
-            <span class="pc-when">Jan 2026 — Mar 2026</span>
-            <a class="pc-demo-chip" href="https://www.youtube.com/watch?v=8yEX8F5cxBQ" target="_blank" rel="noreferrer" aria-label="Open prototype demo on YouTube">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
-              Demo
-            </a>
-          </span>
+        <div class="pc-row pc-row-top">
+          <h3><span class="project-icon" aria-hidden="true">🐾</span>AI-Powered Pet Adoption &amp; Welfare Digital Application</h3>
+          <span class="pc-when">Jan 2026 — Mar 2026</span>
         </div>
-        <h3><span class="project-icon" aria-hidden="true">🐾</span>AI-Powered Pet Adoption &amp; Welfare Digital Application</h3>
-        <div class="pc-deck">Digital Business &amp; Transformation</div>
+        <div class="pc-row pc-row-deck">
+          <div class="pc-deck">Digital Business &amp; Transformation</div>
+          <span class="pc-tag">AI/ML</span>
+        </div>
         <p class="pc-description">Built a digital platform for an SPCA-style animal welfare organization to modernize the adoption process. The app uses AI to match people with pets based on their preferences and includes lost or injured animal reporting with emergency detection to help staff respond faster.</p>
+        <a class="pc-demo-chip" href="https://www.youtube.com/watch?v=8yEX8F5cxBQ" target="_blank" rel="noreferrer" aria-label="Open prototype demo on YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+          Demo
+        </a>
       </div>
       <div class="pc-stack"><span>Supabase</span><span>PostgreSQL</span><span>GPT-4o-mini</span><span>HTML</span><span>JavaScript</span><span>CSS</span></div>
     </div>
 
     <div class="card project-card-detailed reveal d1">
       <div class="pc-header">
-        <div class="pc-tag-row"><span class="pc-when">Jan 2026 — Mar 2026</span></div>
-        <h3><span class="project-icon" aria-hidden="true">⚡</span>Smart EV Charging Management System</h3>
-        <div class="pc-deck">Enterprise Solution Development</div>
+        <div class="pc-row pc-row-top">
+          <h3><span class="project-icon" aria-hidden="true">⚡</span>Smart EV Charging Management System</h3>
+          <span class="pc-when">Jan 2026 — Mar 2026</span>
+        </div>
+        <div class="pc-row pc-row-deck">
+          <div class="pc-deck">Enterprise Solution Development</div>
+          <span class="pc-tag">Microservice Architecture</span>
+        </div>
         <p class="pc-description">Created an EV charging platform that automates charging sessions, payments, notifications, and dynamic pricing. Everything runs seamlessly behind the scenes using a scalable microservices architecture, Kong API Gateway, and RabbitMQ (AMQP).</p>
       </div>
       <div class="pc-stack"><span>OutSystems</span><span>Kong API Gateway</span><span>RabbitMQ</span><span>JWT</span><span>REST APIs</span></div>
@@ -977,9 +991,14 @@ footer { isolation:isolate; }
 
     <div class="card project-card-detailed reveal d2">
       <div class="pc-header">
-        <div class="pc-tag-row"><span class="pc-when">Feb 2026 — Mar 2026</span></div>
-        <h3><span class="project-icon" aria-hidden="true">🎬</span>Movie Hub</h3>
-        <div class="pc-deck">Web Application &amp; Development</div>
+        <div class="pc-row pc-row-top">
+          <h3><span class="project-icon" aria-hidden="true">🎬</span>Movie Hub</h3>
+          <span class="pc-when">Feb 2026 — Mar 2026</span>
+        </div>
+        <div class="pc-row pc-row-deck">
+          <div class="pc-deck">Web Application &amp; Development</div>
+          <span class="pc-tag">Full Stack</span>
+        </div>
         <p class="pc-description">A social platform for movie lovers to discover new films, write reviews, and build personal watchlists. It also recommends movies based on what they have already watched, making it easier to find the next favorite.</p>
       </div>
       <div class="pc-stack"><span>Node.js</span><span>MongoDB</span><span>JavaScript</span><span>HTML</span><span>REST APIs</span></div>
@@ -987,9 +1006,14 @@ footer { isolation:isolate; }
 
     <div class="card project-card-detailed reveal d3">
       <div class="pc-header">
-        <div class="pc-tag-row"><span class="pc-when">Feb 2026 — Mar 2026</span></div>
-        <h3><span class="project-icon" aria-hidden="true">☁️</span>Odoo Enterprise System Integration</h3>
-        <div class="pc-deck">Enterprise Solution Management — ITIL 4, DevOps, Cloud Infrastructure</div>
+        <div class="pc-row pc-row-top">
+          <h3><span class="project-icon" aria-hidden="true">☁️</span>Odoo Enterprise System Integration</h3>
+          <span class="pc-when">Feb 2026 — Mar 2026</span>
+        </div>
+        <div class="pc-row pc-row-deck">
+          <div class="pc-deck">Enterprise Solution Management</div>
+          <span class="pc-tag">Cloud Infrastructure</span>
+        </div>
         <p class="pc-description">Designed a cloud-based enterprise system by bringing business operations and employee training onto a single platform on Microsoft Azure. The solution makes it easier to manage daily operations, onboard employees, and scale securely on a single VM using Docker with role-based access.</p>
       </div>
       <div class="pc-stack"><span>Microsoft Azure</span><span>Docker Compose</span><span>Odoo</span><span>Moodle</span><span>ITIL 4</span><span>RBAC</span></div>
@@ -997,12 +1021,17 @@ footer { isolation:isolate; }
 
     <div class="card project-card-detailed reveal d4">
       <div class="pc-header">
-        <div class="pc-tag-row"><span class="pc-when">Process Redesign</span></div>
-        <h3><span class="project-icon" aria-hidden="true">🎓</span>SMU International Student Admissions Process</h3>
-        <div class="pc-deck">Business Process Improvement</div>
+        <div class="pc-row pc-row-top">
+          <h3><span class="project-icon" aria-hidden="true">🎓</span>SMU International Student Admissions Process</h3>
+          <span class="pc-when">Sep 2025 — Nov 2025</span>
+        </div>
+        <div class="pc-row pc-row-deck">
+          <div class="pc-deck">Business Process Analysis &amp; Solutioning</div>
+          <span class="pc-tag">Process Re-engineering</span>
+        </div>
         <p class="pc-description">Redesigned SMU's international student admissions journey by identifying bottlenecks and proposing automation for document verification and application processing. The proposed to-be workflow reduces delays and creates a smoother experience for applicants and staff.</p>
       </div>
-      <div class="pc-stack"><span>Process Mapping</span><span>Workflow Automation</span><span>Document Verification</span><span>Business Process Improvement</span></div>
+      <div class="pc-stack"><span>Process Mapping (As-Is &amp; To-Be)</span><span>Workflow Automation</span><span>Business Process Improvement</span><span>BPMN</span><span>Signavio</span><span>Draw.io</span></div>
     </div>
     </div>
   </section>
@@ -1084,49 +1113,22 @@ if (typedName) {
   window.setTimeout(typeName, 360);
 }
 
-const cursorDot = document.querySelector('.cursor-dot');
-const cursorRing = document.querySelector('.cursor-ring');
-let cursorX = window.innerWidth / 2;
-let cursorY = window.innerHeight / 2;
-let ringX = cursorX;
-let ringY = cursorY;
-if (cursorDot && cursorRing && window.matchMedia('(pointer:fine)').matches) {
-  document.body.classList.add('cursor-enabled');
-  document.addEventListener('pointermove', e => {
-    cursorX = e.clientX;
-    cursorY = e.clientY;
-    document.body.classList.add('cursor-ready');
-    cursorDot.style.left = `${cursorX}px`;
-    cursorDot.style.top = `${cursorY}px`;
-  }, { passive: true });
-  document.querySelectorAll('a, button, .card, .chip').forEach(el => {
-    el.addEventListener('pointerenter', () => document.body.classList.add('cursor-hover'));
-    el.addEventListener('pointerleave', () => document.body.classList.remove('cursor-hover'));
+if (themeToggle) {
+  const savedTheme = localStorage.getItem('kaashvi-theme');
+  if (savedTheme) root.dataset.theme = savedTheme;
+  themeToggle.addEventListener('click', () => {
+    const next = root.dataset.theme === 'night' ? '' : 'night';
+    if (next) { root.dataset.theme = next; localStorage.setItem('kaashvi-theme', next); }
+    else { delete root.dataset.theme; localStorage.removeItem('kaashvi-theme'); }
   });
-  const moveCursorRing = () => {
-    ringX += (cursorX - ringX) * 0.18;
-    ringY += (cursorY - ringY) * 0.18;
-    cursorRing.style.left = `${ringX}px`;
-    cursorRing.style.top = `${ringY}px`;
-    requestAnimationFrame(moveCursorRing);
-  };
-  moveCursorRing();
 }
-
-const savedTheme = localStorage.getItem('kaashvi-theme');
-if (savedTheme) root.dataset.theme = savedTheme;
-themeToggle.addEventListener('click', () => {
-  const next = root.dataset.theme === 'night' ? '' : 'night';
-  if (next) { root.dataset.theme = next; localStorage.setItem('kaashvi-theme', next); }
-  else { delete root.dataset.theme; localStorage.removeItem('kaashvi-theme'); }
-});
 
 const progress = document.getElementById('scroll-progress');
 const journeyList = document.querySelector('.journey-list');
 function updateProgress() {
   const max = document.documentElement.scrollHeight - window.innerHeight;
   const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-  progress.style.width = `${pct}%`;
+  if (progress) progress.style.width = `${pct}%`;
   if (journeyList) {
     const rect = journeyList.getBoundingClientRect();
     const viewportAnchor = window.innerHeight * 0.55;
@@ -1141,7 +1143,8 @@ updateProgress();
 
 const sections = document.querySelectorAll('section[id]:not(#home)');
 const pills = document.querySelectorAll('.nav-pill');
-const NAV_H = document.querySelector('.site-nav').offsetHeight;
+const navEl = document.querySelector('.site-nav');
+const NAV_H = navEl ? navEl.offsetHeight : 72;
 function updateActivePill() {
   let current = 'about';
   sections.forEach(sec => { if (window.scrollY >= sec.offsetTop - NAV_H - 80) current = sec.id; });
@@ -1155,9 +1158,12 @@ document.addEventListener('pointermove', e => {
   root.style.setProperty('--my', `${e.clientY}px`);
 }, { passive: true });
 
-document.querySelector('.nav-logo').addEventListener('click', e => {
-  e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+const navLogo = document.querySelector('.nav-logo');
+if (navLogo) {
+  navLogo.addEventListener('click', e => {
+    e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
 pills.forEach(pill => {
   pill.addEventListener('click', e => {
     e.preventDefault();
@@ -1199,49 +1205,6 @@ document.querySelectorAll('.card').forEach(card => {
     card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) translateZ(0)';
   });
 });
-
-const canvas = document.getElementById('particle-canvas');
-const ctx = canvas.getContext('2d');
-let W, H;
-const mouse = { x: -999, y: -999 };
-function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-resize();
-window.addEventListener('resize', resize);
-document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-const N = 60, MAX = 125, C = '45,95,74';
-class P {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random()*W; this.y = Math.random()*H;
-    this.vx = (Math.random()-0.5)*0.4; this.vy = (Math.random()-0.5)*0.4;
-    this.r = Math.random()*1.6+0.7; this.a = Math.random()*0.4+0.12;
-  }
-  tick() {
-    const dx=this.x-mouse.x, dy=this.y-mouse.y, d=Math.sqrt(dx*dx+dy*dy);
-    if(d<85){this.x+=dx/d*1.4;this.y+=dy/d*1.4;}
-    this.x+=this.vx; this.y+=this.vy;
-    if(this.x<0||this.x>W)this.vx*=-1;
-    if(this.y<0||this.y>H)this.vy*=-1;
-  }
-  draw() {
-    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
-    ctx.fillStyle=`rgba(${C},${this.a})`;ctx.fill();
-  }
-}
-const particles = Array.from({length:N},()=>new P());
-(function frame(){
-  ctx.clearRect(0,0,W,H);
-  particles.forEach(p=>{p.tick();p.draw();});
-  for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
-    const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
-    const d=Math.sqrt(dx*dx+dy*dy);
-    if(d<MAX){
-      ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);
-      ctx.strokeStyle=`rgba(${C},${(1-d/MAX)*0.16})`;ctx.lineWidth=0.7;ctx.stroke();
-    }
-  }
-  requestAnimationFrame(frame);
-})();
 </script>
 </body>
 </html>
