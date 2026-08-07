@@ -509,7 +509,8 @@ html[data-theme="night"] .visual-card { background:rgba(29,33,29,0.82); }
 .section-label .meta { color:var(--ink-mute); font-size:0.82rem; margin-left:auto; }
 .section-label::after { content:''; display:block; height:1px; background:var(--line); flex:1; margin-left:1rem; transform-origin:left center; animation:lineWake 2.6s ease-in-out infinite alternate; }
 
-.reveal { opacity:0; transform:translateY(24px); filter:blur(8px); transition: opacity 0.72s cubic-bezier(0.22,1,0.36,1), transform 0.72s cubic-bezier(0.22,1,0.36,1), filter 0.72s cubic-bezier(0.22,1,0.36,1); }
+/* Content remains visible even when a browser blocks or interrupts JavaScript. */
+.reveal { opacity:1; transform:translateY(0); filter:blur(0); transition: opacity 0.72s cubic-bezier(0.22,1,0.36,1), transform 0.72s cubic-bezier(0.22,1,0.36,1), filter 0.72s cubic-bezier(0.22,1,0.36,1); }
 .reveal.visible { opacity:1; transform:translateY(0); filter:blur(0); }
 .d1{transition-delay:0.08s} .d2{transition-delay:0.16s} .d3{transition-delay:0.24s} .d4{transition-delay:0.32s}
 
