@@ -498,7 +498,7 @@ html[data-theme="night"] .home-kicker { background:rgba(29,33,29,0.64); }
   display: grid; grid-template-columns: minmax(0,1.1fr) minmax(320px,0.78fr);
   gap: 2rem; align-items: stretch; padding-bottom: 3.2rem; border-bottom: 1px solid var(--line);
 }
-.hero-left { min-width:0; display:flex; flex-direction:column; justify-content:flex-start; align-items:flex-start; text-align:left; padding-top:0.4rem; }
+.hero-left { min-width:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; text-align:left; padding-top:0.4rem; }
 .hero-left .greeting { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.85rem; background: var(--accent-soft); color: var(--accent); border-radius: 999px; font-size: 0.82rem; font-weight: 600; margin-bottom: 2.6rem; }
 .hero-left .greeting::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); animation: pulse 2s infinite; }
 .hero-left h1 { font-family: 'Fraunces', serif; font-size: 5.3rem; font-weight: 500; line-height: 0.92; letter-spacing: 0; margin-bottom: 1.1rem; }
@@ -548,7 +548,7 @@ html[data-theme="night"] .home-kicker { background:rgba(29,33,29,0.64); }
 .signal span { width:5px; border-radius:999px; background:var(--accent); opacity:0.85; animation:level 1.6s ease-in-out infinite; }
 .signal span:nth-child(1){height:10px} .signal span:nth-child(2){height:16px;animation-delay:0.15s} .signal span:nth-child(3){height:24px;animation-delay:0.3s}
 .profile-mark {
-  width:196px; height:196px; margin:1.6rem auto 1.2rem; border-radius:28px;
+  width:150px; height:150px; margin:1.6rem auto 1.2rem; border-radius:28px;
   background:linear-gradient(135deg,var(--accent),var(--accent-2) 55%,var(--accent-3));
   padding:4px; box-shadow:0 22px 54px rgba(17,107,140,0.2); transform:rotate(-4deg); position:relative; z-index:2;
 }
@@ -769,7 +769,7 @@ footer a:hover { text-decoration:underline; }
   .hero-right{align-items:stretch;text-align:left;} .hero-contact{align-items:flex-start;text-align:left;}
   .hero-left h1{font-size:3rem;} .hero-visual{min-height:360px;}
   .hud-node{display:none;} .hud-radar{width:74px;height:74px;right:1rem;bottom:1rem;}
-  .profile-mark{width:150px;height:150px;} .profile-mark img{border-radius:22px;}
+  .profile-mark{width:130px;height:130px;} .profile-mark img{border-radius:22px;}
   .two-col{grid-template-columns:1fr;} .nav-inner{gap:0.75rem;} .nav-logo{font-size:0.95rem;}
   .nav-pill{padding:0.45rem 0.75rem;font-size:0.78rem;} .nav-pill svg{display:none;} .nav-actions{display:none;}
   .card{padding:1.3rem 1.2rem;} .intro-hero-card{padding:1.6rem 1.3rem;} .intro-hero-card::after{font-size:7rem;}
@@ -886,9 +886,6 @@ footer a:hover { text-decoration:underline; }
 
   <section class="hero section reveal" id="about">
     <div class="hero-left">
-      <br>
-      <br>
-      <br>
       <p class="tagline">Hi, I am an Information Systems student studying at Singapore Management University, specialising in<br><strong>Business Analytics and Fin-Tech</strong>.</p>
       <div class="card looking-card hero-looking">
         <div class="icon-circle">
@@ -896,7 +893,7 @@ footer a:hover { text-decoration:underline; }
         </div>
         <div>
           <div class="label">Looking to work in</div>
-          <div class="roles"><span>Fin-Tech</span> · <span>Consulting</span> · <span>Product Management</span></div>
+          <div class="roles"><span>Automation</span> · <span>Consulting</span> · <span>Product Management</span></div>
         </div>
       </div>
       <div class="hero-actions">
@@ -987,7 +984,7 @@ footer a:hover { text-decoration:underline; }
             <div class="org">Vena Group</div>
             <span class="exp-location">Singapore</span>
           </div>
-          <div class="head"><h3>Analytics &amp; Automation Intern</h3><span class="when">May 2026 — August 2026</span></div>
+          <div class="head"><h3>Technology Intern</h3><span class="when">May 2026 — August 2026</span></div>
           <div class="exp-stack"><span>Microsoft Power Platform</span><span>SharePoint</span><span>Power BI</span><span>Microsoft Excel</span><span>Microsoft Azure</span><span>Postman</span><span>UAT</span></div>
         </div>
       </div>
@@ -1041,21 +1038,6 @@ footer a:hover { text-decoration:underline; }
     <div class="card project-card-detailed reveal d1">
       <div class="pc-header">
         <div class="pc-row pc-row-top">
-          <h3><span class="project-icon" aria-hidden="true">⚡</span>Smart EV Charging Management System</h3>
-          <span class="pc-when">Jan 2026 — Mar 2026</span>
-        </div>
-        <div class="pc-row pc-row-deck">
-          <div class="pc-deck">Enterprise Solution Development</div>
-          <span class="pc-tag">Microservice Architecture</span>
-        </div>
-        <p class="pc-description">Created an EV charging platform that automates charging sessions, payments, notifications, and dynamic pricing. Everything runs seamlessly behind the scenes using a scalable microservices architecture, Kong API Gateway, and RabbitMQ (AMQP).</p>
-      </div>
-      <div class="pc-stack"><span>OutSystems</span><span>Kong API Gateway</span><span>RabbitMQ</span><span>JWT</span><span>REST APIs</span></div>
-    </div>
-
-    <div class="card project-card-detailed reveal d2">
-      <div class="pc-header">
-        <div class="pc-row pc-row-top">
           <h3><span class="project-icon" aria-hidden="true">🎬</span>Movie Hub</h3>
           <span class="pc-when">Feb 2026 — Mar 2026</span>
         </div>
@@ -1070,6 +1052,21 @@ footer a:hover { text-decoration:underline; }
         </a>
       </div>
       <div class="pc-stack"><span>Node.js</span><span>MongoDB</span><span>JavaScript</span><span>HTML</span><span>REST APIs</span></div>
+    </div>
+
+    <div class="card project-card-detailed reveal d2">
+      <div class="pc-header">
+        <div class="pc-row pc-row-top">
+          <h3><span class="project-icon" aria-hidden="true">⚡</span>Smart EV Charging Management System</h3>
+          <span class="pc-when">Jan 2026 — Mar 2026</span>
+        </div>
+        <div class="pc-row pc-row-deck">
+          <div class="pc-deck">Enterprise Solution Development</div>
+          <span class="pc-tag">Microservice Architecture</span>
+        </div>
+        <p class="pc-description">Created an EV charging platform that automates charging sessions, payments, notifications, and dynamic pricing. Everything runs seamlessly behind the scenes using a scalable microservices architecture, Kong API Gateway, and RabbitMQ (AMQP).</p>
+      </div>
+      <div class="pc-stack"><span>OutSystems</span><span>Kong API Gateway</span><span>RabbitMQ</span><span>JWT</span><span>REST APIs</span></div>
     </div>
 
     <div class="card project-card-detailed reveal d3">
