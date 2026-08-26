@@ -189,6 +189,28 @@ html[data-theme="night"] .hud-node { background:linear-gradient(135deg, rgba(159
 .fin-coin.two::before { font-size:1.7rem; }
 @keyframes coinSpin { to{ transform:rotateY(360deg); } }
 
+/* ── stock market screen (cool fintech centerpiece) ── */
+.market-screen { position:absolute; width:270px; padding:14px 16px 15px; border-radius:14px; z-index:1;
+  background:linear-gradient(160deg, #10231c, #0b1512 72%); border:1px solid rgba(159,201,168,0.22);
+  box-shadow:0 30px 64px rgba(0,0,0,0.32), 0 0 46px rgba(45,95,74,0.2);
+  transform-style:preserve-3d; transform:perspective(900px) rotateY(-15deg) rotateX(6deg);
+  animation:nodeFloat 9s ease-in-out infinite; overflow:hidden; }
+.market-screen .ms-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:11px; }
+.market-screen .ms-dots { display:flex; gap:5px; }
+.market-screen .ms-dots span { width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.28); }
+.market-screen .ms-label { font-family:'Inter',sans-serif; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; color:#9fc9a8; font-weight:700; }
+.market-screen .ms-chart { display:flex; align-items:flex-end; gap:6px; height:72px; margin-bottom:11px; padding:0 2px; }
+.market-screen .ms-bar { flex:1; border-radius:2px 2px 0 0; background:linear-gradient(180deg, #6fd39a, #2d5f4a); position:relative; animation:marketBar 3.6s ease-in-out infinite; }
+.market-screen .ms-bar.down { background:linear-gradient(180deg, #e08a9a, #b54766); }
+.market-screen .ms-ticker { overflow:hidden; white-space:nowrap; border-top:1px solid rgba(255,255,255,0.1); padding-top:9px; }
+.market-screen .ms-ticker span { display:inline-block; font-family:'Inter',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.01em; color:#dcefe2; animation:tickerScroll 13s linear infinite; }
+.market-screen .ms-ticker em { font-style:normal; padding:0 0.7em; }
+.market-screen .ms-ticker .up { color:#7ee2a8; }
+.market-screen .ms-ticker .down { color:#f0a0ac; }
+.market-screen.home { right:6vw; top:15vh; }
+@keyframes marketBar { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(0.7);} }
+@keyframes tickerScroll { 0%{transform:translateX(100%);} 100%{transform:translateX(-100%);} }
+
 /* ── ALL KEYFRAMES ── */
 @keyframes hudDrift { to{transform:translate3d(2%, -2%, 0) rotate(4deg);} }
 @keyframes scanField { to{transform:translateY(44px);} }
@@ -698,31 +720,27 @@ html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,3
 .contact-links svg { width:16px;height:16px; }
 .contact-card.reveal.visible .contact-links a { animation:tagPop 0.52s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
 
-.projects-grid { display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:1.25rem; align-items:start; }
-.project-card-detailed { --project-accent:var(--accent); --project-tint:var(--accent); --project-card-height:300px; overflow:visible;padding:0;position:relative;margin-bottom:0;height:var(--project-card-height);perspective:1200px;border:0;background:transparent;box-shadow:none;transform:none;transition:none; }
-.project-card-detailed:nth-child(1) { grid-column:2 / span 4; }
-.project-card-detailed:nth-child(2) { grid-column:1 / span 3; }
-.project-card-detailed:nth-child(3) { grid-column:4 / span 3; }
-.project-card-detailed:nth-child(4) { grid-column:1 / span 3; }
-.project-card-detailed:nth-child(5) { grid-column:4 / span 3; }
-.project-card-detailed:nth-child(1) { --project-accent:var(--accent-3); --project-tint:#b54766; }
-.project-card-detailed:nth-child(2) { --project-accent:var(--accent-2); --project-tint:#116b8c; }
-.project-card-detailed:nth-child(3) { --project-accent:var(--accent); --project-tint:#2d5f4a; }
-.project-card-detailed:nth-child(4) { --project-accent:#96703d; --project-tint:#96703d; }
-.project-card-detailed:nth-child(5) { --project-accent:#6d6098; --project-tint:#6d6098; }
-.project-flip-inner { position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.72s cubic-bezier(0.2,0.75,0.25,1); }
-.project-card-detailed.flipped .project-flip-inner { transform:rotateY(180deg); }
-.project-flip-face { position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;border:1px solid color-mix(in srgb, var(--project-accent) 30%, var(--line));border-radius:16px;background:linear-gradient(145deg,color-mix(in srgb, var(--project-tint) 12%, var(--bg-card)),var(--bg-card) 64%);box-shadow:0 12px 32px color-mix(in srgb, var(--project-tint) 10%, transparent);backface-visibility:hidden;-webkit-backface-visibility:hidden; }
-.project-flip-face::after { content:'';position:absolute;left:0;top:0;width:100%;height:4px;background:linear-gradient(90deg,var(--project-accent),transparent 82%); }
-.project-card-detailed:hover .project-flip-face { border-color:var(--project-accent);box-shadow:0 20px 42px color-mix(in srgb, var(--project-accent) 18%, transparent); }
-.project-flip-back { transform:rotateY(180deg);background:linear-gradient(155deg,color-mix(in srgb, var(--project-tint) 18%, var(--bg-card)),var(--bg-card) 62%); }
+.projects-grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:2rem 1.25rem; align-items:start; }
+.project-card-detailed { --project-accent:var(--accent); --stagger-y:0px; overflow:hidden;padding:0;position:relative;margin-bottom:0;display:flex;flex-direction:column;min-height:100%; border-radius:16px; border-color:color-mix(in srgb, var(--project-accent) 24%, var(--line)); box-shadow:0 12px 32px rgba(26,26,23,0.05); transform:translateY(var(--stagger-y)); transition:transform 0.3s ease, border-color 0.22s, box-shadow 0.22s; }
+.project-card-detailed:nth-child(odd) { --stagger-y: -20px; }
+.project-card-detailed:nth-child(even) { --stagger-y: 20px; }
+.project-card-detailed:nth-child(2) { --project-accent:var(--accent-2); }
+.project-card-detailed:nth-child(3) { --project-accent:var(--accent); }
+.project-card-detailed:nth-child(4) { --project-accent:var(--accent-2); }
+.project-card-detailed:nth-child(5) { --project-accent:var(--accent); }
+.project-card-detailed::after { content:''; position:absolute; left:0;top:0;width:100%;height:4px; background:linear-gradient(90deg,var(--project-accent),transparent 82%); z-index:2; }
+.project-card-detailed::before { content:''; position:absolute; inset:0 auto 0 -45%; width:42%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); transform:skewX(-16deg); opacity:0; pointer-events:none; z-index:3; }
+.project-card-detailed:hover::before { animation:projectGlint 0.9s ease; }
+.project-card-detailed:hover { border-color:var(--project-accent); box-shadow:0 22px 46px color-mix(in srgb, var(--project-accent) 18%, transparent); transform:translateY(calc(var(--stagger-y) - 6px)); }
 .project-card-detailed.is-hidden { display:none; }
-.project-card-detailed .pc-header { min-height:100%;padding:2rem 1.5rem;background:linear-gradient(145deg,color-mix(in srgb, var(--project-accent) 9%, var(--bg-card)),var(--bg-card) 58%);cursor:pointer;user-select:none;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center; }
+.project-card-detailed .pc-header { padding:1.5rem 1.5rem 1.35rem; background:linear-gradient(145deg,color-mix(in srgb, var(--project-accent) 9%, var(--bg-card)),var(--bg-card) 58%); cursor:pointer; user-select:none; }
 .project-card-detailed .pc-header:hover h3 { color:var(--project-accent); }
-.pc-chevron { display:none; }
+.pc-chevron { margin-left:auto; flex:0 0 auto; width:20px; height:20px; display:grid; place-items:center; color:var(--ink-mute); transition:transform 0.3s ease, color 0.2s ease; }
 .pc-chevron svg { width:16px; height:16px; }
-.pc-body { display:flex;flex:1;flex-direction:column;overflow:visible; }
-.pc-body-inner { padding:1.25rem 1.5rem 0; }
+.project-card-detailed.expanded .pc-chevron { transform:rotate(180deg); color:var(--project-accent); }
+.pc-body { max-height:0; overflow:hidden; transition:max-height 0.45s cubic-bezier(0.2,0.9,0.25,1); }
+.project-card-detailed.expanded .pc-body { max-height:900px; }
+.pc-body-inner { padding:0 1.5rem; }
 .project-card-detailed .pc-tag-row { display:flex;justify-content:flex-end;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem; }
 .project-card-detailed .pc-tag { background:var(--accent-soft);color:var(--accent);padding:0.26rem 0.68rem;border-radius:4px;font-size:0.76rem;font-weight:700; }
 .project-card-detailed .pc-when { color:var(--project-accent);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.32rem 0.58rem;border:1px solid color-mix(in srgb, var(--project-accent) 24%, transparent);border-radius:999px;background:color-mix(in srgb, var(--project-accent) 8%, transparent);white-space:nowrap;flex:0 0 auto; }
@@ -731,13 +749,11 @@ html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,3
 .pc-demo-chip svg { width:15px;height:15px;flex-shrink:0; }
 .project-icon { flex:0 0 auto;display:inline-grid;place-items:center;width:2rem;height:2rem;border-radius:9px;background:color-mix(in srgb, var(--project-accent) 13%, var(--bg-card));font-family:'Inter',sans-serif;font-size:1.05rem;line-height:1; }
 .project-card-detailed .pc-deck { color:var(--project-accent);font-size:0.78rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:0; }
-.project-card-detailed .pc-description { color:var(--ink-soft);font-size:0.88rem;line-height:1.58;margin-top:0; }
-.project-card-detailed h3 { font-family:'Fraunces',serif;font-size:1.42rem;font-weight:500;line-height:1.18;margin-bottom:0;display:flex;align-items:center;justify-content:center;gap:0.62rem;flex:0 1 auto;min-width:0; }
-.project-card-detailed .pc-row { display:flex;align-items:center;justify-content:center;gap:0.75rem;flex-wrap:wrap; }
-.project-card-detailed .pc-row-top { margin-bottom:0.8rem;flex-direction:column;flex-wrap:wrap;align-items:center; }
-.project-card-detailed .pc-row-deck { display:none; }
-.pc-back-meta { display:flex;align-items:center;gap:0.55rem;flex-wrap:wrap;padding:1.15rem 1.5rem 0; }
-.project-flip-front .pc-header::after { content:'Click to flip';display:block;margin-top:1rem;color:var(--ink-mute);font-size:0.72rem;font-family:'Inter',sans-serif;font-style:italic;font-weight:400; }
+.project-card-detailed .pc-description { color:var(--ink-soft);font-size:0.93rem;line-height:1.68;margin-top:1.1rem; }
+.project-card-detailed h3 { font-family:'Fraunces',serif;font-size:1.42rem;font-weight:500;line-height:1.18;margin-bottom:0;display:flex;align-items:flex-start;gap:0.62rem;flex:1 1 auto;min-width:0; }
+.project-card-detailed .pc-row { display:flex; align-items:baseline; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; }
+.project-card-detailed .pc-row-top { margin-bottom:0.55rem; flex-wrap:nowrap; align-items:flex-start; }
+.project-card-detailed .pc-row-deck { align-items:center; }
 .pc-demo-chip { display:inline-flex;align-items:center;gap:0.28rem;padding:0.24rem 0.55rem;border:1px solid rgba(255,0,51,0.2);border-radius:999px;background:rgba(255,0,51,0.07);color:#d6002b;text-decoration:none;font-size:0.74rem;font-weight:700;line-height:1;margin-top:1rem;margin-right:0.5rem;transition:transform 0.2s ease,border-color 0.2s ease,background 0.2s ease; }
 .pc-github-chip { border-color:var(--line); background:var(--bg-soft); color:var(--ink-soft); }
 .pc-github-chip:hover { transform:translateY(-1px); border-color:var(--accent); background:var(--accent-soft); color:var(--accent); }
@@ -746,7 +762,7 @@ html[data-theme="night"] .exp-card { background:linear-gradient(135deg,rgba(29,3
 .project-card-detailed li::before { content:'';position:absolute;left:0.2rem;top:0.65rem;width:8px;height:1px;background:var(--accent);transform-origin:left center; }
 .project-card-detailed.reveal.visible li::before { animation:dashDraw 0.55s ease both; animation-delay:var(--stagger,0ms); }
 .project-card-detailed li strong { font-weight:600; }
-.project-card-detailed .pc-stack { display:flex;flex-wrap:wrap;gap:0.42rem;padding:1.65rem 1.5rem 1.3rem;border-top:1px solid var(--line);background:linear-gradient(135deg,var(--bg-soft),color-mix(in srgb, var(--project-accent) 7%, var(--bg-soft)));margin-top:1rem;position:relative; }
+.project-card-detailed .pc-stack { display:flex;flex-wrap:wrap;gap:0.42rem;padding:1.65rem 1.5rem 1.3rem;border-top:1px solid var(--line);background:linear-gradient(135deg,var(--bg-soft),color-mix(in srgb, var(--project-accent) 7%, var(--bg-soft)));margin-top:auto;position:relative; }
 .project-card-detailed .pc-stack::before { content:'Tools used'; position:absolute;top:0.62rem;left:1.5rem;color:var(--ink-mute);font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700; }
 .project-card-detailed .pc-stack span { padding:0.28rem 0.62rem;background:var(--bg-card);border:1px solid var(--line);border-radius:999px;font-size:0.74rem;color:var(--ink-soft);font-weight:600; }
 .project-card-detailed.reveal.visible .pc-stack span { animation:tagPop 0.5s cubic-bezier(0.2,0.9,0.25,1.2) both; animation-delay:var(--stagger,0ms); }
@@ -790,7 +806,7 @@ footer { max-width:1120px;margin:4rem auto 0;padding:2rem 1.5rem;border-top:1px 
 footer a { color:var(--accent);text-decoration:none; }
 footer a:hover { text-decoration:underline; }
 
-@media(max-width:980px){ .home-title{font-size:5.8rem;} .home-subtitle{font-size:0.95rem;} .projects-grid{grid-template-columns:repeat(2, minmax(0,1fr));} .project-card-detailed{grid-column:span 1!important;} }
+@media(max-width:980px){ .home-title{font-size:5.8rem;} .home-subtitle{font-size:0.95rem;} .market-screen.home{display:none;} .projects-grid{grid-template-columns:repeat(2, minmax(0,1fr));} .project-card-detailed{--stagger-y:0px;} }
 @media(max-width:768px){
   .skills-header{flex-direction:column;text-align:center;gap:1rem;}
   .skills-header .skill-block{width:100%;}
@@ -817,7 +833,7 @@ footer a:hover { text-decoration:underline; }
   .exp-card .exp-stack{align-items:flex-start!important;justify-content:flex-start!important;}
   .exp-card .head,.lead-card .head{flex-direction:column;gap:0.25rem;} .exp-time{margin-left:0;align-items:flex-start;}
   .exp-org-row{gap:0.5rem;} .exp-location{margin-left:0;}
-  .project-card-detailed{--project-card-height:290px;} .project-card-detailed .pc-header{padding:1.2rem;} .project-card-detailed .pc-stack{padding:1.5rem 1.2rem 1.2rem;} .project-card-detailed .pc-stack::before{left:1.2rem;}
+  .project-card-detailed .pc-header{padding:1.2rem 1.2rem 1rem;} .project-card-detailed .pc-stack{padding:1.5rem 1.2rem 1.2rem;} .project-card-detailed .pc-stack::before{left:1.2rem;}
   .projects-grid{grid-template-columns:1fr;}
   .project-card-detailed{--stagger-y:0px;}
   .project-card-detailed h3{font-size:1.16rem;} .project-card-detailed .pc-deck{font-size:0.72rem;} .project-card-detailed .pc-description{font-size:0.88rem;} .project-card-detailed li{font-size:0.86rem;}
@@ -828,7 +844,7 @@ footer a:hover { text-decoration:underline; }
   .contact-card{grid-template-columns:1fr;} .contact-card h2{font-size:2.1rem;} .contact-links{justify-content:flex-start;}
   .looking-card{grid-template-columns:1fr;text-align:center;} .looking-card .icon-circle{margin:0 auto;}
   footer{flex-direction:column;gap:0.5rem;}
-  .tech-cube-3d, .tech-orb, .fin-candles, .fin-coin { display:none; }
+  .tech-cube-3d, .tech-orb, .fin-candles, .fin-coin, .market-screen { display:none; }
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
@@ -927,6 +943,24 @@ footer a:hover { text-decoration:underline; }
       <span class="body"></span>
     </div>
   </div>
+  <div class="market-screen home" aria-hidden="true">
+    <div class="ms-head">
+      <span class="ms-label">Markets · Live</span>
+      <div class="ms-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="ms-chart">
+      <span class="ms-bar" style="height:40%"></span>
+      <span class="ms-bar down" style="height:58%"></span>
+      <span class="ms-bar" style="height:74%"></span>
+      <span class="ms-bar down" style="height:46%"></span>
+      <span class="ms-bar" style="height:92%"></span>
+      <span class="ms-bar" style="height:64%"></span>
+      <span class="ms-bar down" style="height:52%"></span>
+    </div>
+    <div class="ms-ticker">
+      <span>AAPL <em class="up">▲1.8%</em>SGX <em class="up">▲0.6%</em>BTC <em class="down">▼2.1%</em>DBS <em class="up">▲0.9%</em>USD/SGD <em class="down">▼0.2%</em></span>
+    </div>
+  </div>
   <div class="home-content reveal">
     <div class="home-kicker">Portfolio</div>
     <h1 class="home-title typing" id="typed-name" data-title="KAASHVI ARORA" aria-label="KAASHVI ARORA"></h1>
@@ -945,8 +979,8 @@ footer a:hover { text-decoration:underline; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <div>
-          <div class="label">Interested to work in:</div>
-          <div class="roles"><span>Finance</span> · <span>Product Management</span> · <span>Tech Consulting</span></div>
+          <div class="label">Interested roles</div>
+          <div class="roles"><span>Financial Analyst</span> · <span>Product Manager</span> · <span>Tech Consultant</span></div>
         </div>
       </div>
       <div class="card coursework-card reveal">
@@ -988,6 +1022,7 @@ footer a:hover { text-decoration:underline; }
           <p>Designing smarter systems, cleaner workflows, and products at the edge of finance and technology.</p>
           <div class="visual-list">
             <div><span>Area of focus</span><strong>Financial Technology</strong></div>
+            <div><span>Industries of interest</span><strong>Banking &amp; Financial Services, Consulting</strong></div>
             <div><span>Graduation</span><strong>SMU 2028</strong></div>
             <div><span>Location</span><strong>Singapore</strong></div>
           </div>
@@ -1028,13 +1063,13 @@ footer a:hover { text-decoration:underline; }
         </div>
       </div>
       <div class="skill-grid">
-        <div class="skill-block"><h4><span class="num">02</span> Finance</h4><div class="skill-tags"><span>Financial Modelling</span><span>Stock Trading</span><span>Corporate Finance</span><span>Asset Management</span></div></div>
-        <div class="skill-block"><h4><span class="num">03</span> Quality Assurance &amp; IT Management</h4><div class="skill-tags"><span>User Acceptance Testing (UAT)</span><span>Agile</span><span>DevOps</span><span>Scrum</span><span>JIRA</span></div></div>
-        <div class="skill-block"><h4><span class="num">04</span> Data &amp; Analytics</h4><div class="skill-tags"><span>Power BI</span><span>Tableau</span><span>Pandas</span><span>Microsoft Excel</span><span>Power Query</span><span>Matplotlib</span><span>NumPy</span></div></div>
-        <div class="skill-block"><h4><span class="num">05</span> Business Application / Automation</h4><div class="skill-tags"><span>Microsoft Power Automate</span><span>Microsoft Power Apps</span><span>Dataverse</span><span>SharePoint</span></div></div>
-        <div class="skill-block wide"><h4><span class="num">06</span> Infrastructure</h4><div class="skill-tags"><span>GitHub</span><span>Docker</span><span>PostgreSQL</span><span>MongoDB</span><span>Postman</span><span>OutSystems</span><span>Microsoft Azure</span><span>Supabase</span><span>Kong API Gateway</span><span>Message-Oriented Middleware</span><span>Event-Driven Architecture</span></div></div>
-        <div class="skill-block compact"><h4><span class="num">07</span> Frameworks</h4><div class="skill-tags"><span>Node.js</span><span>Vue.js</span></div></div>
-        <div class="skill-block compact"><h4><span class="num">08</span> Mathematical Foundation</h4><div class="skill-tags"><span>Probability &amp; Statistics</span><span>Linear Algebra</span></div></div>
+        <div class="skill-block"><h4><span class="num">02</span> Finance</h4><div class="skill-tags"><span>Asset Management</span><span>Wealth Management</span><span>Stock Trading</span><span>Financial Modelling</span></div></div>
+        <div class="skill-block"><h4><span class="num">03</span> Data &amp; Analytics</h4><div class="skill-tags"><span>Power BI</span><span>Tableau</span><span>Pandas</span><span>Microsoft Excel</span><span>Power Query</span><span>Matplotlib</span><span>NumPy</span></div></div>
+        <div class="skill-block"><h4><span class="num">04</span> Business Application / Automation</h4><div class="skill-tags"><span>Microsoft Power Automate</span><span>Microsoft Power Apps (Model-Driven &amp; Canvas)</span><span>Dataverse</span><span>SharePoint</span></div></div>
+        <div class="skill-block wide"><h4><span class="num">05</span> Infrastructure</h4><div class="skill-tags"><span>GitHub</span><span>Docker</span><span>PostgreSQL</span><span>MongoDB</span><span>Postman</span><span>OutSystems</span><span>Microsoft Azure</span><span>Supabase</span><span>Kong API Gateway</span><span>Message-Oriented Middleware</span><span>Event-Driven Architecture</span></div></div>
+        <div class="skill-block compact"><h4><span class="num">06</span> Frameworks</h4><div class="skill-tags"><span>Node.js</span><span>Vue.js</span></div></div>
+        <div class="skill-block compact"><h4><span class="num">07</span> Mathematical Foundation</h4><div class="skill-tags"><span>Probability &amp; Statistics</span><span>Linear Algebra</span></div></div>
+        <div class="skill-block"><h4><span class="num">08</span> Quality Assurance &amp; IT Management</h4><div class="skill-tags"><span>User Acceptance Testing (UAT)</span><span>Agile</span><span>DevOps</span><span>Asset Management Tool (AMT)</span><span>JIRA</span></div></div>
       </div>
     </div>
   </section>
@@ -1222,7 +1257,7 @@ footer a:hover { text-decoration:underline; }
     <div class="card contact-card reveal">
       <div>
         <h2>Let's connect.</h2>
-        <p>I'm always open to connecting over a cup of coffee and conversations around data, product, and fintech.</p>
+        <p>I'm always open to thoughtful conversations around data, automation, product ideas, and ambitious teams.</p>
       </div>
       <div class="contact-links">
         <a href="mailto:kaashviarora3@gmail.com" aria-label="Email Kaashvi">
@@ -1364,65 +1399,27 @@ document.querySelectorAll('.skill-tags span, .exp-stack span, .pc-stack span, .c
   el.style.setProperty('--stagger', `${Math.min(localIndex * 55, 520)}ms`);
 });
 
-const projectCards = document.querySelectorAll('.project-card-detailed');
-projectCards.forEach(cardEl => {
-  const header = cardEl.querySelector('.pc-header');
-  const body = cardEl.querySelector('.pc-body');
-  const deck = header.querySelector('.pc-deck')?.textContent.trim() || '';
-  const tag = header.querySelector('.pc-tag')?.textContent.trim() || '';
-  const inner = document.createElement('div');
-  inner.className = 'project-flip-inner';
-  const front = document.createElement('div');
-  front.className = 'project-flip-face project-flip-front';
-  const back = document.createElement('div');
-  back.className = 'project-flip-face project-flip-back';
-  const backMeta = document.createElement('div');
-  backMeta.className = 'pc-back-meta';
-  backMeta.innerHTML = `<div class="pc-deck">${deck}</div>${tag ? `<span class="pc-tag">${tag}</span>` : ''}`;
-  cardEl.replaceChildren(inner);
-  front.appendChild(header);
-  back.append(backMeta, body);
-  inner.append(front, back);
-  cardEl.setAttribute('tabindex', '0');
-  cardEl.setAttribute('role', 'button');
-  cardEl.setAttribute('aria-label', `View details for ${header.querySelector('h3')?.textContent.trim() || 'project'}`);
-  cardEl.setAttribute('aria-pressed', 'false');
+document.querySelectorAll('.project-card-detailed .pc-header').forEach(header => {
+  header.setAttribute('tabindex', '0');
+  header.setAttribute('role', 'button');
+  header.setAttribute('aria-expanded', 'false');
   const toggle = () => {
-    const flipped = cardEl.classList.toggle('flipped');
-    cardEl.setAttribute('aria-pressed', String(flipped));
+    const cardEl = header.closest('.project-card-detailed');
+    const nowExpanded = cardEl.classList.toggle('expanded');
+    header.setAttribute('aria-expanded', nowExpanded ? 'true' : 'false');
   };
-  cardEl.addEventListener('click', event => { if (!event.target.closest('a')) toggle(); });
-  cardEl.addEventListener('keydown', event => {
-    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(); }
+  header.addEventListener('click', toggle);
+  header.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
   });
 });
-
-function sizeProjectCards() {
-  const heights = Array.from(projectCards, cardEl => {
-    cardEl.style.setProperty('--project-card-height', '180px');
-    const front = cardEl.querySelector('.project-flip-front');
-    const back = cardEl.querySelector('.project-flip-back');
-    const contentHeight = Math.max(front?.scrollHeight || 0, back?.scrollHeight || 0);
-    return Math.max(240, contentHeight + 12);
-  });
-  const pairedRows = window.innerWidth > 980 ? [[1, 2], [3, 4]] : window.innerWidth > 720 ? [[0, 1], [2, 3]] : [];
-  pairedRows.forEach(([first, second]) => {
-    const rowHeight = Math.max(heights[first], heights[second]);
-    heights[first] = rowHeight;
-    heights[second] = rowHeight;
-  });
-  projectCards.forEach((cardEl, index) => cardEl.style.setProperty('--project-card-height', `${heights[index]}px`));
-}
-sizeProjectCards();
-window.addEventListener('resize', sizeProjectCards);
-if (document.fonts) document.fonts.ready.then(sizeProjectCards);
 
 const ro = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-document.querySelectorAll('.card:not(.project-card-detailed)').forEach(card => {
+document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('mouseenter', () => { card.style.transition = 'transform 0.08s ease, border-color 0.22s, box-shadow 0.22s'; });
   card.addEventListener('mousemove', e => {
     const r = card.getBoundingClientRect();
